@@ -39,7 +39,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                 tmpButton.transform.GetChild(0).gameObject.SetActive(false);
             }
 
-            if (tmpButton.name == "BtnCount(Clone)") {
+            if (tmpButton.name == "BtnVariable==(Clone)") {
                 if (tmpButton.transform.parent.GetChild(1).CompareTag("condition")) {
                     tmpButton.transform.parent.GetChild(1).gameObject.SetActive(true);
                 }
