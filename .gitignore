@@ -1,6 +1,9 @@
+.vs/
+obj/
 Library/
 Temp/
 Logs/
+Assembly-CSharp.csproj
 Library/AnnotationManager
 Library/APIUpdater/project-dependencies.graph
 Library/assetDatabase3
@@ -2833,3 +2836,5 @@ Library/metadata/ed/ed5227bcca6243b488ebe816f804d092
 Library/metadata/ed/ed5227bcca6243b488ebe816f804d092.info
 Temp/UnityLockfile
 >>>>>>> Jong
+Scatch.sln
+Assembly-CSharp.csproj
