@@ -13,6 +13,7 @@ public class Compiler : MonoBehaviour
     private List<int> endIfIndex = new List<int>();
     private List<string> varName = new List<string>();
     private List<int> varValue = new List<int>();
+    GameObject[] coins;
 
     private bool isCompiled = false;
     private Rigidbody2D player;
@@ -25,9 +26,12 @@ public class Compiler : MonoBehaviour
     private int conditionCnt = -1;
 
     private int loopCnt = 0;
+    public bool isResetView = false;
 
     private void Start() {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+
+        coins = GameObject.FindGameObjectsWithTag("Coin");
     }
 
     // Update is called once per frame
@@ -115,6 +119,15 @@ public class Compiler : MonoBehaviour
         player.velocity = new Vector2(0, 0);
         player.transform.position = new Vector2(0, 2);
         player.GetComponent<SpriteRenderer>().flipX = false;
+        GameObject.Find("Canvas").transform.Find("fail").gameObject.SetActive(false);
+        GameObject.Find("Canvas").transform.Find("clear").gameObject.SetActive(false);
+        GameObject.Find("Canvas").transform.Find("retryButton").gameObject.SetActive(false);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Scratch_Trigger>().SetCount();
+
+        for (int i = 0; i < coins.Length;i++)           //Coin 재생성
+        {
+            coins[i].SetActive(true);
+        }
     }
 
     public void Compiling() {
@@ -344,7 +357,7 @@ public class Compiler : MonoBehaviour
     }
 
     public void FunctionJump() {
-        player.AddForce(Vector2.up * 3, ForceMode2D.Impulse);
+        player.AddForce(Vector2.up * 6, ForceMode2D.Impulse); //기존 3
         delayTime = 1;
     }
 

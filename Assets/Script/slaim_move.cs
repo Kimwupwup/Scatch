@@ -35,9 +35,9 @@ public class slaim_move : MonoBehaviour {
             if (sp.flipX == false) sp.flipX = true;
         }
         if ((Input.GetAxisRaw("Vertical") > 0 || isJump == true) && rig.velocity.y < 0.01 && rig.velocity.y > -0.01) {
-            rig.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            rig.AddForce(Vector2.up * jumpPower * 2, ForceMode2D.Impulse);
         }
-        this.transform.position += movement * 1f * Time.deltaTime;
+        this.transform.position += movement * 2f * Time.deltaTime;
         move = 0;
     }
     void AnimationUpdate(bool b) {
