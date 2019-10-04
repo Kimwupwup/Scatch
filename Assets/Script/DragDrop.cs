@@ -18,7 +18,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         objController = GameObject.FindGameObjectWithTag("controller");
         controller = objController.GetComponent<Controller>();
     }
-
+    //------------------------------------------------------------------------------------------------------
     public void OnBeginDrag(PointerEventData eventData) {
         isSetMenu = menuButton.GetMenuPanel();
         if (this.CompareTag("button") == true) {
@@ -39,7 +39,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                 tmpButton.transform.GetChild(0).gameObject.SetActive(false);
             }
 
-            if (tmpButton.name == "BtnCount(Clone)") {
+            if (tmpButton.name == "BtnVariable==(Clone)") {
                 if (tmpButton.transform.parent.GetChild(1).CompareTag("condition")) {
                     tmpButton.transform.parent.GetChild(1).gameObject.SetActive(true);
                 }
@@ -60,7 +60,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             tmpButton.GetComponent<Image>().raycastTarget = false;
         }        
     }
-
+    //---------------------------------------------------------------------------------------------
     public void OnDrag(PointerEventData eventData) {
         tmpButton.transform.position = Input.mousePosition;
         
@@ -70,7 +70,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             menuButton.SetMenuPanel(false);
         }
     }
-
+    //-----------------------------------------------------------------------------
     public void OnEndDrag(PointerEventData eventData) {
         if (isSetMenu)
             menuButton.SetMenuPanel(true);

@@ -331,7 +331,7 @@ public class Compiler : MonoBehaviour
             isCompiled = true;
         }
     }
-
+    //---------------------compiling-----------------------------------------------------
     public void FunctionMove() {
         if (player.GetComponent<SpriteRenderer>().flipX == false) {
             //player.transform.position += Vector3.right * 0.3f;
@@ -344,7 +344,7 @@ public class Compiler : MonoBehaviour
     }
 
     public void FunctionJump() {
-        player.AddForce(Vector2.up * 3, ForceMode2D.Impulse);
+        player.AddForce(Vector2.up * 6, ForceMode2D.Impulse);
         delayTime = 1;
     }
 
