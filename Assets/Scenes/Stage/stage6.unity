@@ -4241,6 +4241,8 @@ MonoBehaviour:
     name: 
     v: {x: 0, y: 0, z: 0}
     parent: 
+    text: 
+    text1: 
 --- !u!1 &965674108
 GameObject:
   m_ObjectHideFlags: 0
