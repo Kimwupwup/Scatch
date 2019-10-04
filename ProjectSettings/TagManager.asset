@@ -26,6 +26,11 @@ TagManager:
   - codeColor
   - exitPanel
   - menu_controller
+  - Coin
+  - Flag
+  - Fail
+  - Fire
+  - Clear
   layers:
   - Default
   - TransparentFX

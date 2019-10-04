@@ -357,11 +357,11 @@ public class Compiler : MonoBehaviour
     }
 
     public void FunctionJump() {
-<<<<<<< HEAD
+// <<<<<<< HEAD
         player.AddForce(Vector2.up * 6, ForceMode2D.Impulse);
-=======
+// =======
         player.AddForce(Vector2.up * 6, ForceMode2D.Impulse); //기존 3
->>>>>>> Jaemin
+// >>>>>>> Jaemin
         delayTime = 1;
     }
 
