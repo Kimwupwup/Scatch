@@ -18,7 +18,7 @@ public class follow_object : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.position = Vector3.Lerp(this.transform.position, objTransform.position + offset, 2f * Time.deltaTime);
+        this.transform.position = Vector2.Lerp(this.transform.position, objTransform.position + offset, 2f * Time.deltaTime);
         this.transform.Translate(0, 0, -10);
     }
 }
