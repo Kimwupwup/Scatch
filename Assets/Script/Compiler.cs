@@ -121,7 +121,6 @@ public class Compiler : MonoBehaviour
         player.GetComponent<SpriteRenderer>().flipX = false;
         GameObject.Find("Canvas").transform.Find("fail").gameObject.SetActive(false);
         GameObject.Find("Canvas").transform.Find("clear").gameObject.SetActive(false);
-        GameObject.Find("Canvas").transform.Find("retryButton").gameObject.SetActive(false);
         GameObject.FindGameObjectWithTag("Player").GetComponent<Scratch_Trigger>().SetCount();
 
         for (int i = 0; i < coins.Length;i++)           //Coin 재생성

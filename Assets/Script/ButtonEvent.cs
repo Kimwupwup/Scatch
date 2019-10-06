@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class ButtonEvent : MonoBehaviour
 {
-    public GameObject button;
-
     public void Reset()
     {
-        GameObject.Find("View Control").GetComponent<Compiler>().ResetView();
+        Compiler compiler = GameObject.FindGameObjectWithTag("compiler").GetComponent<Compiler>();
+        compiler.ResetView();
+        Time.timeScale = 1;
     }
-
 }

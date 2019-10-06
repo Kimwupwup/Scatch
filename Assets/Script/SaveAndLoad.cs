@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using System.IO;
 using System.Text;
 using System;
-using Newtonsoft.Json;
 
 public class SaveAndLoad : MonoBehaviour
 {
