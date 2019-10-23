@@ -17,26 +17,41 @@ public class Compiler : MonoBehaviour
 
     private bool isCompiled = false;
     private Rigidbody2D player;
-    
+    private SpriteRenderer playerSprite;
+    private Transform playerTransform;
+
     private int frameCount = 0;
     private int delayTime = 1;
     private int currentIndex = 0;
+    private int moveTime = 0;
+    private int moveTimer = 0;
 
     private int cnt = -1;
     private int conditionCnt = -1;
 
     private int loopCnt = 0;
     public bool isResetView = false;
+    public float moveSpeed = 1;
 
     private void Start() {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
-
+        playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        playerSprite = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
         coins = GameObject.FindGameObjectsWithTag("Coin");
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (moveTimer < moveTime) {
+            run();
+            moveTimer++;
+            Debug.Log(moveTimer);
+            return;
+        }
+        moveTimer = 0;
+        moveTime = 0;
+
         frameCount++;
         if(frameCount % delayTime == 0) {
             if (isCompiled == true && currentIndex < functions.Count) {
@@ -84,6 +99,8 @@ public class Compiler : MonoBehaviour
                 currentIndex++;
                 frameCount = 0;
             } else {
+                moveTimer = 0;
+                moveTime = 0;
                 currentIndex = 0;
                 delayTime = 1;
                 cnt = -1;
@@ -103,6 +120,8 @@ public class Compiler : MonoBehaviour
     }
 
     public void ResetView() {
+        moveTimer = 0;
+        moveTime = 0;
         currentIndex = 0;
         delayTime = 1;
         cnt = -1;
@@ -344,14 +363,22 @@ public class Compiler : MonoBehaviour
         }
     }
     //---------------------compiling-----------------------------------------------------
+
+    public void run() {
+        if (playerSprite.flipX)
+            playerTransform.position += Vector3.right * moveSpeed * Time.deltaTime;
+        else
+            playerTransform.position += Vector3.left * moveSpeed * Time.deltaTime;
+    }
     public void FunctionMove() {
-        if (player.GetComponent<SpriteRenderer>().flipX == false) {
-            //player.transform.position += Vector3.right * 0.3f;
-            player.AddForce(Vector2.right*2, ForceMode2D.Impulse);
-        } else {
-            //player.transform.position += Vector3.left * 0.3f;
-            player.AddForce(Vector2.left*2, ForceMode2D.Impulse);
-        }
+        //if (player.GetComponent<SpriteRenderer>().flipX == false) {
+        //    //player.transform.position += Vector3.right * 0.3f;
+        //    player.AddForce(Vector2.right*2, ForceMode2D.Impulse);
+        //} else {
+        //    //player.transform.position += Vector3.left * 0.3f;
+        //    player.AddForce(Vector2.left*2, ForceMode2D.Impulse);
+        //}
+        moveTime = 30;
         delayTime = 1;
     }
 
