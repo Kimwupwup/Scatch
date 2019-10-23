@@ -19,6 +19,8 @@ public class Compiler : MonoBehaviour
     private Rigidbody2D player;
     private SpriteRenderer playerSprite;
     private Transform playerTransform;
+    private Animator playerAn;
+    private BtnDisable btnDisable;
 
     private int frameCount = 0;
     private int delayTime = 1;
@@ -37,6 +39,8 @@ public class Compiler : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playerSprite = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
+        playerAn = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+        btnDisable = GameObject.FindGameObjectWithTag("compiler").GetComponent<BtnDisable>();
         coins = GameObject.FindGameObjectsWithTag("Coin");
     }
 
@@ -99,6 +103,7 @@ public class Compiler : MonoBehaviour
                 currentIndex++;
                 frameCount = 0;
             } else {
+                if (isCompiled) btnDisable.ClickNone();
                 moveTimer = 0;
                 moveTime = 0;
                 currentIndex = 0;
@@ -141,7 +146,6 @@ public class Compiler : MonoBehaviour
         GameObject.Find("Canvas").transform.Find("fail").gameObject.SetActive(false);
         GameObject.Find("Canvas").transform.Find("clear").gameObject.SetActive(false);
         GameObject.FindGameObjectWithTag("Player").GetComponent<Scratch_Trigger>().SetCount();
-
         for (int i = 0; i < coins.Length;i++)           //Coin 재생성
         {
             coins[i].SetActive(true);
@@ -365,10 +369,14 @@ public class Compiler : MonoBehaviour
     //---------------------compiling-----------------------------------------------------
 
     public void run() {
-        if (playerSprite.flipX)
+        playerAn.SetBool("isMoving", false);
+        if (playerSprite.flipX) {
+            playerAn.SetBool("isMoving", true);
             playerTransform.position += Vector3.right * moveSpeed * Time.deltaTime;
-        else
+        } else {
+            playerAn.SetBool("isMoving", true);
             playerTransform.position += Vector3.left * moveSpeed * Time.deltaTime;
+        }
     }
     public void FunctionMove() {
         //if (player.GetComponent<SpriteRenderer>().flipX == false) {
@@ -384,9 +392,9 @@ public class Compiler : MonoBehaviour
 
     public void FunctionJump() {
 // <<<<<<< HEAD
-        player.AddForce(Vector2.up * 6, ForceMode2D.Impulse);
+        player.AddForce(Vector2.up * moveSpeed, ForceMode2D.Impulse);
 // =======
-        player.AddForce(Vector2.up * 6, ForceMode2D.Impulse); //기존 3
+        player.AddForce(Vector2.up * moveSpeed, ForceMode2D.Impulse); //기존 3
 // >>>>>>> Jaemin
         delayTime = 1;
     }
@@ -541,7 +549,6 @@ public class Compiler : MonoBehaviour
 
     public void AlertError(int error) {
         GameObject errorPanel = GameObject.FindGameObjectWithTag("errorPanel");
-
         if (error == 0) {
             Debug.Log("CNT is not defined!");
             errorPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
@@ -558,6 +565,5 @@ public class Compiler : MonoBehaviour
             errorPanel.transform.GetChild(1).localEulerAngles = new Vector3(0, 90, 0);
             errorPanel.transform.GetChild(2).localEulerAngles = new Vector3(0, 0, 0);
         }
-
     }
 }

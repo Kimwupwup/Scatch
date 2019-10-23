@@ -6,17 +6,19 @@ using UnityEngine.UI;
 public class Scratch_Trigger : MonoBehaviour
 {
     private int count;
+    private BtnDisable btnDisable;
     public Text countText;
+
     // Start is called before the first frame update
     void Start()
     {
+        btnDisable = GameObject.FindGameObjectWithTag("compiler").GetComponent<BtnDisable>();
         count = 0;
         countText.text = "Count : " + count.ToString();
     }
 
     public void SetCount()
     {
-        Debug.Log("Set");
         count = 0;
     }
 
@@ -31,6 +33,7 @@ public class Scratch_Trigger : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Fire"))
         {
+            btnDisable.ClickBtnReset();
             Debug.Log("Fire");
             Time.timeScale = 0;
             GameObject.Find("Canvas").transform.Find("fail").gameObject.SetActive(true);
@@ -42,6 +45,7 @@ public class Scratch_Trigger : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Flag"))
         {
+            btnDisable.ClickBtnReset();
             Debug.Log(count);
             Debug.Log("Flag");
             Time.timeScale = 0;
