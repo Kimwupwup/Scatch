@@ -32,9 +32,8 @@ public class Scratch_Trigger : MonoBehaviour
         if (other.gameObject.CompareTag("Fire"))
         {
             Debug.Log("Fire");
+            Time.timeScale = 0;
             GameObject.Find("Canvas").transform.Find("fail").gameObject.SetActive(true);
-            GameObject.Find("Canvas").transform.Find("retryButton").gameObject.SetActive(true);
-            //GameObject.Find("View Control").GetComponent<Compiler>().ResetView();
         }
         else if (other.gameObject.CompareTag("Coin"))
         {
@@ -45,10 +44,8 @@ public class Scratch_Trigger : MonoBehaviour
         {
             Debug.Log(count);
             Debug.Log("Flag");
+            Time.timeScale = 0;
             GameObject.Find("Canvas").transform.Find("clear").gameObject.SetActive(true);
-            GameObject.Find("Canvas").transform.Find("retryButton").gameObject.SetActive(true);
-            //GameObject.Find("View Control").GetComponent<Compiler>().ResetView();
         }
-
     }
 }
