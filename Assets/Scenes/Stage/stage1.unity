@@ -390,6 +390,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 202726821381713118}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &620848572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620848571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e224019f2785f54f9a07e1b0fe0af89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &625551720 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2633920971675276476, guid: 45bbff3ed01413742a15f815ca4b1cb9,
@@ -2568,15 +2580,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7165426833949382956, guid: be3601094c0dea947a9c825f7974fb86,
-        type: 3}
-      propertyPath: groundEndPoint
-      value: 
-      objectReference: {fileID: 2077705775}
     - target: {fileID: 7165426833949382957, guid: be3601094c0dea947a9c825f7974fb86,
         type: 3}
       propertyPath: countText
       value: 
       objectReference: {fileID: 2120938054}
+    - target: {fileID: 7165426833949382956, guid: be3601094c0dea947a9c825f7974fb86,
+        type: 3}
+      propertyPath: groundEndPoint
+      value: 
+      objectReference: {fileID: 2077705775}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be3601094c0dea947a9c825f7974fb86, type: 3}
