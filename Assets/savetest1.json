@@ -1,0 +1,26 @@
+{
+  "datas": [
+    {
+      "name": "BtnMove(Clone)",
+      "v": {
+        "x": 685.6998291015625,
+        "y": 347.5220947265625,
+        "z": 0.0
+      },
+      "parent": "Code Panel",
+      "text": "2",
+      "text1": "a"
+    },
+    {
+      "name": "BtnJump(Clone)",
+      "v": {
+        "x": 685.6998291015625,
+        "y": 259.95452880859377,
+        "z": 0.0
+      },
+      "parent": "BtnMove(Clone)",
+      "text": "2",
+      "text1": "a"
+    }
+  ]
+}
