@@ -390,6 +390,16 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 960551103106198288, guid: 2e22c8bc1071c06499a5deb7f21d58bb,
+        type: 3}
+      propertyPath: m_TagString
+      value: compiler
+      objectReference: {fileID: 0}
+    - target: {fileID: 960551103899934605, guid: 2e22c8bc1071c06499a5deb7f21d58bb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e22c8bc1071c06499a5deb7f21d58bb, type: 3}
 --- !u!1 &612960856
@@ -1450,6 +1460,11 @@ PrefabInstance:
       propertyPath: countText
       value: 
       objectReference: {fileID: 1480110443}
+    - target: {fileID: 202726821868325219, guid: a5c41679de1c1b9409d73ff17c75f08b,
+        type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5c41679de1c1b9409d73ff17c75f08b, type: 3}
 --- !u!1 &1777139224
