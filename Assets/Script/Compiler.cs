@@ -22,11 +22,12 @@ public class Compiler : MonoBehaviour
     private Animator playerAn;
     private BtnDisable btnDisable;
 
+    private Vector3 playerOrginPos;
+    private float targetPos;
+    private bool isMoving = false;
     private int frameCount = 0;
     private int delayTime = 1;
     private int currentIndex = 0;
-    private int moveTime = 0;
-    private int moveTimer = 0;
 
     private int cnt = -1;
     private int conditionCnt = -1;
@@ -36,6 +37,7 @@ public class Compiler : MonoBehaviour
     public float moveSpeed = 1;
 
     private void Start() {
+        playerOrginPos = GameObject.FindGameObjectWithTag("Player").transform.position;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playerSprite = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
@@ -47,65 +49,46 @@ public class Compiler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (moveTimer < moveTime) {
+        if (isMoving) {
             run();
-            moveTimer++;
-            Debug.Log(moveTimer);
             return;
         }
-        moveTimer = 0;
-        moveTime = 0;
 
         frameCount++;
         if(frameCount % delayTime == 0) {
             if (isCompiled == true && currentIndex < functions.Count) {
                 if (functions[currentIndex].name == "BtnMove(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionMove();
                 } else if (functions[currentIndex].name == "BtnJump(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionJump();
                 } else if (functions[currentIndex].name == "BtnRotate(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionRotate();
                 } else if (functions[currentIndex].name == "BtnLoop(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionLoop();
                 } else if (functions[currentIndex].name == "BtnEndLoop(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionEndLoop();
                 } else if (functions[currentIndex].name == "BtnDelay(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionDelay();
                 } else if (functions[currentIndex].name == "BtnIf(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionIf();
                 } else if (functions[currentIndex].name == "BtnEndIf(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionEndIf();
                 } else if (functions[currentIndex].name == "BtnCnt=(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionSetCnt();
                 } else if (functions[currentIndex].name == "BtnCnt++(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionIncreaseCnt();
                 } else if (functions[currentIndex].name == "BtnBreak(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionBreak();
                 } else if (functions[currentIndex].name == "BtnVariable=(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionSetVariable();
                 } else if (functions[currentIndex].name == "BtnVariable++(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionIncreaseValue();
                 }
-
                 currentIndex++;
                 frameCount = 0;
             } else {
                 if (isCompiled) btnDisable.ClickNone();
-                moveTimer = 0;
-                moveTime = 0;
+                isMoving = false;
                 currentIndex = 0;
                 delayTime = 1;
                 cnt = -1;
@@ -125,8 +108,7 @@ public class Compiler : MonoBehaviour
     }
 
     public void ResetView() {
-        moveTimer = 0;
-        moveTime = 0;
+        isMoving = false;
         currentIndex = 0;
         delayTime = 1;
         cnt = -1;
@@ -140,8 +122,8 @@ public class Compiler : MonoBehaviour
         varName.Clear();
         varValue.Clear();
         loopSet.Clear();
-        player.velocity = new Vector2(0, 0);
-        player.transform.position = new Vector2(0, 2);
+        player.velocity = Vector2.zero;
+        player.transform.position = playerOrginPos;
         player.GetComponent<SpriteRenderer>().flipX = false;
         GameObject.Find("Canvas").transform.Find("fail").gameObject.SetActive(false);
         GameObject.Find("Canvas").transform.Find("clear").gameObject.SetActive(false);
@@ -370,24 +352,26 @@ public class Compiler : MonoBehaviour
 
     public void run() {
         playerAn.SetBool("isMoving", false);
-        if (playerSprite.flipX) {
+        if (playerSprite.flipX && targetPos > playerTransform.position.x) {
             playerAn.SetBool("isMoving", true);
             playerTransform.position += Vector3.right * moveSpeed * Time.deltaTime;
-        } else {
+        } else if (!playerSprite.flipX && targetPos < playerTransform.position.x) {
             playerAn.SetBool("isMoving", true);
             playerTransform.position += Vector3.left * moveSpeed * Time.deltaTime;
+        } else {
+            isMoving = false;
         }
     }
     public void FunctionMove() {
-        //if (player.GetComponent<SpriteRenderer>().flipX == false) {
-        //    //player.transform.position += Vector3.right * 0.3f;
-        //    player.AddForce(Vector2.right*2, ForceMode2D.Impulse);
-        //} else {
-        //    //player.transform.position += Vector3.left * 0.3f;
-        //    player.AddForce(Vector2.left*2, ForceMode2D.Impulse);
-        //}
-        moveTime = 30;
-        delayTime = 1;
+        isMoving = true;
+        
+        if (playerSprite.flipX) {
+            targetPos = player.transform.position.x + 1f;
+        }
+        else {
+            targetPos = player.transform.position.x - 1f;
+        }
+        delayTime = 15;
     }
 
     public void FunctionJump() {
