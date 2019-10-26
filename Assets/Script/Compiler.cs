@@ -89,6 +89,7 @@ public class Compiler : MonoBehaviour
             } else {
                 if (isCompiled) btnDisable.ClickNone();
                 isMoving = false;
+                playerAn.SetBool("isMoving", false);
                 currentIndex = 0;
                 delayTime = 1;
                 cnt = -1;
@@ -109,6 +110,7 @@ public class Compiler : MonoBehaviour
 
     public void ResetView() {
         isMoving = false;
+        playerAn.SetBool("isMoving", false);
         currentIndex = 0;
         delayTime = 1;
         cnt = -1;
@@ -379,7 +381,7 @@ public class Compiler : MonoBehaviour
         player.AddForce(Vector2.up * moveSpeed, ForceMode2D.Impulse);
 // =======
         player.AddForce(Vector2.up * moveSpeed, ForceMode2D.Impulse); //기존 3
-// >>>>>>> Jaemin
+                                                                      // >>>>>>> Jaemin
         delayTime = 1;
     }
 
