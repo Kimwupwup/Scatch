@@ -35,7 +35,7 @@ public class Compiler : MonoBehaviour
     private int loopCnt = 0;
     public bool isResetView = false;
     public float moveSpeed = 1;
-
+    public float jumpPower = 6;
     private void Start() {
         playerOrginPos = GameObject.FindGameObjectWithTag("Player").transform.position;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
@@ -377,11 +377,9 @@ public class Compiler : MonoBehaviour
     }
 
     public void FunctionJump() {
-// <<<<<<< HEAD
-        player.AddForce(Vector2.up * moveSpeed, ForceMode2D.Impulse);
-// =======
-        player.AddForce(Vector2.up * moveSpeed, ForceMode2D.Impulse); //기존 3
-                                                                      // >>>>>>> Jaemin
+        //playerAn.SetBool("isJumping", true);
+        player.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+
         delayTime = 1;
     }
 

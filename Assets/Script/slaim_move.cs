@@ -34,8 +34,10 @@ public class slaim_move : MonoBehaviour {
             movement = Vector3.right;
             if (sp.flipX == false) sp.flipX = true;
         }
+
         if ((Input.GetAxisRaw("Vertical") > 0 || isJump == true) && rig.velocity.y < 0.01 && rig.velocity.y > -0.01) {
-            rig.AddForce(Vector2.up * jumpPower * 2, ForceMode2D.Impulse);
+            Jump();
+            //an.SetBool("isJumping", true);
         }
         this.transform.position += movement * 2f * Time.deltaTime;
         move = 0;
@@ -51,18 +53,19 @@ public class slaim_move : MonoBehaviour {
         move = -1f;
     }
     public void Jump() {
-        isJump = true;
+        rig.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.CompareTag("ground")) {
-            an.SetBool("isJumping", false);
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D collision) {
+    //    if (collision.CompareTag("ground")) {
+    //        an.SetBool("isJumping", false);
+    //        an.SetBool("isFallDown", false);
+    //    }
+    //}
 
-    private void OnTriggerExit2D(Collider2D collision) {
-        if (collision.CompareTag("ground")) {
-            an.SetBool("isJumping", true);
-        }
-    }
+    //private void OnTriggerExit2D(Collider2D collision) {
+    //    if (collision.CompareTag("ground")) {
+    //        an.SetBool("isFallDown", true);
+    //    }
+    //}
 }
