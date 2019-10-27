@@ -21,6 +21,7 @@ public class Compiler : MonoBehaviour
     private Transform playerTransform;
     private Animator playerAn;
     private BtnDisable btnDisable;
+    private Scratch_Trigger scratchTrigger;
 
     private Vector3 playerOrginPos;
     private float targetPos;
@@ -44,6 +45,7 @@ public class Compiler : MonoBehaviour
         playerAn = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         btnDisable = GameObject.FindGameObjectWithTag("compiler").GetComponent<BtnDisable>();
         coins = GameObject.FindGameObjectsWithTag("Coin");
+        scratchTrigger = GameObject.FindGameObjectWithTag("Player").GetComponent<Scratch_Trigger>();
     }
 
     // Update is called once per frame
@@ -134,6 +136,7 @@ public class Compiler : MonoBehaviour
         {
             coins[i].SetActive(true);
         }
+        scratchTrigger.SetCount();
     }
 
     public void Compiling() {
