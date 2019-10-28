@@ -56,16 +56,15 @@ public class slaim_move : MonoBehaviour {
         rig.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
     }
 
-    //private void OnTriggerEnter2D(Collider2D collision) {
-    //    if (collision.CompareTag("ground")) {
-    //        an.SetBool("isJumping", false);
-    //        an.SetBool("isFallDown", false);
-    //    }
-    //}
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.CompareTag("ground")) {
+            an.SetBool("isJumping", false);
+        }
+    }
 
-    //private void OnTriggerExit2D(Collider2D collision) {
-    //    if (collision.CompareTag("ground")) {
-    //        an.SetBool("isFallDown", true);
-    //    }
-    //}
+    private void OnTriggerExit2D(Collider2D collision) {
+        if (collision.CompareTag("ground")) {
+            an.SetBool("isJumping", true);
+        }
+    }
 }

@@ -64,7 +64,6 @@
   <ItemGroup>
     <Compile Include="Assets\Script\BtnDisable.cs" />
     <Compile Include="Assets\Script\ButtonEvent.cs" />
-    <Compile Include="Assets\Script\CoinActive.cs" />
     <Compile Include="Assets\Script\Compiler.cs" />
     <Compile Include="Assets\Script\Controller.cs" />
     <Compile Include="Assets\Script\DragDrop.cs" />
