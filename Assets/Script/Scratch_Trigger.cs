@@ -6,46 +6,46 @@ using UnityEngine.UI;
 public class Scratch_Trigger : MonoBehaviour
 {
     private int count;
+    private BtnDisable btnDisable;
     public Text countText;
+    private GameObject failPanel;
+    private GameObject clearPanel;
+
     // Start is called before the first frame update
     void Start()
     {
+        failPanel = GameObject.FindGameObjectWithTag("canvas").transform.Find("clear").gameObject;
+        clearPanel = GameObject.FindGameObjectWithTag("canvas").transform.Find("fail").gameObject;
+        btnDisable = GameObject.FindGameObjectWithTag("compiler").GetComponent<BtnDisable>();
         count = 0;
-        countText.text = "Count : " + count.ToString();
+        countText.text = count.ToString();
     }
 
     public void SetCount()
     {
-        Debug.Log("Set");
         count = 0;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        countText.text = "Count : " + count.ToString();
-
+        countText.text = count.ToString();
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Fire"))
         {
-            Debug.Log("Fire");
+            btnDisable.ClickBtnReset();
             Time.timeScale = 0;
-            GameObject.Find("Canvas").transform.Find("fail").gameObject.SetActive(true);
+            failPanel.SetActive(true);
         }
         else if (other.gameObject.CompareTag("Coin"))
         {
             other.gameObject.SetActive(false);
             count = count + 1;
+            countText.text = count.ToString();
         }
         else if (other.gameObject.CompareTag("Flag"))
         {
-            Debug.Log(count);
-            Debug.Log("Flag");
+            btnDisable.ClickBtnReset();
             Time.timeScale = 0;
-            GameObject.Find("Canvas").transform.Find("clear").gameObject.SetActive(true);
+            clearPanel.SetActive(true);
         }
     }
 }

@@ -19,12 +19,16 @@ public class Compiler : MonoBehaviour
     private Rigidbody2D player;
     private SpriteRenderer playerSprite;
     private Transform playerTransform;
+    private Animator playerAn;
+    private BtnDisable btnDisable;
+    private Scratch_Trigger scratchTrigger;
 
+    private Vector3 playerOrginPos;
+    private float targetPos;
+    private bool isMoving = false;
     private int frameCount = 0;
     private int delayTime = 1;
     private int currentIndex = 0;
-    private int moveTime = 0;
-    private int moveTimer = 0;
 
     private int cnt = -1;
     private int conditionCnt = -1;
@@ -32,75 +36,62 @@ public class Compiler : MonoBehaviour
     private int loopCnt = 0;
     public bool isResetView = false;
     public float moveSpeed = 1;
-
+    public float jumpPower = 6;
     private void Start() {
+        playerOrginPos = GameObject.FindGameObjectWithTag("Player").transform.position;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playerSprite = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
+        playerAn = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+        btnDisable = GameObject.FindGameObjectWithTag("compiler").GetComponent<BtnDisable>();
         coins = GameObject.FindGameObjectsWithTag("Coin");
+        scratchTrigger = GameObject.FindGameObjectWithTag("Player").GetComponent<Scratch_Trigger>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (moveTimer < moveTime) {
+        if (isMoving) {
             run();
-            moveTimer++;
-            Debug.Log(moveTimer);
             return;
         }
-        moveTimer = 0;
-        moveTime = 0;
 
         frameCount++;
         if(frameCount % delayTime == 0) {
             if (isCompiled == true && currentIndex < functions.Count) {
                 if (functions[currentIndex].name == "BtnMove(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionMove();
                 } else if (functions[currentIndex].name == "BtnJump(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionJump();
                 } else if (functions[currentIndex].name == "BtnRotate(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionRotate();
                 } else if (functions[currentIndex].name == "BtnLoop(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionLoop();
                 } else if (functions[currentIndex].name == "BtnEndLoop(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionEndLoop();
                 } else if (functions[currentIndex].name == "BtnDelay(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionDelay();
                 } else if (functions[currentIndex].name == "BtnIf(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionIf();
                 } else if (functions[currentIndex].name == "BtnEndIf(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionEndIf();
                 } else if (functions[currentIndex].name == "BtnCnt=(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionSetCnt();
                 } else if (functions[currentIndex].name == "BtnCnt++(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionIncreaseCnt();
                 } else if (functions[currentIndex].name == "BtnBreak(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionBreak();
                 } else if (functions[currentIndex].name == "BtnVariable=(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionSetVariable();
                 } else if (functions[currentIndex].name == "BtnVariable++(Clone)") {
-                    Debug.Log("Code index " + currentIndex + " : " + functions[currentIndex].name);
                     FunctionIncreaseValue();
                 }
-
                 currentIndex++;
                 frameCount = 0;
             } else {
-                moveTimer = 0;
-                moveTime = 0;
+                if (isCompiled) btnDisable.ClickNone();
+                isMoving = false;
+                playerAn.SetBool("isMoving", false);
                 currentIndex = 0;
                 delayTime = 1;
                 cnt = -1;
@@ -120,8 +111,8 @@ public class Compiler : MonoBehaviour
     }
 
     public void ResetView() {
-        moveTimer = 0;
-        moveTime = 0;
+        isMoving = false;
+        playerAn.SetBool("isMoving", false);
         currentIndex = 0;
         delayTime = 1;
         cnt = -1;
@@ -135,17 +126,17 @@ public class Compiler : MonoBehaviour
         varName.Clear();
         varValue.Clear();
         loopSet.Clear();
-        player.velocity = new Vector2(0, 0);
-        player.transform.position = new Vector2(0, 2);
+        player.velocity = Vector2.zero;
+        player.transform.position = playerOrginPos;
         player.GetComponent<SpriteRenderer>().flipX = false;
         GameObject.Find("Canvas").transform.Find("fail").gameObject.SetActive(false);
         GameObject.Find("Canvas").transform.Find("clear").gameObject.SetActive(false);
         GameObject.FindGameObjectWithTag("Player").GetComponent<Scratch_Trigger>().SetCount();
-
         for (int i = 0; i < coins.Length;i++)           //Coin 재생성
         {
             coins[i].SetActive(true);
         }
+        scratchTrigger.SetCount();
     }
 
     public void Compiling() {
@@ -365,29 +356,33 @@ public class Compiler : MonoBehaviour
     //---------------------compiling-----------------------------------------------------
 
     public void run() {
-        if (playerSprite.flipX)
+        playerAn.SetBool("isMoving", false);
+        if (playerSprite.flipX && targetPos > playerTransform.position.x) {
+            playerAn.SetBool("isMoving", true);
             playerTransform.position += Vector3.right * moveSpeed * Time.deltaTime;
-        else
+        } else if (!playerSprite.flipX && targetPos < playerTransform.position.x) {
+            playerAn.SetBool("isMoving", true);
             playerTransform.position += Vector3.left * moveSpeed * Time.deltaTime;
+        } else {
+            isMoving = false;
+        }
     }
     public void FunctionMove() {
-        //if (player.GetComponent<SpriteRenderer>().flipX == false) {
-        //    //player.transform.position += Vector3.right * 0.3f;
-        //    player.AddForce(Vector2.right*2, ForceMode2D.Impulse);
-        //} else {
-        //    //player.transform.position += Vector3.left * 0.3f;
-        //    player.AddForce(Vector2.left*2, ForceMode2D.Impulse);
-        //}
-        moveTime = 30;
-        delayTime = 1;
+        isMoving = true;
+        
+        if (playerSprite.flipX) {
+            targetPos = player.transform.position.x + 1f;
+        }
+        else {
+            targetPos = player.transform.position.x - 1f;
+        }
+        delayTime = 15;
     }
 
     public void FunctionJump() {
-// <<<<<<< HEAD
-        player.AddForce(Vector2.up * 6, ForceMode2D.Impulse);
-// =======
-        player.AddForce(Vector2.up * 6, ForceMode2D.Impulse); //기존 3
-// >>>>>>> Jaemin
+        //playerAn.SetBool("isJumping", true);
+        player.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+
         delayTime = 1;
     }
 
@@ -541,7 +536,6 @@ public class Compiler : MonoBehaviour
 
     public void AlertError(int error) {
         GameObject errorPanel = GameObject.FindGameObjectWithTag("errorPanel");
-
         if (error == 0) {
             Debug.Log("CNT is not defined!");
             errorPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
@@ -558,6 +552,5 @@ public class Compiler : MonoBehaviour
             errorPanel.transform.GetChild(1).localEulerAngles = new Vector3(0, 90, 0);
             errorPanel.transform.GetChild(2).localEulerAngles = new Vector3(0, 0, 0);
         }
-
     }
 }

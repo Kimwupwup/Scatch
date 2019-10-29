@@ -25,4 +25,9 @@ public class BtnDisable : MonoBehaviour
         btnStart.interactable = true;
         btnReset.interactable = false;
     }
+
+    public void ClickNone() {
+        btnStart.interactable = true;
+        btnReset.interactable = true;
+    }
 }

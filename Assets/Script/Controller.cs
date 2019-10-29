@@ -8,6 +8,9 @@ public class Controller : MonoBehaviour
     private bool isCodeChild;
     private GameObject objTarget;
 
+    void Awake() {
+        Application.targetFrameRate = 60;
+    }
     public bool GetIsCodePanel() {
         return isCodePanel;
     }

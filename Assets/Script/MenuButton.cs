@@ -13,6 +13,8 @@ public class MenuButton : MonoBehaviour
     private GameObject settingPanel;
     private GameObject exitPanel;
 
+    private BtnDisable btnDisable;
+
     private float movePosition;
     private float prevPosition;
 
@@ -35,7 +37,7 @@ public class MenuButton : MonoBehaviour
         exitPanel = GameObject.FindGameObjectWithTag("exitPanel");
         menuPanel = GameObject.FindGameObjectWithTag("menuPanel");
         codePanel = GameObject.FindGameObjectWithTag("codePanel");
-
+        btnDisable = GameObject.FindGameObjectWithTag("compiler").GetComponent<BtnDisable>();
         posMenuPanel = menuPanel.transform.position;
         posPausePanel = pausePanel.transform.position;
         posErrorPanel = errorPanel.transform.position;
@@ -220,21 +222,7 @@ public class MenuButton : MonoBehaviour
     }
 
     public void ResetErrorMessage() {
+        btnDisable.ClickBtnReset();
         errorPanel.GetComponent<RectTransform>().position = posErrorPanel;
-    }
-
-    public void BtnBlue() {
-        GameObject.FindGameObjectWithTag("menuPanel1").transform.localEulerAngles = new Vector3(0, 90, 0);
-        GameObject.FindGameObjectWithTag("menuPanel2").transform.localEulerAngles = new Vector3(0, 90, 0);
-    }
-
-    public void BtnRed() {
-        GameObject.FindGameObjectWithTag("menuPanel1").transform.localEulerAngles = new Vector3(0, 90, 0);
-        GameObject.FindGameObjectWithTag("menuPanel2").transform.localEulerAngles = new Vector3(0, 0, 0);
-    }
-
-    public void BtnYellow() {
-        GameObject.FindGameObjectWithTag("menuPanel1").transform.localEulerAngles = new Vector3(0, 0, 0);
-        GameObject.FindGameObjectWithTag("menuPanel2").transform.localEulerAngles = new Vector3(0, 90, 0);
     }
 }
