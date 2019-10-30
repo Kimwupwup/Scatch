@@ -1483,11 +1483,8 @@ PrefabInstance:
         type: 3}
       propertyPath: countText
       value: 
-<<<<<<< HEAD
-      objectReference: {fileID: 569858165}
-=======
       objectReference: {fileID: 314935407}
->>>>>>> Camera_control
+
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5c41679de1c1b9409d73ff17c75f08b, type: 3}
 --- !u!1 &1777139224
