@@ -23,6 +23,7 @@ public class Compiler : MonoBehaviour
     private BtnDisable btnDisable;
     private Scratch_Trigger scratchTrigger;
 
+    private bool playerFlip = false;
     private Vector3 playerOrginPos;
     private float targetPos;
     private bool isMoving = false;
@@ -38,6 +39,7 @@ public class Compiler : MonoBehaviour
     public float moveSpeed = 1;
     public float jumpPower = 6;
     private void Start() {
+        playerFlip = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>().flipX;
         playerOrginPos = GameObject.FindGameObjectWithTag("Player").transform.position;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
@@ -128,7 +130,7 @@ public class Compiler : MonoBehaviour
         loopSet.Clear();
         player.velocity = Vector2.zero;
         player.transform.position = playerOrginPos;
-        player.GetComponent<SpriteRenderer>().flipX = false;
+        player.GetComponent<SpriteRenderer>().flipX = playerFlip;
         GameObject.Find("Canvas").transform.Find("fail").gameObject.SetActive(false);
         GameObject.Find("Canvas").transform.Find("clear").gameObject.SetActive(false);
         GameObject.FindGameObjectWithTag("Player").GetComponent<Scratch_Trigger>().SetCount();
@@ -364,6 +366,7 @@ public class Compiler : MonoBehaviour
             playerAn.SetBool("isMoving", true);
             playerTransform.position += Vector3.left * moveSpeed * Time.deltaTime;
         } else {
+            playerTransform.position = new Vector3(targetPos, playerTransform.position.y, playerTransform.position.z);
             isMoving = false;
         }
     }
