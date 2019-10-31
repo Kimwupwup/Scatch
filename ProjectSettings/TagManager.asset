@@ -32,6 +32,7 @@ TagManager:
   - Fire
   - Clear
   - compiler
+  - wall
   layers:
   - Default
   - TransparentFX
