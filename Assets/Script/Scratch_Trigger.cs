@@ -14,8 +14,8 @@ public class Scratch_Trigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        failPanel = GameObject.FindGameObjectWithTag("canvas").transform.Find("clear").gameObject;
-        clearPanel = GameObject.FindGameObjectWithTag("canvas").transform.Find("fail").gameObject;
+        failPanel = GameObject.FindGameObjectWithTag("canvas").transform.Find("fail").gameObject;
+        clearPanel = GameObject.FindGameObjectWithTag("canvas").transform.Find("clear").gameObject;
         btnDisable = GameObject.FindGameObjectWithTag("compiler").GetComponent<BtnDisable>();
         count = 0;
         countText.text = count.ToString();
@@ -29,7 +29,7 @@ public class Scratch_Trigger : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Fire"))
+        if (other.gameObject.CompareTag("Fire") || other.gameObject.CompareTag("wall"))
         {
             btnDisable.ClickBtnReset();
             Time.timeScale = 0;
