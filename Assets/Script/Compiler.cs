@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Compiler : MonoBehaviour
-{
+public class Compiler : MonoBehaviour {
     private List<GameObject> functions = new List<GameObject>();
     private List<int> loopSet = new List<int>();
     private List<int> loopIndex = new List<int>();
@@ -51,15 +50,14 @@ public class Compiler : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         if (isMoving) {
             run();
             return;
         }
 
         frameCount++;
-        if(frameCount % delayTime == 0) {
+        if (frameCount % delayTime == 0) {
             if (isCompiled == true && currentIndex < functions.Count) {
                 if (functions[currentIndex].name == "BtnMove(Clone)") {
                     int cnt = 0;
@@ -67,12 +65,14 @@ public class Compiler : MonoBehaviour
                         if (functions[i].name == "BtnMove(Clone)") {
                             FunctionMove(++cnt);
                             currentIndex++;
-                        } else {
+                        }
+                        else {
                             break;
                         }
                     }
                     currentIndex--;
-                } else if (functions[currentIndex].name == "BtnJump(Clone)") {
+                }
+                else if (functions[currentIndex].name == "BtnJump(Clone)") {
                     int cnt = 0;
                     for (int i = currentIndex; i < functions.Count; i++) {
                         if (functions[i].name == "BtnJump(Clone)") {
@@ -85,32 +85,44 @@ public class Compiler : MonoBehaviour
                     }
                     FunctionJump(cnt);
                     currentIndex--;
-                } else if (functions[currentIndex].name == "BtnRotate(Clone)") {
+                }
+                else if (functions[currentIndex].name == "BtnRotate(Clone)") {
                     FunctionRotate();
-                } else if (functions[currentIndex].name == "BtnLoop(Clone)") {
+                }
+                else if (functions[currentIndex].name == "BtnLoop(Clone)") {
                     FunctionLoop();
-                } else if (functions[currentIndex].name == "BtnEndLoop(Clone)") {
+                }
+                else if (functions[currentIndex].name == "BtnEndLoop(Clone)") {
                     FunctionEndLoop();
-                } else if (functions[currentIndex].name == "BtnDelay(Clone)") {
+                }
+                else if (functions[currentIndex].name == "BtnDelay(Clone)") {
                     FunctionDelay();
-                } else if (functions[currentIndex].name == "BtnIf(Clone)") {
+                }
+                else if (functions[currentIndex].name == "BtnIf(Clone)") {
                     FunctionIf();
-                } else if (functions[currentIndex].name == "BtnEndIf(Clone)") {
+                }
+                else if (functions[currentIndex].name == "BtnEndIf(Clone)") {
                     FunctionEndIf();
-                } else if (functions[currentIndex].name == "BtnCnt=(Clone)") {
+                }
+                else if (functions[currentIndex].name == "BtnCnt=(Clone)") {
                     FunctionSetCnt();
-                } else if (functions[currentIndex].name == "BtnCnt++(Clone)") {
+                }
+                else if (functions[currentIndex].name == "BtnCnt++(Clone)") {
                     FunctionIncreaseCnt();
-                } else if (functions[currentIndex].name == "BtnBreak(Clone)") {
+                }
+                else if (functions[currentIndex].name == "BtnBreak(Clone)") {
                     FunctionBreak();
-                } else if (functions[currentIndex].name == "BtnVariable=(Clone)") {
+                }
+                else if (functions[currentIndex].name == "BtnVariable=(Clone)") {
                     FunctionSetVariable();
-                } else if (functions[currentIndex].name == "BtnVariable++(Clone)") {
+                }
+                else if (functions[currentIndex].name == "BtnVariable++(Clone)") {
                     FunctionIncreaseValue();
                 }
                 currentIndex++;
                 frameCount = 0;
-            } else {
+            }
+            else {
                 if (isCompiled) btnDisable.ClickNone();
                 isMoving = false;
                 playerAn.SetBool("isMoving", false);
@@ -129,7 +141,7 @@ public class Compiler : MonoBehaviour
                 loopSet.Clear();
             }
         }
-        
+
     }
 
     public void ResetView() {
@@ -154,7 +166,7 @@ public class Compiler : MonoBehaviour
         GameObject.Find("Canvas").transform.Find("fail").gameObject.SetActive(false);
         GameObject.Find("Canvas").transform.Find("clear").gameObject.SetActive(false);
         GameObject.FindGameObjectWithTag("Player").GetComponent<Scratch_Trigger>().SetCount();
-        for (int i = 0; i < coins.Length;i++)           //Coin 재생성
+        for (int i = 0; i < coins.Length; i++)           //Coin 재생성
         {
             coins[i].SetActive(true);
         }
@@ -172,7 +184,7 @@ public class Compiler : MonoBehaviour
         for (int i = 1; i < code.transform.childCount; i++) {
             codesQueue.Add(code.transform.GetChild(i).gameObject);
         }
-        
+
         // Sort multiple code lines
         for (int i = 0; i < codesQueue.Count; i++) {
             for (int j = i + 1; j < codesQueue.Count; j++) {
@@ -195,13 +207,13 @@ public class Compiler : MonoBehaviour
 
                 if (code.name == "BtnLoop(Clone)") {
                     loopIndex.Add(functions.Count - 1);
-                } 
+                }
                 if (code.name == "BtnEndLoop(Clone)") {
                     endLoopIndex.Add(functions.Count - 1);
                 }
                 if (code.name == "BtnIf(Clone)") {
                     ifIndex.Add(functions.Count - 1);
-                    if (code.transform.childCount < 4) {
+                    if (code.transform.childCount < 5) {
                         AlertError(2);
                         ResetView();
                         return;
@@ -209,33 +221,17 @@ public class Compiler : MonoBehaviour
                     string tempName = null;
                     bool isExist = false;
 
-                    if (code.transform.GetChild(2).name == "BtnCount(Clone)") {
-                        if (string.IsNullOrEmpty(code.transform.GetChild(2).GetChild(0).GetComponent<InputField>().text)) {
-                            code.transform.GetChild(2).GetChild(0).GetComponent<InputField>().text = "2";
+                    for (int j = 0; j < code.transform.childCount; j++) {
+                        if (code.transform.GetChild(j).name.Contains("BtnVariable")) {
+                            GameObject ifTemp = code.transform.GetChild(j).gameObject;
+                            for (int k = 0; k < 2; k++) {
+                                InputField inputTemp = ifTemp.transform.GetChild(k).GetComponent<InputField>();
+                                if (string.IsNullOrEmpty(inputTemp.text))
+                                    inputTemp.text = inputTemp.placeholder.GetComponent<Text>().text;
+                                if (ifTemp.transform.GetChild(k).name.Contains("(1)"))
+                                    tempName = inputTemp.text;
+                            }
                         }
-                    } else if (code.transform.GetChild(3).name == "BtnCount(Clone)") {
-                        if (string.IsNullOrEmpty(code.transform.GetChild(3).GetChild(0).GetComponent<InputField>().text)) {
-                            code.transform.GetChild(3).GetChild(0).GetComponent<InputField>().text = "2";
-                        }
-                    }
-
-                    if (code.transform.GetChild(2).name == "BtnVariable==(Clone)") {
-                        if (string.IsNullOrEmpty(code.transform.GetChild(2).GetChild(1).GetComponent<InputField>().text)) {
-                            code.transform.GetChild(2).GetChild(1).GetComponent<InputField>().text = "2";
-                        }
-                        if (string.IsNullOrEmpty(code.transform.GetChild(2).GetChild(0).GetComponent<InputField>().text)) {
-                            code.transform.GetChild(2).GetChild(0).GetComponent<InputField>().text = "a";
-                        }
-                        tempName = code.transform.GetChild(2).GetChild(0).GetComponent<InputField>().text;
-                    } else if (code.transform.GetChild(3).name == "BtnVariable==(Clone)") {
-                        if (string.IsNullOrEmpty(code.transform.GetChild(3).GetChild(1).GetComponent<InputField>().text)) {
-                            code.transform.GetChild(3).GetChild(1).GetComponent<InputField>().text = "2";
-                        }
-                        if (string.IsNullOrEmpty(code.transform.GetChild(3).GetChild(0).GetComponent<InputField>().text)) {
-                            code.transform.GetChild(3).GetChild(0).GetComponent<InputField>().text = "a";
-                            tempName = "a";
-                        }
-                        tempName = code.transform.GetChild(3).GetChild(0).GetComponent<InputField>().text;
                     }
                     
                     if (tempName != null) {
@@ -251,7 +247,8 @@ public class Compiler : MonoBehaviour
                             ResetView();
                             return;
                         }
-                    } else {
+                    }
+                    else {
                         if (cnt == -1) {
                             AlertError(0);
                             codesQueue.Clear();
@@ -263,6 +260,7 @@ public class Compiler : MonoBehaviour
 
                 if (code.name == "BtnEndIf(Clone)") {
                     endIfIndex.Add(functions.Count - 1);
+                    Debug.Log("endif");
                 }
 
                 if (code.name == "BtnVariable=(Clone)") {
@@ -320,41 +318,50 @@ public class Compiler : MonoBehaviour
                     }
                 }
                 if (code.name == "BtnDelay(Clone)") {
-                    if(string.IsNullOrEmpty(code.transform.GetChild(0).GetComponent<InputField>().text)) {
+                    if (string.IsNullOrEmpty(code.transform.GetChild(0).GetComponent<InputField>().text)) {
                         code.transform.GetChild(0).GetComponent<InputField>().text = "2";
                     }
                 }
 
-                if (code.transform.childCount < 2 && 
+                if (code.transform.childCount < 2 &&
                     (code.name != "BtnDelay(Clone)" &&
                     code.name != "BtnIf(Clone)" &&
                     code.name != "BtnCnt=(Clone)")) {
                     break;
-                } else if (code.transform.childCount < 3 &&
-                    (code.name == "BtnDelay(Clone)" ||
-                    code.name == "BtnCnt=(Clone)" ||
-                    code.name == "BtnVariable++(Clone)")) {
+                }
+                else if (code.transform.childCount < 3 &&
+                  (code.name == "BtnDelay(Clone)" ||
+                  code.name == "BtnCnt=(Clone)" ||
+                  code.name == "BtnVariable++(Clone)")) {
                     break;
-                } else if (code.transform.childCount < 4 &&
-                    (code.name == "BtnIf(Clone)" ||
-                    code.name == "BtnVariable=(Clone)")) {
+                }
+                else if (code.transform.childCount < 4 &&
+                  (code.name == "BtnIf(Clone)" ||
+                  code.name == "BtnVariable=(Clone)")) {
                     break;
                 }
 
                 if (code.name == "BtnVariable=(Clone)") {
                     code = code.transform.GetChild(3).gameObject;
-                } else if (code.name == "BtnIf(Clone)") {
-                    if (code.transform.GetChild(2).name == "BtnCount(Clone)" ||
-                        code.transform.GetChild(2).name == "BtnVariable==(Clone)") {
-                        code = code.transform.GetChild(3).gameObject;
-                    } else {
-                        code = code.transform.GetChild(2).gameObject;
+                }
+                else if (code.name == "BtnIf(Clone)") {
+                    if (code.transform.GetChild(3).name == "BtnCount(Clone)" ||
+                        code.transform.GetChild(3).name == "BtnVariable==(Clone)") {
+                        code = code.transform.GetChild(4).gameObject;
                     }
-                } else if (code.name == "BtnDelay(Clone)" ||
-                    code.name == "BtnCnt=(Clone)" ||
-                    code.name == "BtnVariable++(Clone)") {
+                    else {
+                        code = code.transform.GetChild(3).gameObject;
+                    }
+                }
+                else if (code.name == "BtnDelay(Clone)" ||
+                  code.name == "BtnCnt=(Clone)" ||
+                  code.name == "BtnVariable++(Clone)") {
                     code = code.transform.GetChild(2).gameObject;
-                } else {
+                }
+                else if (code.name == "BtnLoop(Clone)") {
+                    code = code.transform.GetChild(2).gameObject;
+                }
+                else {
                     code = code.transform.GetChild(1).gameObject;
                 }
             }
@@ -365,12 +372,15 @@ public class Compiler : MonoBehaviour
             ResetView();
             codesQueue.Clear();
             isCompiled = false;
-        } else if (ifIndex.Count != endIfIndex.Count) {
+        }
+        else if (ifIndex.Count != endIfIndex.Count) {
+            Debug.Log(ifIndex.Count + " " + endIfIndex.Count);
             AlertError(2);
             ResetView();
             codesQueue.Clear();
             isCompiled = false;
-        } else {
+        }
+        else {
             codesQueue.Clear();
             isCompiled = true;
         }
@@ -378,21 +388,24 @@ public class Compiler : MonoBehaviour
     //---------------------compiling-----------------------------------------------------
 
     public void run() {
-        playerAn.SetBool("isMoving", false);
+        
         if (playerSprite.flipX && targetPos > playerTransform.position.x) {
             playerAn.SetBool("isMoving", true);
             playerTransform.position += Vector3.right * moveSpeed * Time.deltaTime;
-        } else if (!playerSprite.flipX && targetPos < playerTransform.position.x) {
+        }
+        else if (!playerSprite.flipX && targetPos < playerTransform.position.x) {
             playerAn.SetBool("isMoving", true);
             playerTransform.position += Vector3.left * moveSpeed * Time.deltaTime;
-        } else {
+        }
+        else {
+            playerAn.SetBool("isMoving", false);
             playerTransform.position = new Vector3(targetPos, playerTransform.position.y, playerTransform.position.z);
             isMoving = false;
         }
     }
     public void FunctionMove(int cnt) {
         isMoving = true;
-        
+
         if (playerSprite.flipX) {
             targetPos = player.transform.position.x + (1f * cnt);
         }
@@ -412,7 +425,8 @@ public class Compiler : MonoBehaviour
     public void FunctionRotate() {
         if (player.GetComponent<SpriteRenderer>().flipX == false) {
             player.GetComponent<SpriteRenderer>().flipX = true;
-        } else {
+        }
+        else {
             player.GetComponent<SpriteRenderer>().flipX = false;
         }
         delayTime = 1;
@@ -452,13 +466,15 @@ public class Compiler : MonoBehaviour
         if (string.IsNullOrEmpty(n)) {
             functions[currentIndex].transform.GetChild(0).GetComponent<InputField>().text = "2";
             temp = 2;
-        } else {
+        }
+        else {
             temp = float.Parse(n);
         }
 
         if (temp == 0) {
             delayTime = 1;
-        } else {
+        }
+        else {
             delayTime = (int)(60 * temp);
         }
     }
@@ -469,16 +485,18 @@ public class Compiler : MonoBehaviour
 
         if (functions[currentIndex].transform.GetChild(2).name == "BtnCount(Clone)") {
             conditionCnt = int.Parse(functions[currentIndex].transform.GetChild(2).GetChild(0).GetComponent<InputField>().text);
-            
-        } else if (functions[currentIndex].transform.GetChild(3).name == "BtnCount(Clone)") {
+
+        }
+        else if (functions[currentIndex].transform.GetChild(3).name == "BtnCount(Clone)") {
             conditionCnt = int.Parse(functions[currentIndex].transform.GetChild(3).GetChild(0).GetComponent<InputField>().text);
         }
 
         if (functions[currentIndex].transform.GetChild(2).name == "BtnVariable==(Clone)") {
             tempName = functions[currentIndex].transform.GetChild(2).GetChild(0).GetComponent<InputField>().text;
             conditionCnt = int.Parse(functions[currentIndex].transform.GetChild(2).GetChild(1).GetComponent<InputField>().text);
-            
-        } else if (functions[currentIndex].transform.GetChild(3).name == "BtnVariable==(Clone)") {
+
+        }
+        else if (functions[currentIndex].transform.GetChild(3).name == "BtnVariable==(Clone)") {
             tempName = functions[currentIndex].transform.GetChild(3).GetChild(0).GetComponent<InputField>().text;
             conditionCnt = int.Parse(functions[currentIndex].transform.GetChild(3).GetChild(1).GetComponent<InputField>().text);
         }
@@ -492,7 +510,8 @@ public class Compiler : MonoBehaviour
                     break;
                 }
             }
-        } else {
+        }
+        else {
             if (cnt != conditionCnt) {
                 conditionFalse = true;
             }
@@ -506,7 +525,7 @@ public class Compiler : MonoBehaviour
                 }
             }
         }
-        
+
         delayTime = 1;
     }
 
@@ -564,12 +583,14 @@ public class Compiler : MonoBehaviour
             errorPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
             errorPanel.transform.GetChild(1).localEulerAngles = new Vector3(0, 90, 0);
             errorPanel.transform.GetChild(2).localEulerAngles = new Vector3(0, 90, 0);
-        } else if (error == 1) {
+        }
+        else if (error == 1) {
             Debug.Log("LOOP is incorrected!");
             errorPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
             errorPanel.transform.GetChild(1).localEulerAngles = new Vector3(0, 0, 0);
             errorPanel.transform.GetChild(2).localEulerAngles = new Vector3(0, 90, 0);
-        } else if (error == 2) {
+        }
+        else if (error == 2) {
             Debug.Log("IF is incorrected!");
             errorPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
             errorPanel.transform.GetChild(1).localEulerAngles = new Vector3(0, 90, 0);

@@ -74,7 +74,6 @@ public class SaveAndLoad : MonoBehaviour {
                             code = code.transform.GetChild(j).gameObject;
                             break;
                         }
-
                     }
                 }
             }

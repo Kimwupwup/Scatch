@@ -23,7 +23,7 @@ public class slaim_move : MonoBehaviour {
         movement = Vector3.zero;
         
         isJump = false;
-        AnimationUpdate(false);
+        // AnimationUpdate(false);
 
         if (Input.GetAxisRaw("Horizontal") < 0 || move < 0) {
             movement = Vector3.left;
