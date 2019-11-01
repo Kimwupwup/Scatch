@@ -11,6 +11,7 @@ public class slaim_move : MonoBehaviour {
     private Vector3 movement;
     private SpriteRenderer sp;
     private Rigidbody2D rig;
+
     // Start is called before the first frame update
     void Start() {
         an = this.GetComponent<Animator>();
@@ -23,27 +24,24 @@ public class slaim_move : MonoBehaviour {
         movement = Vector3.zero;
         
         isJump = false;
-        // AnimationUpdate(false);
 
         if (Input.GetAxisRaw("Horizontal") < 0 || move < 0) {
             movement = Vector3.left;
-            //AnimationUpdate(true);
+            // an.SetBool("isMoving", true);
             if (sp.flipX == true) sp.flipX = false;
         }
         else if (Input.GetAxisRaw("Horizontal") > 0 || move > 0) {
             movement = Vector3.right;
+            // an.SetBool("isMoving", true);
             if (sp.flipX == false) sp.flipX = true;
         }
 
         if ((Input.GetAxisRaw("Vertical") > 0 || isJump == true) && rig.velocity.y < 0.01 && rig.velocity.y > -0.01) {
             Jump();
-            //an.SetBool("isJumping", true);
         }
+
         this.transform.position += movement * 2f * Time.deltaTime;
         move = 0;
-    }
-    void AnimationUpdate(bool b) {
-        an.SetBool("isMoving", b);
     }
 
     public void MoveRight() {
@@ -64,8 +62,7 @@ public class slaim_move : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D collision) {
         if (collision.CompareTag("ground")) {
-            //an.SetBool("isJumping", true);
-            //Debug.Log("Jump");
+            an.SetBool("isJumping", true);
         }
     }
 }

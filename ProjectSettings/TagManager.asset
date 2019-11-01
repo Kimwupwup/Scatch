@@ -33,6 +33,7 @@ TagManager:
   - Clear
   - compiler
   - wall
+  - coinText
   layers:
   - Default
   - TransparentFX

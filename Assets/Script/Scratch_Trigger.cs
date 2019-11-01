@@ -7,13 +7,14 @@ public class Scratch_Trigger : MonoBehaviour
 {
     private int count;
     private BtnDisable btnDisable;
-    public Text countText;
+    private Text countText;
     private GameObject failPanel;
     private GameObject clearPanel;
 
     // Start is called before the first frame update
     void Start()
     {
+        countText = GameObject.FindGameObjectWithTag("coinText").GetComponent<Text>();
         failPanel = GameObject.FindGameObjectWithTag("canvas").transform.Find("fail").gameObject;
         clearPanel = GameObject.FindGameObjectWithTag("canvas").transform.Find("clear").gameObject;
         btnDisable = GameObject.FindGameObjectWithTag("compiler").GetComponent<BtnDisable>();

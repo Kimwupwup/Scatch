@@ -417,7 +417,6 @@ public class Compiler : MonoBehaviour {
 
     public void FunctionJump(int cnt) {
         //playerAn.SetBool("isJumping", true);
-        playerAn.SetBool("isJumping", true);
         player.AddForce(Vector2.up * (jumpPower + (cnt * 1.5f)), ForceMode2D.Impulse);
         delayTime = 1;
     }
@@ -445,18 +444,6 @@ public class Compiler : MonoBehaviour {
         }
         currentIndex = loopSet[loopSet.Count - 1];
         loopSet.RemoveAt(loopSet.Count - 1);
-        //for (int i = 0; i < endLoopIndex.Count; i++) {
-        //    if (currentIndex == endLoopIndex[i]) {
-        //        for (int j = 0; j < loopIndex.Count; j++) {
-        //            if (loopIndex[j] > endLoopIndex[i]) {
-        //                currentIndex = loopIndex[j - 1 - i] - 1;
-        //            }
-        //            break;
-        //        }
-        //        //currentIndex = loopIndex[loopIndex.Count - 1 - i] - 1;
-        //        break;
-        //    }
-        //}
         delayTime = 1;
     }
 
