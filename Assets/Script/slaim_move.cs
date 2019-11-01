@@ -64,7 +64,8 @@ public class slaim_move : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D collision) {
         if (collision.CompareTag("ground")) {
-            an.SetBool("isJumping", true);
+            //an.SetBool("isJumping", true);
+            //Debug.Log("Jump");
         }
     }
 }

@@ -37,7 +37,7 @@ public class Compiler : MonoBehaviour
     private int loopCnt = 0;
     public bool isResetView = false;
     public float moveSpeed = 1;
-    public float jumpPower = 6;
+    private float jumpPower = 4.5f;
     private void Start() {
         playerFlip = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>().flipX;
         playerOrginPos = GameObject.FindGameObjectWithTag("Player").transform.position;
@@ -62,9 +62,29 @@ public class Compiler : MonoBehaviour
         if(frameCount % delayTime == 0) {
             if (isCompiled == true && currentIndex < functions.Count) {
                 if (functions[currentIndex].name == "BtnMove(Clone)") {
-                    FunctionMove();
+                    int cnt = 0;
+                    for (int i = currentIndex; i < functions.Count; i++) {
+                        if (functions[i].name == "BtnMove(Clone)") {
+                            FunctionMove(++cnt);
+                            currentIndex++;
+                        } else {
+                            break;
+                        }
+                    }
+                    currentIndex--;
                 } else if (functions[currentIndex].name == "BtnJump(Clone)") {
-                    FunctionJump();
+                    int cnt = 0;
+                    for (int i = currentIndex; i < functions.Count; i++) {
+                        if (functions[i].name == "BtnJump(Clone)") {
+                            cnt++;
+                            currentIndex++;
+                        }
+                        else {
+                            break;
+                        }
+                    }
+                    FunctionJump(cnt);
+                    currentIndex--;
                 } else if (functions[currentIndex].name == "BtnRotate(Clone)") {
                     FunctionRotate();
                 } else if (functions[currentIndex].name == "BtnLoop(Clone)") {
@@ -370,22 +390,22 @@ public class Compiler : MonoBehaviour
             isMoving = false;
         }
     }
-    public void FunctionMove() {
+    public void FunctionMove(int cnt) {
         isMoving = true;
         
         if (playerSprite.flipX) {
-            targetPos = player.transform.position.x + 1f;
+            targetPos = player.transform.position.x + (1f * cnt);
         }
         else {
-            targetPos = player.transform.position.x - 1f;
+            targetPos = player.transform.position.x - (1f * cnt);
         }
-        delayTime = 1;
+        delayTime = 10;
     }
 
-    public void FunctionJump() {
+    public void FunctionJump(int cnt) {
         //playerAn.SetBool("isJumping", true);
-        player.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-
+        playerAn.SetBool("isJumping", true);
+        player.AddForce(Vector2.up * (jumpPower + (cnt * 1.5f)), ForceMode2D.Impulse);
         delayTime = 1;
     }
 
