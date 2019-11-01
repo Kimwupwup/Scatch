@@ -379,7 +379,7 @@ public class Compiler : MonoBehaviour
         else {
             targetPos = player.transform.position.x - 1f;
         }
-        delayTime = 15;
+        delayTime = 1;
     }
 
     public void FunctionJump() {
