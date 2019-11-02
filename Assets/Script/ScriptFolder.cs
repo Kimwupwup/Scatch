@@ -58,15 +58,16 @@ public class ScriptFolder : MonoBehaviour {
                             if (inputFieldObj.name.Contains("InputField"))
                                 inputFieldObj.SetActive(false);
                         }
-                    }                    
+                    }
 
                     // 코드 접히는 애니메이션
                     temp.transform.position = Vector2.Lerp(temp.transform.position,
                         new Vector2(temp.transform.position.x, thisObj.transform.position.y), Time.deltaTime * 2f);
+                }
 
-                    // Lerp가 끝난 경우(코드들이 전부 다 접힌 경우)
+                // Lerp가 끝난 경우(코드들이 전부 다 접힌 경우)
+                foreach (GameObject temp in insideObjs) {
                     if (temp.transform.position.y >= thisObj.transform.position.y) {
-
                         // 코드 블럭들을 전부 투명화, 위치값 고정
                         foreach (GameObject ttemp in insideObjs) {
                             ttemp.GetComponent<Image>().color = new Color(255, 255, 255, 0);
@@ -128,10 +129,19 @@ public class ScriptFolder : MonoBehaviour {
                     // 위에서 구한 부모 코드블럭의 BtnChild 오브젝트의 위치 값으로 이동
                     temp.transform.position = Vector2.Lerp(temp.transform.position,
                         new Vector2(temp.transform.position.x, parentChildObj.transform.position.y), Time.deltaTime * 5f);
+                }
 
-                    // 위치 이동 Lerp가 끝난 경우
+                // 위치 이동 Lerp가 끝난 경우
+                foreach (GameObject temp in insideObjs) {
+                    GameObject parentChildObj = temp.transform.parent.gameObject;
+                    for (int i = 0; i < parentChildObj.transform.childCount; i++) {
+                        if (parentChildObj.transform.GetChild(i).name.Equals("BtnChild")) {
+                            parentChildObj = parentChildObj.transform.GetChild(i).gameObject;
+                            break;
+                        }
+                    }
+
                     if (temp.transform.position.y <= parentChildObj.transform.position.y + 1) {
-
                         // 해당 코드 블럭들의 부모 오브젝트의 BtnChild를 찾음
                         foreach (GameObject ttemp in insideObjs) {
 
@@ -266,14 +276,14 @@ public class ScriptFolder : MonoBehaviour {
                 }
             }
         }
-        
+
         // 탐색이 끝난경우, stackCnt가 0이 아니면 짝을 이루지 못하였다는 것이므로
         // List를 초기화하고 애니메이션 효과를 작동시키지 않는다.
         if (stackCnt != 0) {
             insideObjs.Clear();
             return;
         }
-        
+
         // Toggle의 상태에 따라, 애니메이션 효과를 달리 작동시킨다.
         if (toggle.isOn)
             isFolding = true;

@@ -14,7 +14,7 @@ public class SaveAndLoad : MonoBehaviour {
     public Jsondatas jsondatas;
     public Jsondata jsondata;
     List<Jsondata> jsonList = new List<Jsondata>();
-    List<GameObject> IfLoopList = new List<GameObject>();
+    List<GameObject> ifLoopList = new List<GameObject>();
 
     private GameObject prefab;
     private List<GameObject> functions = new List<GameObject>();
@@ -109,11 +109,10 @@ public class SaveAndLoad : MonoBehaviour {
                 }
             }
 
-            //tmpButton = Instantiate(prefab, functions[i].transform.position, Quaternion.identity, GameObject.FindGameObjectWithTag("codePanel").transform).gameObject;
             tmpButton = Instantiate(prefab, loaddatas.datas[i].v, Quaternion.identity, GameObject.FindGameObjectWithTag("codePanel").transform).gameObject;
             if (tmpButton.name.Contains("If") || tmpButton.name.Contains("Loop"))
                 if (!tmpButton.name.Contains("End"))
-                    IfLoopList.Add(tmpButton);
+                    ifLoopList.Add(tmpButton);
 
             Debug.Log(tmpButton.name);
             tmpButton.tag = "clone";
@@ -152,11 +151,25 @@ public class SaveAndLoad : MonoBehaviour {
         }
 
         // Unfolding
-        for (int i = 0; i < IfLoopList.Count; i++) {
-            IfLoopList[i].transform.Find("Toggle").GetComponent<ScriptFolder>().Folding();
+        for (int i = 0; i < ifLoopList.Count; i++) {
+            GameObject parentTemp = ifLoopList[i];
+            for (int j = 0; j < parentTemp.transform.childCount; j++) {
+                GameObject childTemp = parentTemp.transform.GetChild(j).gameObject;
+                if (childTemp.name.Contains("Clone") && !childTemp.name.Contains("==")) {
+                    if (childTemp.transform.position.y + 1 >= parentTemp.transform.position.y) {
+                        parentTemp.transform.Find("Toggle").GetComponent<Toggle>().isOn = true;
+                        parentTemp.transform.Find("Toggle").GetComponent<ScriptFolder>().Folding();
+                    }
+                    else {
+                        parentTemp.transform.Find("Toggle").GetComponent<Toggle>().isOn = false;
+                        parentTemp.transform.Find("Toggle").GetComponent<ScriptFolder>().Folding();
+                    }
+                    break;
+                }
+            }
         }
        
-        IfLoopList.Clear();
+        ifLoopList.Clear();
     }
 
     void CreateJsonFile(string createPath, string fileName, string jsonData) {
