@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class ScriptFolder : MonoBehaviour {
     private List<GameObject> insideObj = new List<GameObject>();
     private Toggle toggle = null;
-    private int functionType = 0;
     private bool isFolding = false;
     private GameObject thisObj;
 
@@ -14,12 +13,6 @@ public class ScriptFolder : MonoBehaviour {
     void Start() {
         thisObj = this.transform.parent.gameObject;
         toggle = this.GetComponent<Toggle>();
-        if (this.name.Equals("BtnIf(Clone)")) {
-            functionType = 0;
-        }
-        else if (this.name.Equals("BtnLoop(Clone)")) {
-            functionType = 1;
-        }
     }
 
     void Update() {
@@ -28,6 +21,9 @@ public class ScriptFolder : MonoBehaviour {
                 foreach (GameObject temp in insideObj) {
                     temp.GetComponent<Image>().color = Color.Lerp(temp.GetComponent<Image>().color,
                         new Color(255, 255, 255, 0), Time.deltaTime * 20f);
+                    if (temp.name.Contains("If") || temp.name.Contains("Loop"))
+                        if (!temp.name.Contains("End"))
+                            temp.transform.Find("Toggle").gameObject.SetActive(false);
                     temp.GetComponent<Image>().raycastTarget = false;
                     temp.transform.position = Vector2.Lerp(temp.transform.position,
                         new Vector2(temp.transform.position.x, thisObj.transform.position.y), Time.deltaTime * 2f);
@@ -53,7 +49,7 @@ public class ScriptFolder : MonoBehaviour {
                     }
                     temp.GetComponent<Image>().color = Color.Lerp(temp.GetComponent<Image>().color,
                         Color.white, Time.deltaTime * 20f);
-                    
+
                     temp.transform.position = Vector2.Lerp(temp.transform.position,
                         new Vector2(temp.transform.position.x, parentChildObj.transform.position.y), Time.deltaTime * 5f);
                     if (temp.transform.position.y <= parentChildObj.transform.position.y + 1) {
@@ -65,6 +61,12 @@ public class ScriptFolder : MonoBehaviour {
                                     break;
                                 }
                             }
+                            if (ttemp.name.Contains("If") || ttemp.name.Contains("Loop"))
+                                if (!ttemp.name.Contains("End")) {
+                                    ttemp.transform.Find("Toggle").GetComponent<Toggle>().isOn = false;
+                                    ttemp.transform.Find("Toggle").gameObject.SetActive(true);
+                                }
+
                             ttemp.GetComponent<Image>().raycastTarget = true;
                             ttemp.GetComponent<Image>().color = Color.white;
                             ttemp.transform.position = new Vector2(ttemp.transform.position.x, parentChildObj2.transform.position.y);
@@ -82,25 +84,47 @@ public class ScriptFolder : MonoBehaviour {
 
         insideObj.Clear();
         GameObject parentObj = thisObj;
+        if (thisObj == null) {
+            return;
+        }
+        int stackCnt = 1;
+
         bool isFound = true;
         while (isFound) {
             isFound = false;
             for (int i = 0; i < parentObj.transform.childCount; i++) {
-                if (parentObj.transform.GetChild(i).gameObject.name.Contains("=="))
+                GameObject temp = parentObj.transform.GetChild(i).gameObject;
+
+                if (temp.name.Contains("=="))
                     continue;
-                if (parentObj.transform.GetChild(i).gameObject.name.Contains("End"))
-                    continue;
-                if (parentObj.transform.GetChild(i).gameObject.name.Contains("Clone")) {
-                    insideObj.Add(parentObj.transform.GetChild(i).gameObject);
+
+                // stackCnt를 통해, if & loop의 짝을 맞춰 folding한다.
+                if (temp.name.Contains("If") || temp.name.Contains("Loop"))
+                    if (!temp.name.Contains("End"))
+                        stackCnt++;
+
+                if (temp.name.Contains("End"))
+                    stackCnt--;
+
+                if (stackCnt == 0)
+                    break;
+
+                if (temp.name.Contains("Clone")) {
+                    insideObj.Add(temp);
                     isFound = true;
-                    parentObj = parentObj.transform.GetChild(i).gameObject;
+                    parentObj = temp;
                     break;
                 }
             }
         }
+        if (stackCnt != 0) {
+            insideObj.Clear();
+            return;
+        }
+
         if (toggle.isOn)
             isFolding = true;
-        else 
+        else
             isFolding = false;
     }
 }
