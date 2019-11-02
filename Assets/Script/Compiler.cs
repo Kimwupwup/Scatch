@@ -260,7 +260,6 @@ public class Compiler : MonoBehaviour {
 
                 if (code.name == "BtnEndIf(Clone)") {
                     endIfIndex.Add(functions.Count - 1);
-                    Debug.Log("endif");
                 }
 
                 if (code.name == "BtnVariable=(Clone)") {
@@ -374,7 +373,6 @@ public class Compiler : MonoBehaviour {
             isCompiled = false;
         }
         else if (ifIndex.Count != endIfIndex.Count) {
-            Debug.Log(ifIndex.Count + " " + endIfIndex.Count);
             AlertError(2);
             ResetView();
             codesQueue.Clear();
@@ -470,22 +468,20 @@ public class Compiler : MonoBehaviour {
         string tempName = null;
         bool conditionFalse = false;
 
-        if (functions[currentIndex].transform.GetChild(2).name == "BtnCount(Clone)") {
-            conditionCnt = int.Parse(functions[currentIndex].transform.GetChild(2).GetChild(0).GetComponent<InputField>().text);
+        //if (functions[currentIndex].transform.GetChild(2).name == "BtnCount(Clone)") {
+        //    conditionCnt = int.Parse(functions[currentIndex].transform.GetChild(2).GetChild(0).GetComponent<InputField>().text);
 
-        }
-        else if (functions[currentIndex].transform.GetChild(3).name == "BtnCount(Clone)") {
-            conditionCnt = int.Parse(functions[currentIndex].transform.GetChild(3).GetChild(0).GetComponent<InputField>().text);
-        }
+        //}
+        //else if (functions[currentIndex].transform.GetChild(3).name == "BtnCount(Clone)") {
+        //    conditionCnt = int.Parse(functions[currentIndex].transform.GetChild(3).GetChild(0).GetComponent<InputField>().text);
+        //}
 
-        if (functions[currentIndex].transform.GetChild(2).name == "BtnVariable==(Clone)") {
-            tempName = functions[currentIndex].transform.GetChild(2).GetChild(0).GetComponent<InputField>().text;
-            conditionCnt = int.Parse(functions[currentIndex].transform.GetChild(2).GetChild(1).GetComponent<InputField>().text);
-
-        }
-        else if (functions[currentIndex].transform.GetChild(3).name == "BtnVariable==(Clone)") {
-            tempName = functions[currentIndex].transform.GetChild(3).GetChild(0).GetComponent<InputField>().text;
-            conditionCnt = int.Parse(functions[currentIndex].transform.GetChild(3).GetChild(1).GetComponent<InputField>().text);
+        for (int i = 0; i < functions[currentIndex].transform.childCount; i++) {
+            GameObject temp = functions[currentIndex].transform.GetChild(i).gameObject;
+            if (temp.name.Contains("==")) {
+                tempName = temp.transform.GetChild(0).GetComponent<InputField>().text;
+                conditionCnt = int.Parse(temp.transform.GetChild(1).GetComponent<InputField>().text);
+            }
         }
 
         if (tempName != null) {
@@ -545,7 +541,7 @@ public class Compiler : MonoBehaviour {
         for (int i = 0; i < varName.Count; i++) {
             if (functions[currentIndex].transform.GetChild(0).GetComponent<InputField>().text == varName[i]) {
                 varValue[i] = int.Parse(functions[currentIndex].transform.GetChild(1).GetComponent<InputField>().text);
-                Debug.Log("Info : " + varName[i] + "=" + varValue[i]);
+                Debug.Log($"Info: varName: {varName[i]}, varValue: {varValue[i]}");
                 break;
             }
         }
@@ -556,7 +552,7 @@ public class Compiler : MonoBehaviour {
         for (int i = 0; i < varName.Count; i++) {
             if (functions[currentIndex].transform.GetChild(0).GetComponent<InputField>().text == varName[i]) {
                 varValue[i]++;
-                Debug.Log("Info : " + varName[i] + "=" + varValue[i]);
+                Debug.Log($"Info: varName: {varName[i]}, varValue: {varValue[i]}");
                 break;
             }
         }
@@ -566,7 +562,7 @@ public class Compiler : MonoBehaviour {
     public void AlertError(int error) {
         GameObject errorPanel = GameObject.FindGameObjectWithTag("errorPanel");
         if (error == 0) {
-            Debug.Log("CNT is not defined!");
+            Debug.Log("VAR is not defined!");
             errorPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
             errorPanel.transform.GetChild(1).localEulerAngles = new Vector3(0, 90, 0);
             errorPanel.transform.GetChild(2).localEulerAngles = new Vector3(0, 90, 0);
