@@ -8506,9 +8506,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5a8f659cf2cdd94895b9eb7dcbf49ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  switchSpeed: 5
-  offColor: {r: 1, g: 0, b: 0, a: 1}
-  onColor: {r: 0, g: 0.1731019, b: 1, a: 1}
+  switchSpeed: 10
+  offColor: {r: 0.9150943, g: 0.27826747, b: 0.15970986, a: 1}
+  onColor: {r: 0.33490568, g: 0.8633368, b: 1, a: 1}
 --- !u!114 &1131292668516204296
 MonoBehaviour:
   m_ObjectHideFlags: 0
