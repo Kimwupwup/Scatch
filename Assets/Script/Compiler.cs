@@ -19,7 +19,7 @@ public class Compiler : MonoBehaviour {
     private SpriteRenderer playerSprite;
     private Transform playerTransform;
     private Animator playerAn;
-    private BtnDisable btnDisable;
+    // private BtnDisable btnDisable;
     private Scratch_Trigger scratchTrigger;
     private slaim_move jumpController;
 
@@ -45,7 +45,7 @@ public class Compiler : MonoBehaviour {
         playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playerSprite = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
         playerAn = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
-        btnDisable = GameObject.FindGameObjectWithTag("compiler").GetComponent<BtnDisable>();
+        // btnDisable = GameObject.FindGameObjectWithTag("compiler").GetComponent<BtnDisable>();
         coins = GameObject.FindGameObjectsWithTag("Coin");
         scratchTrigger = GameObject.FindGameObjectWithTag("Player").GetComponent<Scratch_Trigger>();
         jumpController = GameObject.FindGameObjectWithTag("Player").GetComponent<slaim_move>();
@@ -126,7 +126,7 @@ public class Compiler : MonoBehaviour {
                 frameCount = 0;
             }
             else {
-                if (isCompiled) btnDisable.ClickNone();
+                // if (isCompiled) btnDisable.ClickNone();
                 isMoving = false;
                 playerAn.SetBool("isMoving", false);
                 currentIndex = 0;

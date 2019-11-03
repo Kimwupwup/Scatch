@@ -29,6 +29,7 @@ public class MenuButton : MonoBehaviour
     private bool isSetCodePanel = false;
     private bool isSetViewPanel = false;
     private bool isTyping = false;
+    private bool isSlideClick = false;
 
     void Awake() {
         errorPanel = GameObject.FindGameObjectWithTag("errorPanel");
@@ -146,6 +147,36 @@ public class MenuButton : MonoBehaviour
             movePosition += 980;
         }
         //Debug.Log(codePanel.transform.position.y);
+    }
+
+    public void TurnOnOffMenu() {
+        if (!isSlideClick) {
+            isSlideClick = true;
+
+            // 메뉴창, 코드창 키우기(뷰창 줄이기)
+            isSetMenu = true;
+            isSetCodePanel = true;
+            isSetViewPanel = false;
+        } else {
+            isSlideClick = false;
+
+            // 이미 메뉴창이 꺼져있을 경우
+            if (isSetMenu == false) {                
+                // 뷰창 키우기(코드창 줄이기)
+                if (isSetViewPanel == false) {
+                    isSetViewPanel = true;
+                    isSetCodePanel = false;
+                }
+                else {    // 원래 상태로
+                    isSetViewPanel = false;
+                    isSetCodePanel = false;
+                }
+            }
+            else {    // 원래 상태로 (메뉴창 끄기)
+                isSetMenu = false;
+                isSetCodePanel = false;
+            }
+        }
     }
 
     public void TurnOnMenu() {
