@@ -15,12 +15,13 @@ public class Compiler : MonoBehaviour {
     GameObject[] coins;
 
     private bool isCompiled = false;
-    private Rigidbody2D player;
+    private Rigidbody2D playerRig;
     private SpriteRenderer playerSprite;
     private Transform playerTransform;
     private Animator playerAn;
     private BtnDisable btnDisable;
     private Scratch_Trigger scratchTrigger;
+    private slaim_move jumpController;
 
     private bool playerFlip = false;
     private Vector3 playerOrginPos;
@@ -40,13 +41,14 @@ public class Compiler : MonoBehaviour {
     private void Start() {
         playerFlip = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>().flipX;
         playerOrginPos = GameObject.FindGameObjectWithTag("Player").transform.position;
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+        playerRig = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playerSprite = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
         playerAn = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
         btnDisable = GameObject.FindGameObjectWithTag("compiler").GetComponent<BtnDisable>();
         coins = GameObject.FindGameObjectsWithTag("Coin");
         scratchTrigger = GameObject.FindGameObjectWithTag("Player").GetComponent<Scratch_Trigger>();
+        jumpController = GameObject.FindGameObjectWithTag("Player").GetComponent<slaim_move>();
     }
 
     // Update is called once per frame
@@ -73,6 +75,7 @@ public class Compiler : MonoBehaviour {
                     currentIndex--;
                 }
                 else if (functions[currentIndex].name == "BtnJump(Clone)") {
+                    if (jumpController.getIsJump() || playerRig.velocity.y != 0) return;
                     int cnt = 0;
                     for (int i = currentIndex; i < functions.Count; i++) {
                         if (functions[i].name == "BtnJump(Clone)") {
@@ -160,9 +163,9 @@ public class Compiler : MonoBehaviour {
         varName.Clear();
         varValue.Clear();
         loopSet.Clear();
-        player.velocity = Vector2.zero;
-        player.transform.position = playerOrginPos;
-        player.GetComponent<SpriteRenderer>().flipX = playerFlip;
+        playerRig.velocity = Vector2.zero;
+        playerRig.transform.position = playerOrginPos;
+        playerRig.GetComponent<SpriteRenderer>().flipX = playerFlip;
         GameObject.Find("Canvas").transform.Find("fail").gameObject.SetActive(false);
         GameObject.Find("Canvas").transform.Find("clear").gameObject.SetActive(false);
         GameObject.FindGameObjectWithTag("Player").GetComponent<Scratch_Trigger>().SetCount();
@@ -358,6 +361,13 @@ public class Compiler : MonoBehaviour {
                     code = code.transform.GetChild(2).gameObject;
                 }
                 else if (code.name == "BtnLoop(Clone)") {
+                    if (code.transform.childCount < 3) {
+                        AlertError(1);
+                        ResetView();
+                        codesQueue.Clear();
+                        isCompiled = false;
+                        return;
+                    }
                     code = code.transform.GetChild(2).gameObject;
                 }
                 else {
@@ -405,26 +415,26 @@ public class Compiler : MonoBehaviour {
         isMoving = true;
 
         if (playerSprite.flipX) {
-            targetPos = player.transform.position.x + (1f * cnt);
+            targetPos = playerRig.transform.position.x + (1f * cnt);
         }
         else {
-            targetPos = player.transform.position.x - (1f * cnt);
+            targetPos = playerRig.transform.position.x - (1f * cnt);
         }
         delayTime = 10;
     }
 
     public void FunctionJump(int cnt) {
         //playerAn.SetBool("isJumping", true);
-        player.AddForce(Vector2.up * (jumpPower + (cnt * 1.5f)), ForceMode2D.Impulse);
+        playerRig.AddForce(Vector2.up * (jumpPower + (cnt * 1.5f)), ForceMode2D.Impulse);
         delayTime = 1;
     }
 
     public void FunctionRotate() {
-        if (player.GetComponent<SpriteRenderer>().flipX == false) {
-            player.GetComponent<SpriteRenderer>().flipX = true;
+        if (playerRig.GetComponent<SpriteRenderer>().flipX == false) {
+            playerRig.GetComponent<SpriteRenderer>().flipX = true;
         }
         else {
-            player.GetComponent<SpriteRenderer>().flipX = false;
+            playerRig.GetComponent<SpriteRenderer>().flipX = false;
         }
         delayTime = 1;
     }

@@ -156,7 +156,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 170}
+  m_AnchoredPosition: {x: 0, y: 120}
   m_SizeDelta: {x: 660, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &960551102737773264
@@ -589,7 +589,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1536, y: 656}
+  m_SizeDelta: {x: 1344, y: 574}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &960551102863917102
 CanvasRenderer:
@@ -1614,7 +1614,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1536, y: 656}
+  m_SizeDelta: {x: 1344, y: 574}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &960551103234040640
 CanvasRenderer:
@@ -3479,7 +3479,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &960551103626533949
 GameObject:
   m_ObjectHideFlags: 0
@@ -4283,7 +4283,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_IsOn: 0
+  m_IsOn: 1
 --- !u!1 &960551103755679170
 GameObject:
   m_ObjectHideFlags: 0
@@ -4461,7 +4461,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 170}
+  m_AnchoredPosition: {x: 0, y: 120}
   m_SizeDelta: {x: 660, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &960551103757978063
@@ -5385,7 +5385,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 170}
+  m_AnchoredPosition: {x: 0, y: 120}
   m_SizeDelta: {x: 660, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &960551104025750575
@@ -8051,7 +8051,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1536, y: 656}
+  m_SizeDelta: {x: 1344, y: 574}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &960551104753570868
 CanvasRenderer:
@@ -9307,6 +9307,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 960551103516826305}
     m_Modifications:
+    - target: {fileID: 4349726073319807278, guid: 541510dd5b7b9594b8b1aef1f56333c8,
+        type: 3}
+      propertyPath: m_Name
+      value: BtnIf
+      objectReference: {fileID: 0}
     - target: {fileID: 4349726073319807273, guid: 541510dd5b7b9594b8b1aef1f56333c8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9421,11 +9426,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 4349726073319807278, guid: 541510dd5b7b9594b8b1aef1f56333c8,
-        type: 3}
-      propertyPath: m_Name
-      value: BtnIf
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 541510dd5b7b9594b8b1aef1f56333c8, type: 3}
@@ -9760,6 +9760,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 960551103516826305}
     m_Modifications:
+    - target: {fileID: 758856091990665042, guid: 91e8929bf173163488b208e2db0414dd,
+        type: 3}
+      propertyPath: m_Name
+      value: BtnEndLoop
+      objectReference: {fileID: 0}
     - target: {fileID: 758856091990665045, guid: 91e8929bf173163488b208e2db0414dd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9874,11 +9879,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 758856091990665042, guid: 91e8929bf173163488b208e2db0414dd,
-        type: 3}
-      propertyPath: m_Name
-      value: BtnEndLoop
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91e8929bf173163488b208e2db0414dd, type: 3}
@@ -10042,6 +10042,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 960551103516826305}
     m_Modifications:
+    - target: {fileID: 8681772044829728637, guid: 7f45ad125cb68ad41b29eb758a039c01,
+        type: 3}
+      propertyPath: m_Name
+      value: BtnMove
+      objectReference: {fileID: 0}
     - target: {fileID: 8681772044829728638, guid: 7f45ad125cb68ad41b29eb758a039c01,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10156,11 +10161,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 8681772044829728637, guid: 7f45ad125cb68ad41b29eb758a039c01,
-        type: 3}
-      propertyPath: m_Name
-      value: BtnMove
       objectReference: {fileID: 0}
     - target: {fileID: 5698645519066786263, guid: 7f45ad125cb68ad41b29eb758a039c01,
         type: 3}
@@ -10329,6 +10329,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 960551103516826305}
     m_Modifications:
+    - target: {fileID: 7698598746114235843, guid: b56b4282b6870054e9531f915bb4d76f,
+        type: 3}
+      propertyPath: m_Name
+      value: BtnEndIf
+      objectReference: {fileID: 0}
     - target: {fileID: 7698598746114235844, guid: b56b4282b6870054e9531f915bb4d76f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10443,11 +10448,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 7698598746114235843, guid: b56b4282b6870054e9531f915bb4d76f,
-        type: 3}
-      propertyPath: m_Name
-      value: BtnEndIf
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b56b4282b6870054e9531f915bb4d76f, type: 3}
