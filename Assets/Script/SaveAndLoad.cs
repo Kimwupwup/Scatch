@@ -33,13 +33,13 @@ public class SaveAndLoad : MonoBehaviour {
         functions.Clear();
         jsonList.Clear();
 
-        GameObject code = GameObject.FindGameObjectWithTag("codePanel");
+        GameObject code = GameObject.FindGameObjectWithTag("codePanel").transform.GetChild(1).gameObject;
         GameObject oldcode = null;
         List<GameObject> codesQueue = new List<GameObject>();
 
         // child[0] is "CODE" image.
         // For multiple code lines.
-        for (int i = 1; i < code.transform.childCount; i++) {
+        for (int i = 0; i < code.transform.childCount; i++) {
             codesQueue.Add(code.transform.GetChild(i).gameObject);
         }
 
@@ -98,7 +98,7 @@ public class SaveAndLoad : MonoBehaviour {
         Debug.Log("load");
         Jsondatas loaddatas = LoadJsonFile(Application.dataPath + "\\savefiles", SceneManager.GetActiveScene().name + "_save");
 
-        parentbutton = GameObject.FindGameObjectWithTag("codePanel");
+        parentbutton = GameObject.FindGameObjectWithTag("codePanel").transform.GetChild(1).gameObject;
         //Debug.Log(loaddatas.datas);
         for (int i = 0; i < loaddatas.datas.Length; i++) {
             Debug.Log(loaddatas.datas[i].name);
@@ -109,7 +109,7 @@ public class SaveAndLoad : MonoBehaviour {
                 }
             }
 
-            tmpButton = Instantiate(prefab, loaddatas.datas[i].v, Quaternion.identity, GameObject.FindGameObjectWithTag("codePanel").transform).gameObject;
+            tmpButton = Instantiate(prefab, loaddatas.datas[i].v, Quaternion.identity, GameObject.FindGameObjectWithTag("codePanel").transform.GetChild(1)).gameObject;
             if (tmpButton.name.Contains("If") || tmpButton.name.Contains("Loop"))
                 if (!tmpButton.name.Contains("End"))
                     ifLoopList.Add(tmpButton);
