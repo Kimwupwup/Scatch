@@ -120,7 +120,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1287654832770575422}
-        m_MethodName: Reset
+        m_MethodName: StageMap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3518,7 +3518,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_IsOn: 0
+  m_IsOn: 1
 --- !u!1 &960551103626533949
 GameObject:
   m_ObjectHideFlags: 0
@@ -4180,7 +4180,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &960551103757978059
 GameObject:
   m_ObjectHideFlags: 0
@@ -8966,7 +8966,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1758817667168713767}
-        m_MethodName: Reset
+        m_MethodName: StageMap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
