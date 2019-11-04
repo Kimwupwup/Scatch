@@ -181,10 +181,10 @@ public class Compiler : MonoBehaviour {
             isCompiled = false;
             return;
         }
-        GameObject code = GameObject.FindGameObjectWithTag("codePanel");
+        GameObject code = GameObject.FindGameObjectWithTag("codePanel").transform.GetChild(1).gameObject;
         List<GameObject> codesQueue = new List<GameObject>();
         GameObject temp;
-        for (int i = 1; i < code.transform.childCount; i++) {
+        for (int i = 0; i < code.transform.childCount; i++) {
             codesQueue.Add(code.transform.GetChild(i).gameObject);
         }
 

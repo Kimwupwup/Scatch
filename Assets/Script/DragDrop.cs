@@ -44,7 +44,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                     tmpButton.transform.parent.GetChild(1).gameObject.SetActive(true);
                 }
             } else {
-                if (!tmpButton.transform.parent.CompareTag("codePanel")) {
+                if (!tmpButton.transform.parent.parent.CompareTag("codePanel")) {
                     if (tmpButton.transform.parent.GetChild(0).CompareTag("child")) {
                         tmpButton.transform.parent.GetChild(0).gameObject.SetActive(true);
                     } else if (tmpButton.transform.parent.GetChild(1).CompareTag("child")) {
@@ -85,7 +85,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             Destroy(tmpButton);
             Debug.Log("Destroy");
         } else {
-            tmpButton.transform.SetParent(GameObject.FindGameObjectWithTag("codePanel").transform);
+            tmpButton.transform.SetParent(GameObject.FindGameObjectWithTag("codePanel").transform.GetChild(1));
             tmpButton.GetComponent<Image>().raycastTarget = true;
         }
 
