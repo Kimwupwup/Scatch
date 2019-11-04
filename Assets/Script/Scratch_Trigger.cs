@@ -6,18 +6,18 @@ using UnityEngine.UI;
 public class Scratch_Trigger : MonoBehaviour
 {
     private int count;
-    private BtnDisable btnDisable;
     private Text countText;
     private GameObject failPanel;
     private GameObject clearPanel;
+    private PlayToggle playToggle;
 
     // Start is called before the first frame update
     void Start()
     {
+        playToggle = GameObject.FindGameObjectWithTag("compiler").transform.GetChild(0).GetComponent<PlayToggle>();
         countText = GameObject.FindGameObjectWithTag("coinText").GetComponent<Text>();
         failPanel = GameObject.FindGameObjectWithTag("canvas").transform.Find("fail").gameObject;
         clearPanel = GameObject.FindGameObjectWithTag("canvas").transform.Find("clear").gameObject;
-        btnDisable = GameObject.FindGameObjectWithTag("compiler").GetComponent<BtnDisable>();
         count = 0;
         countText.text = count.ToString();
     }
@@ -32,7 +32,7 @@ public class Scratch_Trigger : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Fire") || other.gameObject.CompareTag("wall"))
         {
-            btnDisable.ClickBtnReset();
+            playToggle.OnMouseDown();
             Time.timeScale = 0;
             failPanel.SetActive(true);
         }
@@ -44,7 +44,7 @@ public class Scratch_Trigger : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Flag"))
         {
-            btnDisable.ClickBtnReset();
+            playToggle.OnMouseDown();
             Time.timeScale = 0;
             clearPanel.SetActive(true);
         }
