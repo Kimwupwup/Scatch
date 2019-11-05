@@ -89,7 +89,9 @@ public class SaveAndLoad : MonoBehaviour {
         String savedata = JsonUtility.ToJson(jsondatas);
 
         Debug.Log(savedata);
-        
+        Debug.Log(Application.dataPath);
+
+        //                              경로                 ,        파일이름                    ,  뭐저장하는지
         CreateJsonFile(Application.dataPath + "\\savefiles", SceneManager.GetActiveScene().name + "_save", savedata);
     }
 
