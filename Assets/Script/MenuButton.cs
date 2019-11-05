@@ -253,7 +253,7 @@ public class MenuButton : MonoBehaviour
     }
 
     public void ResetErrorMessage() {
-        btnDisable.ClickBtnReset();
+        // btnDisable.ClickBtnReset();
         errorPanel.GetComponent<RectTransform>().position = posErrorPanel;
     }
 }
