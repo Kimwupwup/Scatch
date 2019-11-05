@@ -6,6 +6,6 @@ public class NextScene : MonoBehaviour
 {
     public void MoveMainScene() {
         
-        SceneManager.LoadScene("main");
+        SceneManager.LoadScene("stage_map_01");
     }
 }
