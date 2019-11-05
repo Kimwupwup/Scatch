@@ -34,6 +34,7 @@ TagManager:
   - compiler
   - wall
   - coinText
+  - Stage
   layers:
   - Default
   - TransparentFX

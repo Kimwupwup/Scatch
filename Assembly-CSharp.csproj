@@ -81,6 +81,7 @@
     <Compile Include="Assets\Script\SetColor.cs" />
     <Compile Include="Assets\Script\Shadow.cs" />
     <Compile Include="Assets\Script\slaim_move.cs" />
+    <Compile Include="Assets\Script\StageButton.cs" />
     <Compile Include="Assets\Script\Trap_trigger.cs" />
     <Compile Include="Assets\Script\TriggerChildBlock.cs" />
     <Compile Include="Assets\Script\TriggerCodePanel.cs" />

@@ -120,7 +120,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1287654832770575422}
-        m_MethodName: Reset
+        m_MethodName: StageMap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9245,7 +9245,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1758817667168713767}
-        m_MethodName: Reset
+        m_MethodName: StageMap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
