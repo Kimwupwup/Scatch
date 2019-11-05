@@ -89,16 +89,18 @@ public class SaveAndLoad : MonoBehaviour {
         String savedata = JsonUtility.ToJson(jsondatas);
 
         Debug.Log(savedata);
-        Debug.Log(Application.dataPath);
+     //   Debug.Log(Application.dataPath);
+     //  Debug.Log(Application.persistentDataPath);
 
-        //                              경로                 ,        파일이름                    ,  뭐저장하는지
-        CreateJsonFile(Application.dataPath + "\\savefiles", SceneManager.GetActiveScene().name + "_save", savedata);
+    //    CreateJsonFile(Application.dataPath + "\\savefiles", SceneManager.GetActiveScene().name + "_save", savedata);
+        CreateJsonFile(Application.persistentDataPath, SceneManager.GetActiveScene().name + "_save", savedata);
     }
 
     public void load() {
 
-        Debug.Log("load");
-        Jsondatas loaddatas = LoadJsonFile(Application.dataPath + "\\savefiles", SceneManager.GetActiveScene().name + "_save");
+         Debug.Log("load");
+      //  Jsondatas loaddatas = LoadJsonFile(Application.dataPath + "\\savefiles", SceneManager.GetActiveScene().name + "_save");
+        Jsondatas loaddatas = LoadJsonFile(Application.persistentDataPath, SceneManager.GetActiveScene().name + "_save");
 
         parentbutton = GameObject.FindGameObjectWithTag("codePanel").transform.GetChild(1).gameObject;
         //Debug.Log(loaddatas.datas);

@@ -35,6 +35,7 @@ TagManager:
   - wall
   - coinText
   - Stage
+  - dog
   layers:
   - Default
   - TransparentFX
