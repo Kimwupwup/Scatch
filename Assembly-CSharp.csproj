@@ -62,7 +62,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\PlayToggle.cs" />
     <Compile Include="Assets\Script\BtnDisable.cs" />
     <Compile Include="Assets\Script\ButtonEvent.cs" />
     <Compile Include="Assets\Script\CodePanelScroll.cs" />
@@ -73,6 +72,8 @@
     <Compile Include="Assets\Script\follow_object.cs" />
     <Compile Include="Assets\Script\MenuButton.cs" />
     <Compile Include="Assets\Script\NextScene.cs" />
+    <Compile Include="Assets\Script\PlayToggle.cs" />
+    <Compile Include="Assets\Script\PreviewScrollBar.cs" />
     <Compile Include="Assets\Script\Resolution.cs" />
     <Compile Include="Assets\Script\SaveAndLoad.cs" />
     <Compile Include="Assets\Script\Scratch_Trigger.cs" />
