@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Assets\Script\BtnDisable.cs" />
     <Compile Include="Assets\Script\ButtonEvent.cs" />
+    <Compile Include="Assets\Script\CameraControl.cs" />
     <Compile Include="Assets\Script\CodePanelScroll.cs" />
     <Compile Include="Assets\Script\Compiler.cs" />
     <Compile Include="Assets\Script\Controller.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Assets\Script\Trap_trigger.cs" />
     <Compile Include="Assets\Script\TriggerChildBlock.cs" />
     <Compile Include="Assets\Script\TriggerCodePanel.cs" />
+    <Compile Include="Assets\Script\ViewPanelPointerHandle.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Git/Scratch_Mobile/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

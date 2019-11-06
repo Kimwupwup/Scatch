@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class follow_object : MonoBehaviour
 {
     public GameObject obj;
     public Vector3 offset;
-
+    
     private Transform objTransform;
 
     // Start is called before the first frame update

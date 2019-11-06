@@ -100,6 +100,7 @@ public class Compiler : MonoBehaviour {
                     FunctionRotate();
                 }
                 else if (functions[currentIndex].name == "BtnLoop(Clone)") {
+                    if (jumpController.getIsJump() || playerRig.velocity.y != 0) return;
                     FunctionLoop();
                 }
                 else if (functions[currentIndex].name == "BtnEndLoop(Clone)") {
