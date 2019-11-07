@@ -38,6 +38,7 @@ TagManager:
   - dog
   - cameraControl
   - viewPanel
+  - codePanelSlider
   layers:
   - Default
   - TransparentFX
