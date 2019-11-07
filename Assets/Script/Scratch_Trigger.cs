@@ -45,6 +45,7 @@ public class Scratch_Trigger : MonoBehaviour
         else if (other.gameObject.CompareTag("Flag"))
         {
             playToggle.OnMouseDown();
+            GameObject.Find("Canvas").GetComponent<StageSaveAndLoad>().Save();
             Time.timeScale = 0;
             clearPanel.SetActive(true);
         }

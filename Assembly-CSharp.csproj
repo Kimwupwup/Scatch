@@ -84,6 +84,7 @@
     <Compile Include="Assets\Script\slaim_move.cs" />
     <Compile Include="Assets\Script\StageButton.cs" />
     <Compile Include="Assets\Script\StageMapPaging.cs" />
+    <Compile Include="Assets\Script\StageSaveAndLoad.cs" />
     <Compile Include="Assets\Script\Trap_trigger.cs" />
     <Compile Include="Assets\Script\TriggerChildBlock.cs" />
     <Compile Include="Assets\Script\TriggerCodePanel.cs" />
@@ -276,9 +277,6 @@
     </Reference>
     <Reference Include="Unity.Locator">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/Managed/Unity.Locator.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>C:/Users/82107/Desktop/Scratch/Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
