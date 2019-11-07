@@ -14,7 +14,6 @@ public class MenuButton : MonoBehaviour
     private GameObject settingPanel;
     private GameObject exitPanel;
 
-    private Slider slider;
     private BtnDisable btnDisable;
 
     private float movePosition;
@@ -34,7 +33,6 @@ public class MenuButton : MonoBehaviour
     private bool isSlideClick = false;
 
     void Awake() {
-        slider = GameObject.FindGameObjectWithTag("codePanelSlider").GetComponent<Slider>();
         errorPanel = GameObject.FindGameObjectWithTag("errorPanel");
         pausePanel = GameObject.FindGameObjectWithTag("pausePanel");
         settingPanel = GameObject.FindGameObjectWithTag("settingPanel");
@@ -222,20 +220,6 @@ public class MenuButton : MonoBehaviour
         }
     }
 
-    public void CodePanelControl() {
-        if (slider.value == 1) {
-            isSetCodePanel = false;
-            isSetViewPanel = false;
-        }
-        else if (slider.value == 2) {
-            isSetCodePanel = true;
-            isSetViewPanel = false;
-        } else if (slider.value == 0) {
-            isSetViewPanel = false;
-            isSetViewPanel = true;
-        }
-    }
-    
     public void IsExit() {
         exitPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
         pausePanel.GetComponent<RectTransform>().position = posPausePanel;

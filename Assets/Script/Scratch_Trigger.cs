@@ -32,7 +32,6 @@ public class Scratch_Trigger : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Fire") || other.gameObject.CompareTag("wall"))
         {
-            playToggle.OnMouseDown();
             Time.timeScale = 0;
             failPanel.SetActive(true);
         }
@@ -44,7 +43,6 @@ public class Scratch_Trigger : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Flag"))
         {
-            playToggle.OnMouseDown();
             Time.timeScale = 0;
             clearPanel.SetActive(true);
         }
