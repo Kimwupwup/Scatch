@@ -44,12 +44,13 @@ public class CameraControl : MonoBehaviour {
                 else if (touch.phase == TouchPhase.Moved) {                     //움직이고 있다면
                     curPos = touch.position - touch.deltaPosition;
                     movePos = (prevPos - curPos) * speed * Time.deltaTime;
-
-                    came.transform.Translate(movePos);
-                    prevPos = touch.position - touch.deltaPosition;
+                    if (movePos.x < 1 && movePos.x > -1 && movePos.y < 1 && movePos.y > -1) {
+                        came.transform.Translate(movePos);
+                        prevPos = touch.position - touch.deltaPosition;
+                    }
                 }
             }
-            if (viewPanel.cnt == 2) {                                                       //줌 인 아웃!
+            else if (viewPanel.cnt == 2) {                                                       //줌 인 아웃!
                 curPos = Input.GetTouch(0).position - Input.GetTouch(1).position;
                 prevPos = ((Input.GetTouch(0).position - Input.GetTouch(0).deltaPosition)
                         - (Input.GetTouch(1).position - Input.GetTouch(1).deltaPosition));  //여기까지는 지금 포스와 전 포스의 거리 차를 구하는 걸로 이해된다.
