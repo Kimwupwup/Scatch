@@ -19,9 +19,9 @@ public class Compiler : MonoBehaviour {
     private SpriteRenderer playerSprite;
     private Transform playerTransform;
     private Animator playerAn;
-    // private BtnDisable btnDisable;
     private Scratch_Trigger scratchTrigger;
     private slaim_move jumpController;
+    private GameObject failPanel;
 
     private bool playerFlip = false;
     private Vector3 playerOrginPos;
@@ -38,6 +38,8 @@ public class Compiler : MonoBehaviour {
     public bool isResetView = false;
     public float moveSpeed = 1;
     private float jumpPower = 4.5f;
+    private float timer = 0f;
+
     private void Start() {
         playerFlip = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>().flipX;
         playerOrginPos = GameObject.FindGameObjectWithTag("Player").transform.position;
@@ -45,19 +47,24 @@ public class Compiler : MonoBehaviour {
         playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playerSprite = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
         playerAn = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
-        // btnDisable = GameObject.FindGameObjectWithTag("compiler").GetComponent<BtnDisable>();
         coins = GameObject.FindGameObjectsWithTag("Coin");
         scratchTrigger = GameObject.FindGameObjectWithTag("Player").GetComponent<Scratch_Trigger>();
         jumpController = GameObject.FindGameObjectWithTag("Player").GetComponent<slaim_move>();
+        failPanel = GameObject.FindGameObjectWithTag("canvas").transform.Find("fail").gameObject;
     }
 
     // Update is called once per frame
     void Update() {
         if (isMoving) {
+            timer += Time.deltaTime;
+            if (timer > 3f) {
+                failPanel.SetActive(true);
+                Time.timeScale = 0;
+            }
             run();
             return;
         }
-
+        timer = 0f;
         frameCount++;
         if (frameCount % delayTime == 0) {
             if (isCompiled == true && currentIndex < functions.Count) {
@@ -93,6 +100,7 @@ public class Compiler : MonoBehaviour {
                     FunctionRotate();
                 }
                 else if (functions[currentIndex].name == "BtnLoop(Clone)") {
+                    if (jumpController.getIsJump() || playerRig.velocity.y != 0) return;
                     FunctionLoop();
                 }
                 else if (functions[currentIndex].name == "BtnEndLoop(Clone)") {
@@ -126,7 +134,6 @@ public class Compiler : MonoBehaviour {
                 frameCount = 0;
             }
             else {
-                // if (isCompiled) btnDisable.ClickNone();
                 isMoving = false;
                 playerAn.SetBool("isMoving", false);
                 currentIndex = 0;

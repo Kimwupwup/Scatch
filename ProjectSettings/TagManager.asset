@@ -36,7 +36,8 @@ TagManager:
   - coinText
   - Stage
   - dog
-  - video
+  - cameraControl
+  - viewPanel
   layers:
   - Default
   - TransparentFX

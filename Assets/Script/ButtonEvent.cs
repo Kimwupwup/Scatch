@@ -7,8 +7,10 @@ public class ButtonEvent : MonoBehaviour
 {
     public void Reset()
     {
-        Compiler compiler = GameObject.FindGameObjectWithTag("compiler").GetComponent<Compiler>();
-        compiler.ResetView();
+        PlayToggle toggle = GameObject.FindGameObjectWithTag("compiler").transform.GetChild(0).GetComponent<PlayToggle>();
+        toggle.OnMouseDown();
+        //Compiler compiler = GameObject.FindGameObjectWithTag("compiler").GetComponent<Compiler>();
+        //compiler.ResetView();
         Time.timeScale = 1;
     }
 
