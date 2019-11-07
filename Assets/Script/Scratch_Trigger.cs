@@ -43,11 +43,7 @@ public class Scratch_Trigger : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Flag"))
         {
-<<<<<<< HEAD
-=======
-            playToggle.OnMouseDown();
             GameObject.Find("Canvas").GetComponent<StageSaveAndLoad>().Save();
->>>>>>> nEw_BrAnCh_nO01
             Time.timeScale = 0;
             clearPanel.SetActive(true);
         }
