@@ -85,6 +85,7 @@
     <Compile Include="Assets\Script\slaim_move.cs" />
     <Compile Include="Assets\Script\StageButton.cs" />
     <Compile Include="Assets\Script\StageMapPaging.cs" />
+    <Compile Include="Assets\Script\StageSaveAndLoad.cs" />
     <Compile Include="Assets\Script\Trap_trigger.cs" />
     <Compile Include="Assets\Script\TriggerChildBlock.cs" />
     <Compile Include="Assets\Script\TriggerCodePanel.cs" />

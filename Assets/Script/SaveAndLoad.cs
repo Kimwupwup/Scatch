@@ -8,7 +8,7 @@ using System.Text;
 using System;
 
 public class SaveAndLoad : MonoBehaviour {
-
+    
     public List<GameObject> obj;                        // Function blocks preb
 
     public Jsondatas jsondatas;
@@ -21,12 +21,11 @@ public class SaveAndLoad : MonoBehaviour {
 
     private GameObject tmpButton;                       // New function block object
     private GameObject parentbutton;                    // Parent object of current object
-
+    
     /// <summary>
     /// Event : click on save button
     /// </summary>
     public void Save() {
-
         Debug.Log("save");
 
         // Clear functions list and json list.(Reset)
