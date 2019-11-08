@@ -8,7 +8,6 @@ public class CameraControl : MonoBehaviour {
     public Vector3 offset;
     private Transform objTransform;
     private Camera came;
-    private Text coin;
     private bool isFreeView = false;
 
     private ViewPanelPointerHandle viewPanel;
@@ -23,7 +22,6 @@ public class CameraControl : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        coin = GameObject.FindGameObjectWithTag("coinText").GetComponent<Text>();
         objTransform = GameObject.FindGameObjectWithTag("Player").transform;
         came = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         viewPanel = GameObject.FindGameObjectWithTag("viewPanel").GetComponent<ViewPanelPointerHandle>();

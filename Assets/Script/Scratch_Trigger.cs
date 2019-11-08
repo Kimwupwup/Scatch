@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class Scratch_Trigger : MonoBehaviour
 {
-    private int count;
-    private Text countText;
     private GameObject failPanel;
     private GameObject clearPanel;
     private PlayToggle playToggle;
@@ -15,17 +13,8 @@ public class Scratch_Trigger : MonoBehaviour
     void Start()
     {
         playToggle = GameObject.FindGameObjectWithTag("compiler").transform.GetChild(0).GetComponent<PlayToggle>();
-        countText = GameObject.FindGameObjectWithTag("coinText").GetComponent<Text>();
         failPanel = GameObject.FindGameObjectWithTag("canvas").transform.Find("fail").gameObject;
         clearPanel = GameObject.FindGameObjectWithTag("canvas").transform.Find("clear").gameObject;
-        count = 0;
-        countText.text = count.ToString();
-    }
-
-    public void SetCount()
-    {
-        count = 0;
-        countText.text = count.ToString();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -34,12 +23,6 @@ public class Scratch_Trigger : MonoBehaviour
         {
             Time.timeScale = 0;
             failPanel.SetActive(true);
-        }
-        else if (other.gameObject.CompareTag("Coin"))
-        {
-            other.gameObject.SetActive(false);
-            count = count + 1;
-            countText.text = count.ToString();
         }
         else if (other.gameObject.CompareTag("Flag"))
         {

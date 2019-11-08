@@ -13,7 +13,6 @@ public class GoalFlagLoading : MonoBehaviour
     private Image fill;
     private GameObject[] subFlags;
     private BoxCollider2D col;
-    private bool isAllClear = false;
 
     // Start is called before the first frame update
     void Start() {
@@ -54,8 +53,11 @@ public class GoalFlagLoading : MonoBehaviour
         }
         if (slider.value == slider.maxValue) {
             fill.color = Color.Lerp(fill.color, targetColor, Time.deltaTime);
-            isAllClear = true;
             col.enabled = true;
+        }
+        else {
+            fill.color = originColor;
+            col.enabled = false;
         }
     }
 }

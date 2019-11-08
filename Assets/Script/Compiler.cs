@@ -12,7 +12,6 @@ public class Compiler : MonoBehaviour {
     private List<int> endIfIndex = new List<int>();
     private List<string> varName = new List<string>();
     private List<int> varValue = new List<int>();
-    GameObject[] coins;
     private GameObject[] subFlags;
 
     private bool isCompiled = false;
@@ -20,7 +19,6 @@ public class Compiler : MonoBehaviour {
     private SpriteRenderer playerSprite;
     private Transform playerTransform;
     private Animator playerAn;
-    private Scratch_Trigger scratchTrigger;
     private slaim_move jumpController;
     private GameObject failPanel;
 
@@ -48,8 +46,6 @@ public class Compiler : MonoBehaviour {
         playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playerSprite = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
         playerAn = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
-        coins = GameObject.FindGameObjectsWithTag("Coin");
-        scratchTrigger = GameObject.FindGameObjectWithTag("Player").GetComponent<Scratch_Trigger>();
         jumpController = GameObject.FindGameObjectWithTag("Player").GetComponent<slaim_move>();
         failPanel = GameObject.FindGameObjectWithTag("canvas").transform.Find("fail").gameObject;
         subFlags = GameObject.FindGameObjectsWithTag("SubFlag");
@@ -177,15 +173,9 @@ public class Compiler : MonoBehaviour {
         playerRig.GetComponent<SpriteRenderer>().flipX = playerFlip;
         GameObject.Find("Canvas").transform.Find("fail").gameObject.SetActive(false);
         GameObject.Find("Canvas").transform.Find("clear").gameObject.SetActive(false);
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Scratch_Trigger>().SetCount();
-        for (int i = 0; i < coins.Length; i++)           //Coin 재생성
-        {
-            coins[i].SetActive(true);
-        }
         foreach (GameObject temp in subFlags) {
             temp.GetComponent<SubFlagLoading>().SetZeroSliderValue();
         }
-        scratchTrigger.SetCount();
     }
 
     public void Compiling() {

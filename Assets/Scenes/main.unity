@@ -1900,6 +1900,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1505447590457804057, guid: 2e22c8bc1071c06499a5deb7f21d58bb,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5254941563864289491, guid: 2e22c8bc1071c06499a5deb7f21d58bb,
         type: 3}
       propertyPath: m_TagString

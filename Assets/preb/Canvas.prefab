@@ -7982,7 +7982,7 @@ GameObject:
   - component: {fileID: 5917441616327952697}
   - component: {fileID: 1505447590457804057}
   m_Layer: 5
-  m_Name: Button
+  m_Name: CameraButton
   m_TagString: cameraControl
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
