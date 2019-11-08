@@ -7,6 +7,7 @@ public class MapStageUpdate : MonoBehaviour
 {
     public Button btnLeft;
     public Button btnRight;
+    public Button btnJump;
     public GameObject stageSet;
 
     private GameObject player;
@@ -22,6 +23,7 @@ public class MapStageUpdate : MonoBehaviour
     {
         btnLeft.onClick.AddListener(BtnLeftOnClick);
         btnRight.onClick.AddListener(BtnRightOnClick);
+        btnJump.onClick.AddListener(BtnJumpOnClick);
         came = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         player = GameObject.FindGameObjectWithTag("Player");
         maxIdx = stageSet.transform.childCount;
@@ -47,5 +49,11 @@ public class MapStageUpdate : MonoBehaviour
         player.GetComponent<SpriteRenderer>().flipX = true;
         if (currentIdx < maxIdx - 1)
             currentIdx++;
+    }
+
+    public void BtnJumpOnClick() {
+        Rigidbody2D playerRig = player.GetComponent<Rigidbody2D>();
+        if (playerRig.velocity.y == 0)
+            playerRig.AddForce(Vector2.up * 7f, ForceMode2D.Impulse);
     }
 }

@@ -25,7 +25,7 @@ public class ButtonEvent : MonoBehaviour
 
     public void StageMap()  // Stage Map1 창으로 이동(임시)
     {
-        SceneManager.LoadScene("stage_map_01");
+        SceneManager.LoadScene("stage_map_update");
         Time.timeScale = 1;
     }
 

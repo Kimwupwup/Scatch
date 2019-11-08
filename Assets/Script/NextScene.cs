@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class NextScene : MonoBehaviour
 {
     public void MoveMainScene() {
-        SceneManager.LoadScene("stage_map_01");
+        SceneManager.LoadScene("stage_map_update");
         //SceneManager.LoadScene("test");
     }
 }
