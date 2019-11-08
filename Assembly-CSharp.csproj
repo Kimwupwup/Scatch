@@ -71,6 +71,7 @@
     <Compile Include="Assets\Script\DragDrop.cs" />
     <Compile Include="Assets\Script\flagTrigger.cs" />
     <Compile Include="Assets\Script\follow_object.cs" />
+    <Compile Include="Assets\Script\GoalFlagLoading.cs" />
     <Compile Include="Assets\Script\MapStageUpdate.cs" />
     <Compile Include="Assets\Script\MenuButton.cs" />
     <Compile Include="Assets\Script\NextScene.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Assets\Script\StageButton.cs" />
     <Compile Include="Assets\Script\StageMapPaging.cs" />
     <Compile Include="Assets\Script\StageSaveAndLoad.cs" />
+    <Compile Include="Assets\Script\SubFlagLoading.cs" />
     <Compile Include="Assets\Script\Trap_trigger.cs" />
     <Compile Include="Assets\Script\TriggerChildBlock.cs" />
     <Compile Include="Assets\Script\TriggerCodePanel.cs" />

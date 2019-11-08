@@ -13,6 +13,7 @@ public class Compiler : MonoBehaviour {
     private List<string> varName = new List<string>();
     private List<int> varValue = new List<int>();
     GameObject[] coins;
+    private GameObject[] subFlags;
 
     private bool isCompiled = false;
     private Rigidbody2D playerRig;
@@ -51,6 +52,7 @@ public class Compiler : MonoBehaviour {
         scratchTrigger = GameObject.FindGameObjectWithTag("Player").GetComponent<Scratch_Trigger>();
         jumpController = GameObject.FindGameObjectWithTag("Player").GetComponent<slaim_move>();
         failPanel = GameObject.FindGameObjectWithTag("canvas").transform.Find("fail").gameObject;
+        subFlags = GameObject.FindGameObjectsWithTag("SubFlag");
     }
 
     // Update is called once per frame
@@ -179,6 +181,9 @@ public class Compiler : MonoBehaviour {
         for (int i = 0; i < coins.Length; i++)           //Coin 재생성
         {
             coins[i].SetActive(true);
+        }
+        foreach (GameObject temp in subFlags) {
+            temp.GetComponent<SubFlagLoading>().SetZeroSliderValue();
         }
         scratchTrigger.SetCount();
     }

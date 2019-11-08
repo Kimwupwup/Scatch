@@ -39,6 +39,7 @@ TagManager:
   - cameraControl
   - viewPanel
   - codePanelSlider
+  - SubFlag
   layers:
   - Default
   - TransparentFX
