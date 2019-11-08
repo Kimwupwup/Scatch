@@ -9,9 +9,14 @@ public class MapStageUpdate : MonoBehaviour
     public Button btnRight;
     public Button btnJump;
     public GameObject stageSet;
+    public GameObject stageCheckMessage;
+    public Sprite[] numbers;
 
     private GameObject player;
     private Camera came;
+
+    private Button btnYes;
+    private Button btnNo;
 
     private Vector3 targetPos;
 
@@ -24,8 +29,16 @@ public class MapStageUpdate : MonoBehaviour
         btnLeft.onClick.AddListener(BtnLeftOnClick);
         btnRight.onClick.AddListener(BtnRightOnClick);
         btnJump.onClick.AddListener(BtnJumpOnClick);
+
+        // 버튼 이름이 바뀔 수 있음.
+        btnYes = stageCheckMessage.transform.Find("BtnConfirm").GetComponent<Button>();
+        btnNo = stageCheckMessage.transform.Find("BtnCancel").GetComponent<Button>();
+        btnYes.onClick.AddListener(BtnYesOnClick);
+        btnNo.onClick.AddListener(BtnNoOnClick);
+
         came = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         player = GameObject.FindGameObjectWithTag("Player");
+
         maxIdx = stageSet.transform.childCount;
     }
 
@@ -52,8 +65,17 @@ public class MapStageUpdate : MonoBehaviour
     }
 
     public void BtnJumpOnClick() {
+        stageCheckMessage.transform.Find("stageNumber").GetComponent<Image>().sprite = numbers[currentIdx + 1];
+        stageCheckMessage.SetActive(true);
+    }
+
+    public void BtnYesOnClick() {
+        stageCheckMessage.SetActive(false);
         Rigidbody2D playerRig = player.GetComponent<Rigidbody2D>();
-        if (playerRig.velocity.y == 0)
-            playerRig.AddForce(Vector2.up * 7f, ForceMode2D.Impulse);
+        playerRig.AddForce(Vector2.up * 7f, ForceMode2D.Impulse);
+    }
+
+    public void BtnNoOnClick() {
+        stageCheckMessage.SetActive(false);
     }
 }
