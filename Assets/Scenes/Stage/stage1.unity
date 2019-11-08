@@ -1940,24 +1940,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!1 &1369024847 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 960551103472012903, guid: 2e22c8bc1071c06499a5deb7f21d58bb,
-    type: 3}
-  m_PrefabInstance: {fileID: 602352571}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1369024852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1369024847}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dffcfc6565402ba49818b36b48fd612c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1532206673
 PrefabInstance:
   m_ObjectHideFlags: 0
