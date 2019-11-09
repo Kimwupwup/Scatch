@@ -43,6 +43,18 @@ public class MapStageUpdate : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
 
         maxIdx = stageSet.transform.childCount;
+
+        // 현재까지 깬 Stage 가져옴
+        currentIdx = GameObject.Find("Canvas").GetComponent<StageSaveAndLoad>().curScene;
+
+        // Lock 기능(깬 스테이지 까지만 열림)
+        for(int i=0;i<currentIdx;i++)
+        {
+            stageSet.transform.Find("stage" + (i + 1).ToString()).GetChild(2).gameObject.SetActive(false);
+        }
+
+        // 마지막 라운드 클리어시 오류 예외처리
+        if (currentIdx >= maxIdx) currentIdx -= 1;
     }
 
     // Update is called once per frame
@@ -64,6 +76,7 @@ public class MapStageUpdate : MonoBehaviour
         player.GetComponent<SpriteRenderer>().flipX = false;
         if (currentIdx > 0)
             currentIdx--;
+        else currentIdx = maxIdx - 1;    // First -> Last  
     }
 
     /// <summary>
@@ -74,6 +87,7 @@ public class MapStageUpdate : MonoBehaviour
         player.GetComponent<SpriteRenderer>().flipX = true;
         if (currentIdx < maxIdx - 1)
             currentIdx++;
+        else currentIdx = 0;        //  Last -> First
     }
 
     /// <summary>
