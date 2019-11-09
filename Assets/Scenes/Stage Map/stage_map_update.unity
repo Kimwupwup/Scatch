@@ -2953,6 +2953,11 @@ PrefabInstance:
       propertyPath: countText
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 202726821868325151, guid: 56233a93da486eb4d8f3860996db2249,
+        type: 3}
+      propertyPath: jumpPower
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 202726821868325148, guid: 56233a93da486eb4d8f3860996db2249, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 56233a93da486eb4d8f3860996db2249, type: 3}

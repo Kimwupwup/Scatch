@@ -37,7 +37,7 @@ public class slaim_move : MonoBehaviour {
             Jump();
         }
 
-        this.transform.position += movement * 2f * Time.deltaTime;
+        this.transform.position += movement * 4f * Time.deltaTime;
         move = 0;
     }
 

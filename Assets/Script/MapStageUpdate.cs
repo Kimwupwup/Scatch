@@ -48,7 +48,7 @@ public class MapStageUpdate : MonoBehaviour {
         clearIdx = GameObject.Find("Canvas").GetComponent<StageSaveAndLoad>().curScene;
 
         // Lock 기능(깬 스테이지 까지만 열림)
-        for (int i = 0; i < clearIdx; i++) {
+        for (int i = 0; i < clearIdx - 1; i++) {
             stageSet.transform.GetChild(i).GetChild(2).gameObject.SetActive(false);
             stageSet.transform.GetChild(i).GetComponent<BoxCollider2D>().enabled = true;
         }
