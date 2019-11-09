@@ -47,15 +47,16 @@ public class MapStageUpdate : MonoBehaviour {
         currentIdx = GameObject.Find("Canvas").GetComponent<StageSaveAndLoad>().quitScene - 1;
         clearIdx = GameObject.Find("Canvas").GetComponent<StageSaveAndLoad>().curScene;
 
+        // 마지막 라운드 클리어시 오류 예외처리
+        if (clearIdx >= maxIdx) clearIdx -= 1;
+
         // Lock 기능(깬 스테이지 까지만 열림)
-        for (int i = 0; i < clearIdx - 1; i++) {
+        for (int i = 0; i < clearIdx; i++) {
             stageSet.transform.GetChild(i).GetChild(2).gameObject.SetActive(false);
             stageSet.transform.GetChild(i).GetComponent<BoxCollider2D>().enabled = true;
         }
 
-        // 마지막 라운드 클리어시 오류 예외처리
-        if (currentIdx >= maxIdx) currentIdx -= 1;
-
+        
         // 초기화면을 해당 스테이지로 이동
         GameObject currentStage = stageSet.transform.GetChild(currentIdx).gameObject;
         targetPos.y = came.transform.position.y;
