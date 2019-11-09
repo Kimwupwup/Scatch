@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class MenuButton : MonoBehaviour
-{
+public class MenuButton : MonoBehaviour {
     public float speed = 1;
 
     private GameObject menuPanel;
@@ -13,8 +13,6 @@ public class MenuButton : MonoBehaviour
     private GameObject errorPanel;
     private GameObject settingPanel;
     private GameObject exitPanel;
-
-    private BtnDisable btnDisable;
 
     private float movePosition;
     private float prevPosition;
@@ -33,26 +31,49 @@ public class MenuButton : MonoBehaviour
     private bool isSlideClick = false;
 
     void Awake() {
-        errorPanel = GameObject.FindGameObjectWithTag("errorPanel");
-        pausePanel = GameObject.FindGameObjectWithTag("pausePanel");
-        settingPanel = GameObject.FindGameObjectWithTag("settingPanel");
+        pausePanel = GameObject.FindGameObjectWithTag("pausePanel");        
         exitPanel = GameObject.FindGameObjectWithTag("exitPanel");
-        menuPanel = GameObject.FindGameObjectWithTag("menuPanel");
-        codePanel = GameObject.FindGameObjectWithTag("codePanel");
-        btnDisable = GameObject.FindGameObjectWithTag("compiler").GetComponent<BtnDisable>();
-        posMenuPanel = menuPanel.transform.position;
         posPausePanel = pausePanel.transform.position;
-        posErrorPanel = errorPanel.transform.position;
+
+        if (SceneManager.GetActiveScene().name != "stage_map_update") {
+            settingPanel = GameObject.FindGameObjectWithTag("settingPanel");
+            errorPanel = GameObject.FindGameObjectWithTag("errorPanel");
+            menuPanel = GameObject.FindGameObjectWithTag("menuPanel");
+            codePanel = GameObject.FindGameObjectWithTag("codePanel");
+            posMenuPanel = menuPanel.transform.position;
+            posErrorPanel = errorPanel.transform.position;
+        }
+
 
         //pausePanel.SetActive(false);
     }
 
     void Start() {
-        
+        if (SceneManager.GetActiveScene().name == "stage_map_update") return;
         menuPanelWidth = menuPanel.GetComponent<RectTransform>().sizeDelta.x;
         codePanelHeight = codePanel.GetComponent<RectTransform>().sizeDelta.y;
     }
+
     void Update() {
+
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (pausePanel.GetComponent<RectTransform>().anchoredPosition == Vector2.zero) {
+                pausePanel.GetComponent<RectTransform>().position = posPausePanel;
+            }
+            else {
+                pausePanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);                
+                exitPanel.GetComponent<RectTransform>().position = posPausePanel;
+                if (SceneManager.GetActiveScene().name == "stage_map_update") return;
+                settingPanel.GetComponent<RectTransform>().position = posPausePanel;
+                GameObject.FindGameObjectWithTag("viewColor").GetComponent<SetColor>().ResetValue();
+                GameObject.FindGameObjectWithTag("codeColor").GetComponent<SetColor>().ResetValue();
+
+            }
+
+            //pausePanel.SetActive(true);
+        }
+
+        if (SceneManager.GetActiveScene().name == "stage_map_update") return;
 
         // 메뉴창 켜기
         if (isSetMenu == true) {
@@ -70,8 +91,8 @@ public class MenuButton : MonoBehaviour
 
         // 코드창 키우기(타이핑중일때)
         if (isSetCodePanel == true && isTyping == true) {
-            codePanel.transform.position = Vector3.Lerp(codePanel.transform.position, 
-                new Vector2(codePanel.transform.position.x, Screen.height/2 - movePosition), 
+            codePanel.transform.position = Vector3.Lerp(codePanel.transform.position,
+                new Vector2(codePanel.transform.position.x, Screen.height / 2 - movePosition),
                 Time.deltaTime * speed);
 
             //GameObject.FindGameObjectWithTag("ground").transform.position =
@@ -81,8 +102,8 @@ public class MenuButton : MonoBehaviour
 
         // 코드창 키우기
         if (isSetCodePanel == true && isTyping == false) {
-            codePanel.transform.position = Vector3.Lerp(codePanel.transform.position, 
-                new Vector2(codePanel.transform.position.x, Screen.height / 3), 
+            codePanel.transform.position = Vector3.Lerp(codePanel.transform.position,
+                new Vector2(codePanel.transform.position.x, Screen.height / 3),
                 Time.deltaTime * speed);
 
             //GameObject.FindGameObjectWithTag("ground").transform.position =
@@ -105,21 +126,6 @@ public class MenuButton : MonoBehaviour
             //    Vector3.Lerp(GameObject.FindGameObjectWithTag("ground").transform.position,
             //    new Vector3(0, -8.33f, 0), Time.deltaTime * speed);
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            if (pausePanel.GetComponent<RectTransform>().anchoredPosition == Vector2.zero) {
-                pausePanel.GetComponent<RectTransform>().position = posPausePanel;
-            } else {
-                pausePanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
-                settingPanel.GetComponent<RectTransform>().position = posPausePanel;
-                exitPanel.GetComponent<RectTransform>().position = posPausePanel;
-                GameObject.FindGameObjectWithTag("viewColor").GetComponent<SetColor>().ResetValue();
-                GameObject.FindGameObjectWithTag("codeColor").GetComponent<SetColor>().ResetValue();
-
-            }
-
-            //pausePanel.SetActive(true);
-        }
     }
     public bool GetMenuPanel() {
         return isSetMenu;
@@ -131,9 +137,10 @@ public class MenuButton : MonoBehaviour
     public void ResetScreen() {
         if (prevPosition < 10) {
             isSetCodePanel = false;
-        } else {
+        }
+        else {
             isSetCodePanel = true;
-        }        
+        }
         isSetViewPanel = false;
         isTyping = false;
         movePosition = 0;
@@ -159,11 +166,12 @@ public class MenuButton : MonoBehaviour
             isSetMenu = true;
             isSetCodePanel = true;
             isSetViewPanel = false;
-        } else {
+        }
+        else {
             isSlideClick = false;
 
             // 이미 메뉴창이 꺼져있을 경우
-            if (isSetMenu == false) {                
+            if (isSetMenu == false) {
                 // 뷰창 키우기(코드창 줄이기)
                 if (isSetViewPanel == false) {
                     isSetViewPanel = true;
@@ -193,16 +201,18 @@ public class MenuButton : MonoBehaviour
 
         // 이미 메뉴창이 꺼져있을 경우
         if (isSetMenu == false) {
-            
+
             // 뷰창 키우기(코드창 줄이기)
             if (isSetViewPanel == false) {
                 isSetViewPanel = true;
                 isSetCodePanel = false;
-            } else {    // 원래 상태로
+            }
+            else {    // 원래 상태로
                 isSetViewPanel = false;
                 isSetCodePanel = false;
             }
-        } else {    // 원래 상태로 (메뉴창 끄기)
+        }
+        else {    // 원래 상태로 (메뉴창 끄기)
             isSetMenu = false;
             isSetCodePanel = false;
         }
@@ -214,7 +224,8 @@ public class MenuButton : MonoBehaviour
         if (isSetCodePanel == false) {
             isSetCodePanel = true;
             isSetViewPanel = false;
-        } else {    // 원래 상태로
+        }
+        else {    // 원래 상태로
             isSetCodePanel = false;
             isSetViewPanel = false;
         }

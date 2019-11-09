@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MapStageUpdate : MonoBehaviour
-{
+public class MapStageUpdate : MonoBehaviour {
     public Button btnLeft;
     public Button btnRight;
     public Button btnJump;
@@ -20,12 +19,12 @@ public class MapStageUpdate : MonoBehaviour
 
     private Vector3 targetPos;
 
+    private int clearIdx = 0;
     private int currentIdx = 0;
     private int maxIdx = 0;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         // 이벤트 콜백
         btnLeft.onClick.AddListener(BtnLeftOnClick);
         btnRight.onClick.AddListener(BtnRightOnClick);
@@ -45,21 +44,32 @@ public class MapStageUpdate : MonoBehaviour
         maxIdx = stageSet.transform.childCount;
 
         // 현재까지 깬 Stage 가져옴
-        currentIdx = GameObject.Find("Canvas").GetComponent<StageSaveAndLoad>().curScene;
+        currentIdx = GameObject.Find("Canvas").GetComponent<StageSaveAndLoad>().quitScene - 1;
+        clearIdx = GameObject.Find("Canvas").GetComponent<StageSaveAndLoad>().curScene;
 
         // Lock 기능(깬 스테이지 까지만 열림)
-        for(int i=0;i<currentIdx;i++)
-        {
-            stageSet.transform.Find("stage" + (i + 1).ToString()).GetChild(2).gameObject.SetActive(false);
+        for (int i = 0; i < clearIdx; i++) {
+            stageSet.transform.GetChild(i).GetChild(2).gameObject.SetActive(false);
+            stageSet.transform.GetChild(i).GetComponent<BoxCollider2D>().enabled = true;
         }
 
         // 마지막 라운드 클리어시 오류 예외처리
         if (currentIdx >= maxIdx) currentIdx -= 1;
+
+        // 초기화면을 해당 스테이지로 이동
+        GameObject currentStage = stageSet.transform.GetChild(currentIdx).gameObject;
+        targetPos.y = came.transform.position.y;
+        targetPos.x = currentStage.transform.position.x;
+        targetPos.z = -10f;
+        came.transform.position = targetPos;
+
+        // 플레이어도 같이 이동
+        targetPos.y = player.transform.position.y;
+        player.transform.position = targetPos;
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         // 카메라 이동(현재 인덱스에 따라 이동함)
         GameObject currentStage = stageSet.transform.GetChild(currentIdx).gameObject;
         targetPos.y = came.transform.position.y;
@@ -76,7 +86,10 @@ public class MapStageUpdate : MonoBehaviour
         player.GetComponent<SpriteRenderer>().flipX = false;
         if (currentIdx > 0)
             currentIdx--;
-        else currentIdx = maxIdx - 1;    // First -> Last  
+        else {
+            player.GetComponent<SpriteRenderer>().flipX = true;
+            currentIdx = maxIdx - 1;    // First -> Last  
+        }
     }
 
     /// <summary>
@@ -87,7 +100,10 @@ public class MapStageUpdate : MonoBehaviour
         player.GetComponent<SpriteRenderer>().flipX = true;
         if (currentIdx < maxIdx - 1)
             currentIdx++;
-        else currentIdx = 0;        //  Last -> First
+        else {
+            player.GetComponent<SpriteRenderer>().flipX = false;
+            currentIdx = 0;        //  Last -> First
+        }
     }
 
     /// <summary>
