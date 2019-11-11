@@ -198,7 +198,7 @@ public class MenuButton : MonoBehaviour {
     }
 
     public void TurnOffMenu() {
-
+        isSlideClick = false;
         // 이미 메뉴창이 꺼져있을 경우
         if (isSetMenu == false) {
 

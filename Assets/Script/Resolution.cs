@@ -18,14 +18,12 @@ public class Resolution : MonoBehaviour
 
     void Start() {
         screenSize = Screen.width + Screen.height;
-
         fhd = transform.GetChild(0).GetChild(0).GetComponent<Toggle>();
         fhdPlus = transform.GetChild(0).GetChild(1).GetComponent<Toggle>();
         wqhdPlus = transform.GetChild(0).GetChild(2).GetComponent<Toggle>();
 
-        if (screenSize == 3000) {
+        if (screenSize == 3000 || screenSize == 3120) {
             fhd.isOn = true;
-            Debug.Log(screenSize);
         } else if (screenSize == 3300) {
             fhdPlus.isOn = true;
         } else if (screenSize == 4400) {
