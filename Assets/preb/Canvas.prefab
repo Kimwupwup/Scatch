@@ -1220,7 +1220,6 @@ GameObject:
   m_Component:
   - component: {fileID: 960551103106198295}
   - component: {fileID: 960551103106198294}
-  - component: {fileID: 960551103106198293}
   m_Layer: 5
   m_Name: View Control
   m_TagString: compiler
@@ -1262,20 +1261,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isResetView: 0
   moveSpeed: 2
---- !u!114 &960551103106198293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 960551103106198288}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9839ae0861b5924c9fbb99c7c3b1a98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  start: {fileID: 0}
-  reset: {fileID: 0}
 --- !u!1 &960551103177607324
 GameObject:
   m_ObjectHideFlags: 0
@@ -2142,7 +2127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 0.8627451}
+  m_Color: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 0.7058824}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -8377,8 +8362,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5614441844567184021}
   m_HandleRect: {fileID: 7735927928309793904}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.32888892
+  m_Value: 0.91390747
+  m_Size: 0.3288889
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8561,7 +8546,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -3020}
+  m_AnchoredPosition: {x: 0, y: -2500.0015}
   m_SizeDelta: {x: 0, y: 9000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4516020162627381103
@@ -9899,11 +9884,21 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 960551104107031828}
+    - target: {fileID: 4561180952876620974, guid: 23360740afd016a448128d1f836d868e,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnlyCodePanel
+      objectReference: {fileID: 0}
     - target: {fileID: 7777614222181515970, guid: 23360740afd016a448128d1f836d868e,
         type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 960551104107031828}
+    - target: {fileID: 7777614222181515970, guid: 23360740afd016a448128d1f836d868e,
+        type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ResetScreen
+      objectReference: {fileID: 0}
     - target: {fileID: 5825556031379967056, guid: 23360740afd016a448128d1f836d868e,
         type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -10651,15 +10646,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e9887a2d665d07468842df990d410c9, type: 3}
---- !u!224 &7870221735517838330 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 419001694048087025, guid: 2e9887a2d665d07468842df990d410c9,
-    type: 3}
-  m_PrefabInstance: {fileID: 7559348232155607051}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7870221735517838333 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 419001694048087030, guid: 2e9887a2d665d07468842df990d410c9,
+    type: 3}
+  m_PrefabInstance: {fileID: 7559348232155607051}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &7870221735517838330 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 419001694048087025, guid: 2e9887a2d665d07468842df990d410c9,
     type: 3}
   m_PrefabInstance: {fileID: 7559348232155607051}
   m_PrefabAsset: {fileID: 0}
