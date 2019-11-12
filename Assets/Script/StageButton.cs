@@ -6,7 +6,12 @@ using UnityEngine.SceneManagement;
 public class StageButton : MonoBehaviour
 {
     private string btnString;
+    private SceneFadeInOut sceneAnim;
+    public GameObject animObj;
 
+    private void Awake() {
+        sceneAnim = animObj.GetComponent<SceneFadeInOut>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +25,9 @@ public class StageButton : MonoBehaviour
     }
 
     public void OnTriggerEnter2D(Collider2D collision) {
+        sceneAnim.OutStartFadeAnim();
+    }
+    public void OnTriggerExit2D(Collider2D collision) {
         SceneManager.LoadScene(btnString);
     }
 }

@@ -53,7 +53,7 @@ public class CameraControl : MonoBehaviour {
                 prevPos = ((Input.GetTouch(0).position - Input.GetTouch(0).deltaPosition)
                         - (Input.GetTouch(1).position - Input.GetTouch(1).deltaPosition));  //여기까지는 지금 포스와 전 포스의 거리 차를 구하는 걸로 이해된다.
                 touchData = curPos.magnitude - prevPos.magnitude;                           //magnityude는 제곱근을 계산해주는 걸로 알고있다.
-                came.orthographicSize += touchData * 0.03f;
+                came.orthographicSize -= touchData * 0.03f;
                 came.orthographicSize = Mathf.Max(came.orthographicSize, 1f);
                 came.orthographicSize = Mathf.Min(came.orthographicSize, 15f);
             }
@@ -61,9 +61,10 @@ public class CameraControl : MonoBehaviour {
     }
 
     public void FreeViewButtonHandler() {
-        if (isFreeView)
-            isFreeView = false;
-        else
-            isFreeView = true;
+        isFreeView = this.GetComponent<Toggle>().isOn;
+        //if (isFreeView)
+        //    isFreeView = false;
+        //else
+        //    isFreeView = true;
     }
 }

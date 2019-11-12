@@ -55,7 +55,7 @@ public class MenuButton : MonoBehaviour {
         codePanelHeight = codePanel.GetComponent<RectTransform>().sizeDelta.y;
     }
 
-    void Update() {
+    void FixedUpdate() {
 
         if (Input.GetKeyDown(KeyCode.Escape)) {
             if (pausePanel.GetComponent<RectTransform>().anchoredPosition == Vector2.zero) {
@@ -135,7 +135,7 @@ public class MenuButton : MonoBehaviour {
                 targetPos,
                 Time.deltaTime * speed);
 
-            if (codePanel.transform.position.y > Screen.height / 3 - 5f)
+            if (codePanel.transform.position.y > Screen.height / 3 - 5f && codePanel.transform.position.y < Screen.height / 3 + 5f)
                 codePanel.transform.position = targetPos;
         }
 
