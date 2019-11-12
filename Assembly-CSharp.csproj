@@ -76,6 +76,7 @@
     <Compile Include="Assets\Script\NextScene.cs" />
     <Compile Include="Assets\Script\PlayToggle.cs" />
     <Compile Include="Assets\Script\PreviewScrollBar.cs" />
+    <Compile Include="Assets\Script\RandomMoveCorutine.cs" />
     <Compile Include="Assets\Script\Resolution.cs" />
     <Compile Include="Assets\Script\SaveAndLoad.cs" />
     <Compile Include="Assets\Script\SceneFadeInOut.cs" />

@@ -169,9 +169,11 @@ public class MenuButton : MonoBehaviour {
                 codePanel.transform.position = targetPos;
         }
     }
+
     public bool GetMenuPanel() {
         return isSetMenu;
     }
+
     public void SetMenuPanel(bool b) {
         isSetMenu = b;
     }
