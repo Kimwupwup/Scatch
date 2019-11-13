@@ -227,7 +227,7 @@ public class Compiler : MonoBehaviour {
                     bool isExist = false;
 
                     for (int j = 0; j < code.transform.childCount; j++) {
-                        if (code.transform.GetChild(j).name.Contains("BtnVariable")) {
+                        if (code.transform.GetChild(j).name.Contains("BtnVariable==")) {
                             GameObject ifTemp = code.transform.GetChild(j).gameObject;
                             for (int k = 0; k < 2; k++) {
                                 InputField inputTemp = ifTemp.transform.GetChild(k).GetComponent<InputField>();

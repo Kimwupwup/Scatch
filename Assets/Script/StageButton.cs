@@ -25,9 +25,10 @@ public class StageButton : MonoBehaviour
     }
 
     public void OnTriggerEnter2D(Collider2D collision) {
-        sceneAnim.OutStartFadeAnim();
+        sceneAnim.OutStartFadeAnim(btnString);
     }
-    public void OnTriggerExit2D(Collider2D collision) {
-        SceneManager.LoadScene(btnString);
-    }
+
+    //public void OnTriggerExit2D(Collider2D collision) {
+    //    SceneManager.LoadScene(btnString);
+    //}
 }

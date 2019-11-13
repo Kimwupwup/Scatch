@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ButtonEvent : MonoBehaviour
-{
-    public void Reset()
-    {
+public class ButtonEvent : MonoBehaviour {
+    private SceneFadeInOut currentSceneAnim;
+
+    private void Start() {
+        currentSceneAnim = GameObject.FindGameObjectWithTag("Fader").GetComponent<SceneFadeInOut>();
+    }
+
+    public void Reset() {
         PlayToggle toggle = GameObject.FindGameObjectWithTag("compiler").transform.GetChild(0).GetComponent<PlayToggle>();
         toggle.OnMouseDown();
-        //Compiler compiler = GameObject.FindGameObjectWithTag("compiler").GetComponent<Compiler>();
-        //compiler.ResetView();
         Time.timeScale = 1;
     }
 
@@ -19,14 +21,18 @@ public class ButtonEvent : MonoBehaviour
         Scene scene = SceneManager.GetActiveScene();
         int curSecene = scene.buildIndex;
         int nextScene = curSecene + 1;
-        SceneManager.LoadScene(nextScene);
+        
+        currentSceneAnim.OutStartFadeAnim(nextScene);
         Time.timeScale = 1;
+        // SceneManager.LoadScene(nextScene);
     }
 
     public void StageMap()  // Stage Map1 창으로 이동(임시)
     {
-        SceneManager.LoadScene("stage_map_update");
+        
+        currentSceneAnim.OutStartFadeAnim("stage_map_update");
         Time.timeScale = 1;
+        // SceneManager.LoadScene("stage_map_update");
     }
 
     public void GoStageMapLeft() //Stage Map 이전 창으로 이동

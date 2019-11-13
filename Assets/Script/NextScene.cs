@@ -4,8 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class NextScene : MonoBehaviour
 {
+    private SceneFadeInOut sceneAnim;
+    private void Start() {
+        sceneAnim = GameObject.FindGameObjectWithTag("Fader").GetComponent<SceneFadeInOut>();
+    }
     public void MoveMainScene() {
-        SceneManager.LoadScene("stage_map_update");
-        //SceneManager.LoadScene("test");
+        sceneAnim.OutStartFadeAnim("stage_map_update");
+        //SceneManager.LoadScene("stage_map_update");        
     }
 }
