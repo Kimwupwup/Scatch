@@ -38,13 +38,14 @@ public class RandomMoveCorutine : MonoBehaviour
             transform.position += moveVelocity * speed * Time.deltaTime;
         }
         else {
+            if (rigid.velocity.y < 1 && rigid.velocity.y > -1)
             rigid.AddForce(Vector2.up * 6f, ForceMode2D.Impulse);
         }
     }
     IEnumerator ChangeMovement() {
 
         movementFlag = Random.Range(0, 4);
-        float timer = Random.Range(1, 3);
+        float timer = Random.Range(2, 4);
         switch(movementFlag) {
             case 0:
                 animator.SetBool("isMoving", false);
@@ -56,8 +57,10 @@ public class RandomMoveCorutine : MonoBehaviour
                 animator.SetBool("isMoving", true);
                 break;
         }
-        if (movementFlag == 3)
-            yield return new WaitForSeconds(0f);
+        if (movementFlag == 3) {
+            animator.SetBool("isMoving", false);
+            yield return null;
+        }
         else
             yield return new WaitForSeconds(timer);
 
