@@ -9,8 +9,13 @@ public class StageSaveAndLoad : MonoBehaviour {
     Scene scene;
     public int curScene;
     public int quitScene;
-
+    private GameObject codePanel;
+    private Camera came;
+    Color backgroundColor = new Color();
+    
     void Awake() {
+        codePanel = GameObject.FindGameObjectWithTag("codePanel");
+        came = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         Load();
     }
 
@@ -32,6 +37,7 @@ public class StageSaveAndLoad : MonoBehaviour {
     }
 
     public void Load() {
+
         if (PlayerPrefs.HasKey("Num") || PlayerPrefs.GetInt("Num") != 0) {
             curScene = PlayerPrefs.GetInt("Num");
         } else {
@@ -44,6 +50,35 @@ public class StageSaveAndLoad : MonoBehaviour {
         } else {
             PlayerPrefs.SetInt("Quit", 1);
             quitScene = 1;
+        }
+
+        if (PlayerPrefs.HasKey("VR")) {
+            backgroundColor.r = PlayerPrefs.GetFloat("VR");
+            backgroundColor.g = PlayerPrefs.GetFloat("VG");
+            backgroundColor.b = PlayerPrefs.GetFloat("VB");
+            backgroundColor.a = 255f;
+            came.backgroundColor = backgroundColor;
+        }
+        else {
+            PlayerPrefs.SetFloat("VR", came.backgroundColor.r);
+            PlayerPrefs.SetFloat("VG", came.backgroundColor.g);
+            PlayerPrefs.SetFloat("VB", came.backgroundColor.b);
+        }
+
+        if (codePanel != null) {
+            Image codePanelColor = codePanel.GetComponent<Image>();
+            if (PlayerPrefs.HasKey("CR")) {
+                backgroundColor.r = PlayerPrefs.GetFloat("CR");
+                backgroundColor.g = PlayerPrefs.GetFloat("CG");
+                backgroundColor.b = PlayerPrefs.GetFloat("CB");
+                backgroundColor.a = 180f / 256f;
+                codePanelColor.color = backgroundColor;
+            }
+            else {
+                PlayerPrefs.SetFloat("CR", codePanelColor.color.r);
+                PlayerPrefs.SetFloat("CG", codePanelColor.color.g);
+                PlayerPrefs.SetFloat("CB", codePanelColor.color.b);
+            }
         }
     }
 

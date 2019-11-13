@@ -19,6 +19,10 @@ public class SetColor : MonoBehaviour {
     private bool isAwake = true;
 
     void Awake() {
+
+    }
+
+    private void Start() {
         isAwake = true;
         textR = colorR.transform.GetChild(0).GetComponent<InputField>();
         textG = colorG.transform.GetChild(0).GetComponent<InputField>();
@@ -31,7 +35,8 @@ public class SetColor : MonoBehaviour {
             textB.text = (Mathf.Round(objBackground.GetComponent<Camera>().backgroundColor.b * 256)).ToString();
             preview.GetComponent<Image>().color = objBackground.GetComponent<Camera>().backgroundColor;
 
-        } else if (this.CompareTag("codeColor")) {
+        }
+        else if (this.CompareTag("codeColor")) {
             // codePanel의 색상은 a값이 220이기때문에, viewPanel의 화면에 영향을 받는다.
             // 그래서 viewPanel의 색상도 필요로 한다.
             objBackground = GameObject.FindGameObjectWithTag("codePanel");
@@ -51,17 +56,21 @@ public class SetColor : MonoBehaviour {
         }
         if (string.IsNullOrEmpty(textR.text)) {
             textR.text = "0";
-        } else if (string.IsNullOrEmpty(textG.text)) {
+        }
+        else if (string.IsNullOrEmpty(textG.text)) {
             textG.text = "0";
-        } else if (string.IsNullOrEmpty(textB.text)) {
+        }
+        else if (string.IsNullOrEmpty(textB.text)) {
             textB.text = "0";
         }
 
         if (float.Parse(textR.text) > 255) {
             textR.text = "255";
-        } else if (float.Parse(textG.text) > 255) {
+        }
+        else if (float.Parse(textG.text) > 255) {
             textG.text = "255";
-        } else if (float.Parse(textB.text) > 255) {
+        }
+        else if (float.Parse(textB.text) > 255) {
             textB.text = "255";
         }
 
@@ -93,7 +102,8 @@ public class SetColor : MonoBehaviour {
             textB.text = Mathf.Round(objBackground.GetComponent<Camera>().backgroundColor.b * 256).ToString();
             preview.GetComponent<Image>().color = objBackground.GetComponent<Camera>().backgroundColor;
 
-        } else if (this.CompareTag("codeColor")) {
+        }
+        else if (this.CompareTag("codeColor")) {
             textR.text = Mathf.Round(objBackground.GetComponent<Image>().color.r * 256).ToString();
             textG.text = Mathf.Round(objBackground.GetComponent<Image>().color.g * 256).ToString();
             textB.text = Mathf.Round(objBackground.GetComponent<Image>().color.b * 256).ToString();
@@ -104,21 +114,26 @@ public class SetColor : MonoBehaviour {
 
     public void ApplyValue() {
         if (this.CompareTag("viewColor")) {
-            objBackground.GetComponent<Camera>().backgroundColor = new Vector4(
+            objBackground.GetComponent<Camera>().backgroundColor = new Color(
             float.Parse(textR.text) / 256f,
             float.Parse(textG.text) / 256f,
             float.Parse(textB.text) / 256f,
             objBackground.GetComponent<Camera>().backgroundColor.a
             );
-
-
-        } else if (this.CompareTag("codeColor")) {
-            objBackground.GetComponent<Image>().color = new Vector4(
+            PlayerPrefs.SetFloat("VR", float.Parse(textR.text) / 256f);
+            PlayerPrefs.SetFloat("VG", float.Parse(textG.text) / 256f);
+            PlayerPrefs.SetFloat("VB", float.Parse(textB.text) / 256f);
+        }
+        else if (this.CompareTag("codeColor")) {
+            objBackground.GetComponent<Image>().color = new Color(
             float.Parse(textR.text) / 256f,
             float.Parse(textG.text) / 256f,
             float.Parse(textB.text) / 256f,
-            objBackground.GetComponent<Image>().color.a
+            180f / 256f
             );
+            PlayerPrefs.SetFloat("CR", float.Parse(textR.text) / 256f);
+            PlayerPrefs.SetFloat("CG", float.Parse(textG.text) / 256f);
+            PlayerPrefs.SetFloat("CB", float.Parse(textB.text) / 256f);
         }
     }
 }
