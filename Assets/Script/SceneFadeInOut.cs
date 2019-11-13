@@ -25,6 +25,7 @@ public class SceneFadeInOut : MonoBehaviour {
         if (isPlaying == true) {
             return;
         }
+        Time.timeScale = 1;
 
         start = 0f;
         end = 1f;
@@ -37,6 +38,7 @@ public class SceneFadeInOut : MonoBehaviour {
         if (isPlaying == true) {
             return;
         }
+        Time.timeScale = 1;
 
         start = 0f;
         end = 1f;
@@ -60,6 +62,7 @@ public class SceneFadeInOut : MonoBehaviour {
         time = 0f;
 
         while (fadecolor.a < 1f) {
+            Time.timeScale = 1;
             time += Time.deltaTime / FadeTime;
             fadecolor.a = Mathf.Lerp(start, end, time);
             fadeImg.color = fadecolor;
@@ -82,6 +85,7 @@ public class SceneFadeInOut : MonoBehaviour {
         time = 0f;
 
         while (fadecolor.a > 0f) {
+            Time.timeScale = 1;
             time += Time.deltaTime / FadeTime;
             fadecolor.a = Mathf.Lerp(start, end, time);
             fadeImg.color = fadecolor;

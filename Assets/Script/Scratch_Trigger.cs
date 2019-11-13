@@ -17,12 +17,12 @@ public class Scratch_Trigger : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.CompareTag("Fire") || other.gameObject.CompareTag("wall")) {
-            Time.timeScale = 0;
+            Time.timeScale = 0.1f;
             failPanel.SetActive(true);
         }
         else if (other.gameObject.CompareTag("Flag")) {
             GameObject.Find("Canvas").GetComponent<StageSaveAndLoad>().Save();
-            Time.timeScale = 0;
+            Time.timeScale = 0.1f;
             clearPanel.SetActive(true);
         }
     }
