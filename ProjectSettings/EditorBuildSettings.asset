@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Stage Map/stage_map_update.unity
     guid: df04b5e2a40f4d74d83090ab4846104e
   - enabled: 1
+    path: Assets/Scenes/Tutorial/tutorial1.unity
+    guid: fdd200d93a216f349b6e4f739dd13ebe
+  - enabled: 1
+    path: Assets/Scenes/Tutorial/tutorial2.unity
+    guid: e0255d72bd1fbec44981bdd9a1f480ae
+  - enabled: 1
     path: Assets/Scenes/Stage/stage1.unity
     guid: e88f1e5f243142e468df42c0d14399c6
   - enabled: 1
