@@ -91,6 +91,7 @@
      <Compile Include="Assets\Script\Tutorial\PlayerChat2.cs" />
      <Compile Include="Assets\Script\Tutorial\PlayerChat3.cs" />
      <Compile Include="Assets\Script\Tutorial\PlayerChat4.cs" />
+     <Compile Include="Assets\Script\Tutorial\PlayerChat5.cs" />
      <Compile Include="Assets\Script\ViewPanelPointerHandle.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>E:/GitHub/SourceTreeScratch/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

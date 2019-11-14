@@ -18,6 +18,18 @@ EditorBuildSettings:
     path: Assets/Scenes/Tutorial/tutorial2.unity
     guid: e0255d72bd1fbec44981bdd9a1f480ae
   - enabled: 1
+    path: Assets/Scenes/Tutorial/tutorial3.unity
+    guid: 029b61b7898c4be4196f3f24de2584b5
+  - enabled: 1
+    path: Assets/Scenes/Tutorial/tutorial4.unity
+    guid: d5022cd9eb2eecc48a76dfeafd6335e9
+  - enabled: 1
+    path: Assets/Scenes/Tutorial/tutorial5.unity
+    guid: a8b8db4830df7344ea90cd6b6b0ac545
+  - enabled: 1
+    path: Assets/Scenes/Tutorial/tutorial6.unity
+    guid: 61b61ed8bacfa964f83a68e82dffce8b
+  - enabled: 1
     path: Assets/Scenes/Stage/stage1.unity
     guid: e88f1e5f243142e468df42c0d14399c6
   - enabled: 1
