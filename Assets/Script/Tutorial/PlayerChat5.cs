@@ -18,6 +18,7 @@ public class PlayerChat5 : MonoBehaviour
         headPos.y += 1f;
         dialogPanel.transform.position = headPos;
 
+        dialog.Add ("이번이 튜토리얼 마지막 스테이지예요!");
         dialog.Add ("뭔가 맵도 길고.. 코드 블럭도 길어요..");
         dialog.Add ("우선 카메라를 조절해서 깃발이 어디있는지 찾아봐요!");
         dialog.Add ("다섯 번은 앞으로 두 칸씩.. 마지막에는 한 칸 더 멀어요");
