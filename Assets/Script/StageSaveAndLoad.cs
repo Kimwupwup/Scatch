@@ -45,7 +45,7 @@ public class StageSaveAndLoad : MonoBehaviour {
             curScene = 1;
         }
             
-        if (PlayerPrefs.HasKey("Quit") || PlayerPrefs.GetInt("Quit") != 0) {
+        if (PlayerPrefs.HasKey("Quit")) {
             quitScene = PlayerPrefs.GetInt("Quit");
         } else {
             PlayerPrefs.SetInt("Quit", 1);
@@ -84,5 +84,6 @@ public class StageSaveAndLoad : MonoBehaviour {
 
     public void StageClearReset() {
         PlayerPrefs.SetInt("Num", 1);
+        PlayerPrefs.SetInt("Quit", 0);
     }
 }
