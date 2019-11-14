@@ -3424,7 +3424,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &960551103626533949
 GameObject:
   m_ObjectHideFlags: 0
@@ -4038,7 +4038,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_IsOn: 0
+  m_IsOn: 1
 --- !u!1 &960551103757978059
 GameObject:
   m_ObjectHideFlags: 0
@@ -8454,7 +8454,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5614441844567184021}
   m_HandleRect: {fileID: 7735927928309793904}
   m_Direction: 2
-  m_Value: 0.91390747
+  m_Value: 0.9139075
   m_Size: 0.3288889
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -9303,6 +9303,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 960551104107031828}
+        m_MethodName: PlayButtonOnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &8963782926752513201
@@ -10087,11 +10098,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 2383656267261234936, guid: 541510dd5b7b9594b8b1aef1f56333c8,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 541510dd5b7b9594b8b1aef1f56333c8, type: 3}

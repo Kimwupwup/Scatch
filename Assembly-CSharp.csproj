@@ -86,6 +86,12 @@
      <Compile Include="Assets\Script\Trap_trigger.cs" />
      <Compile Include="Assets\Script\TriggerChildBlock.cs" />
      <Compile Include="Assets\Script\TriggerCodePanel.cs" />
+     <Compile Include="Assets\Script\Tutorial\PlayerChat.cs" />
+     <Compile Include="Assets\Script\Tutorial\PlayerChat1.cs" />
+     <Compile Include="Assets\Script\Tutorial\PlayerChat2.cs" />
+     <Compile Include="Assets\Script\Tutorial\PlayerChat3.cs" />
+     <Compile Include="Assets\Script\Tutorial\PlayerChat4.cs" />
+     <Compile Include="Assets\Script\Tutorial\PlayerChat5.cs" />
      <Compile Include="Assets\Script\ViewPanelPointerHandle.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>E:/GitHub/SourceTreeScratch/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

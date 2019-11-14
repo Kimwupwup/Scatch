@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Scratch_Trigger : MonoBehaviour {
     private GameObject failPanel;
@@ -21,7 +22,8 @@ public class Scratch_Trigger : MonoBehaviour {
             failPanel.SetActive(true);
         }
         else if (other.gameObject.CompareTag("Flag")) {
-            GameObject.Find("Canvas").GetComponent<StageSaveAndLoad>().Save();
+            if (!SceneManager.GetActiveScene().name.Contains("tutorial"))
+                GameObject.Find("Canvas").GetComponent<StageSaveAndLoad>().Save();
             Time.timeScale = 0.1f;
             clearPanel.SetActive(true);
         }

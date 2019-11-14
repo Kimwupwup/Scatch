@@ -12,6 +12,7 @@ public class MapStageUpdate : MonoBehaviour {
     public Sprite[] numbers;
 
     private GameObject player;
+    private GameObject currentStage;
     private Camera came;
 
     private Button btnYes;
@@ -44,21 +45,24 @@ public class MapStageUpdate : MonoBehaviour {
         maxIdx = stageSet.transform.childCount;
 
         // 현재까지 깬 Stage 가져옴
-        currentIdx = GameObject.Find("Canvas").GetComponent<StageSaveAndLoad>().quitScene - 1;
+        currentIdx = GameObject.Find("Canvas").GetComponent<StageSaveAndLoad>().quitScene;
         clearIdx = GameObject.Find("Canvas").GetComponent<StageSaveAndLoad>().curScene;
 
         // 마지막 라운드 클리어시 오류 예외처리
         if (clearIdx >= maxIdx) clearIdx -= 1;
 
+        stageSet.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
+        stageSet.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled = true;
+
         // Lock 기능(깬 스테이지 까지만 열림)
-        for (int i = 0; i < clearIdx; i++) {
+        for (int i = 1; i <= clearIdx; i++) {
             stageSet.transform.GetChild(i).GetChild(2).gameObject.SetActive(false);
             stageSet.transform.GetChild(i).GetComponent<BoxCollider2D>().enabled = true;
         }
 
         
         // 초기화면을 해당 스테이지로 이동
-        GameObject currentStage = stageSet.transform.GetChild(currentIdx).gameObject;
+        currentStage = stageSet.transform.GetChild(currentIdx).gameObject;
         targetPos.y = came.transform.position.y;
         targetPos.x = currentStage.transform.position.x;
         targetPos.z = -10f;
@@ -72,7 +76,7 @@ public class MapStageUpdate : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         // 카메라 이동(현재 인덱스에 따라 이동함)
-        GameObject currentStage = stageSet.transform.GetChild(currentIdx).gameObject;
+        currentStage = stageSet.transform.GetChild(currentIdx).gameObject;
         targetPos.y = came.transform.position.y;
         targetPos.x = currentStage.transform.position.x;
         targetPos.z = -10f;
