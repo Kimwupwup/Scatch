@@ -1605,8 +1605,8 @@ GameObject:
   - component: {fileID: 960551103241512623}
   - component: {fileID: 960551103241512621}
   - component: {fileID: 960551103241512622}
-  m_Layer: 0
-  m_Name: fail
+  m_Layer: 5
+  m_Name: fail menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3424,7 +3424,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_IsOn: 0
+  m_IsOn: 1
 --- !u!1 &960551103626533949
 GameObject:
   m_ObjectHideFlags: 0
@@ -4038,7 +4038,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &960551103757978059
 GameObject:
   m_ObjectHideFlags: 0
@@ -4598,8 +4598,8 @@ GameObject:
   - component: {fileID: 960551103899934604}
   - component: {fileID: 960551103899934594}
   - component: {fileID: 960551103899934595}
-  m_Layer: 0
-  m_Name: clear
+  m_Layer: 5
+  m_Name: clear menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8454,7 +8454,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5614441844567184021}
   m_HandleRect: {fileID: 7735927928309793904}
   m_Direction: 2
-  m_Value: 0.9139076
+  m_Value: 0.99999994
   m_Size: 0.3288889
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -8726,7 +8726,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -2500.0015}
+  m_AnchoredPosition: {x: 0, y: -3020}
   m_SizeDelta: {x: 0, y: 9000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4516020162627381103
@@ -9132,7 +9132,7 @@ GameObject:
   - component: {fileID: 128363554042882664}
   - component: {fileID: 9211613312743257526}
   m_Layer: 5
-  m_Name: clear Panel
+  m_Name: clear
   m_TagString: Clear
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9207,7 +9207,7 @@ GameObject:
   - component: {fileID: 7284020776102263455}
   - component: {fileID: 909218949994502763}
   m_Layer: 5
-  m_Name: fail Panel
+  m_Name: fail
   m_TagString: Fail
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

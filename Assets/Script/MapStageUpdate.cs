@@ -117,7 +117,7 @@ public class MapStageUpdate : MonoBehaviour {
     /// 메시지창 활성화
     /// </summary>
     public void BtnJumpOnClick() {
-        stageCheckMessage.transform.Find("stageNumber").GetComponent<Image>().sprite = numbers[currentIdx + 1];
+        stageCheckMessage.transform.Find("stageNumber").GetComponent<Image>().sprite = numbers[currentIdx];
         stageCheckMessage.SetActive(true);
     }
 

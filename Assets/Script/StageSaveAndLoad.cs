@@ -48,8 +48,8 @@ public class StageSaveAndLoad : MonoBehaviour {
         if (PlayerPrefs.HasKey("Quit")) {
             quitScene = PlayerPrefs.GetInt("Quit");
         } else {
-            PlayerPrefs.SetInt("Quit", 1);
-            quitScene = 1;
+            PlayerPrefs.SetInt("Quit", 0);
+            quitScene = 0;
         }
 
         if (PlayerPrefs.HasKey("VR")) {
