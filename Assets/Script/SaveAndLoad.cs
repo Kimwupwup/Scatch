@@ -21,7 +21,8 @@ public class SaveAndLoad : MonoBehaviour {
 
     private GameObject tmpButton;                       // New function block object
     private GameObject parentbutton;                    // Parent object of current object
-    
+
+
     /// <summary>
     /// Event : click on save button
     /// </summary>
@@ -111,7 +112,10 @@ public class SaveAndLoad : MonoBehaviour {
                     prefab = obj[j];
                 }
             }
-
+            if(loaddatas.datas[i].v.y > 980)
+            {
+                loaddatas.datas[i].v.y = loaddatas.datas[i].v.y - 987;
+            }
             tmpButton = Instantiate(prefab, loaddatas.datas[i].v, Quaternion.identity, GameObject.FindGameObjectWithTag("codePanel").transform.GetChild(1)).gameObject;
             if (tmpButton.name.Contains("If") || tmpButton.name.Contains("Loop"))
                 if (!tmpButton.name.Contains("End"))
