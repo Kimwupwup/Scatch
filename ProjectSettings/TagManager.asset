@@ -41,6 +41,8 @@ TagManager:
   - codePanelSlider
   - SubFlag
   - Fader
+  - InfoPanel
+  - Stage_Canvas
   layers:
   - Default
   - TransparentFX

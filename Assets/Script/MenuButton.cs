@@ -13,6 +13,7 @@ public class MenuButton : MonoBehaviour {
     private GameObject errorPanel;
     private GameObject settingPanel;
     private GameObject exitPanel;
+    private GameObject InfoPanel;
 
     private float movePosition;
     private float prevPosition;
@@ -30,6 +31,7 @@ public class MenuButton : MonoBehaviour {
     private bool isSetViewPanel = false;
     private bool isTyping = false;
     private bool isSlideClick = false;
+    private bool isInfoMenu = false;
 
     void Awake () {
         pausePanel = GameObject.FindGameObjectWithTag ("pausePanel");
@@ -44,6 +46,10 @@ public class MenuButton : MonoBehaviour {
             posMenuPanel = menuPanel.transform.position;
             posErrorPanel = errorPanel.transform.position;
         }
+        else
+        {
+            InfoPanel = GameObject.Find("Canvas").transform.Find("Information Panel").gameObject;
+        }
 
         //pausePanel.SetActive(false);
     }
@@ -53,22 +59,28 @@ public class MenuButton : MonoBehaviour {
         menuPanelWidth = menuPanel.GetComponent<RectTransform> ().sizeDelta.x;
         codePanelHeight = codePanel.GetComponent<RectTransform> ().sizeDelta.y;
     }
-
+    
     void FixedUpdate () {
 
         if (Input.GetKeyDown (KeyCode.Escape)) {
-            if (pausePanel.GetComponent<RectTransform> ().anchoredPosition == Vector2.zero) {
-                pausePanel.GetComponent<RectTransform> ().position = posPausePanel;
-            } else {
-                targetPos.x = 0;
-                targetPos.y = 0;
-                pausePanel.GetComponent<RectTransform> ().anchoredPosition = targetPos;
-                exitPanel.GetComponent<RectTransform> ().position = posPausePanel;
-                if (SceneManager.GetActiveScene ().name == "stage_map_update") return;
-                settingPanel.GetComponent<RectTransform> ().position = posPausePanel;
-                GameObject.FindGameObjectWithTag ("viewColor").GetComponent<SetColor> ().ResetValue ();
-                GameObject.FindGameObjectWithTag ("codeColor").GetComponent<SetColor> ().ResetValue ();
-
+            isInfoMenu = InfoPanel.activeSelf;
+            if (isInfoMenu)
+            {
+                InfoPanel.SetActive(false);
+            }
+            else {
+                if (pausePanel.GetComponent<RectTransform>().anchoredPosition == Vector2.zero) {
+                    pausePanel.GetComponent<RectTransform>().position = posPausePanel;
+                } else {
+                    targetPos.x = 0;
+                    targetPos.y = 0;
+                    pausePanel.GetComponent<RectTransform>().anchoredPosition = targetPos;
+                    exitPanel.GetComponent<RectTransform>().position = posPausePanel;
+                    if (SceneManager.GetActiveScene().name == "stage_map_update") return;
+                    settingPanel.GetComponent<RectTransform>().position = posPausePanel;
+                    GameObject.FindGameObjectWithTag("viewColor").GetComponent<SetColor>().ResetValue();
+                    GameObject.FindGameObjectWithTag("codeColor").GetComponent<SetColor>().ResetValue();
+                }
             }
 
             //pausePanel.SetActive(true);
