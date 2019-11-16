@@ -266,6 +266,7 @@ public class MenuButton : MonoBehaviour {
         }
     }
     public void PlayButtonOnClick () {
+        isSlideClick = false;
         isSetMenu = false;
         isSetCodePanel = false;
     }
