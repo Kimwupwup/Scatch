@@ -7,14 +7,14 @@ public class MapStageUpdate : MonoBehaviour {
     public Button btnLeft;
     public Button btnRight;
     public Button btnJump;
+    public GameObject noticePanel;
     public GameObject stageSet;
     public GameObject stageCheckMessage;
-    public Sprite[] numbers;
 
     private GameObject player;
     private GameObject currentStage;
     private Camera came;
-
+    private Text content;
     private Button btnYes;
     private Button btnNo;
 
@@ -32,8 +32,8 @@ public class MapStageUpdate : MonoBehaviour {
         btnJump.onClick.AddListener(BtnJumpOnClick);
 
         // 버튼 이름이 바뀔 수 있음.
-        btnYes = stageCheckMessage.transform.Find("BtnConfirm").GetComponent<Button>();
-        btnNo = stageCheckMessage.transform.Find("BtnCancel").GetComponent<Button>();
+        btnYes = stageCheckMessage.transform.GetChild(0).Find("BtnConfirm").GetComponent<Button>();
+        btnNo = stageCheckMessage.transform.GetChild(0).Find("BtnCancel").GetComponent<Button>();
 
         // 이벤트 콜백
         btnYes.onClick.AddListener(BtnYesOnClick);
@@ -71,6 +71,8 @@ public class MapStageUpdate : MonoBehaviour {
         // 플레이어도 같이 이동
         targetPos.y = player.transform.position.y;
         player.transform.position = targetPos;
+
+        content = noticePanel.GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -117,7 +119,10 @@ public class MapStageUpdate : MonoBehaviour {
     /// 메시지창 활성화
     /// </summary>
     public void BtnJumpOnClick() {
-        stageCheckMessage.transform.Find("stageNumber").GetComponent<Image>().sprite = numbers[currentIdx];
+        if (currentIdx != 0)
+            content.text = $"[스테이지{currentIdx}] 를(을) 플레이 하시겠습니까?";
+        else
+            content.text = $"튜토리얼을 플레이 하시겠습니까?";
         stageCheckMessage.SetActive(true);
     }
 
