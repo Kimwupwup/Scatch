@@ -249,7 +249,6 @@ public class Compiler : MonoBehaviour {
                         if (isExist == false) {
                             AlertError(0);
                             codesQueue.Clear();
-                            ResetView();
                             return;
                         }
                     }
@@ -257,7 +256,6 @@ public class Compiler : MonoBehaviour {
                         if (cnt == -1) {
                             AlertError(0);
                             codesQueue.Clear();
-                            ResetView();
                             return;
                         }
                     }
@@ -303,7 +301,6 @@ public class Compiler : MonoBehaviour {
                     if (isExist == false) {
                         AlertError(0);
                         codesQueue.Clear();
-                        ResetView();
                         return;
                     }
                 }
@@ -317,7 +314,6 @@ public class Compiler : MonoBehaviour {
                     if (cnt == -1) {
                         AlertError(0);
                         codesQueue.Clear();
-                        ResetView();
                         return;
                     }
                 }
@@ -365,7 +361,6 @@ public class Compiler : MonoBehaviour {
                 else if (code.name == "BtnLoop(Clone)") {
                     if (code.transform.childCount < 3) {
                         AlertError(1);
-                        ResetView();
                         codesQueue.Clear();
                         isCompiled = false;
                         return;
@@ -380,13 +375,11 @@ public class Compiler : MonoBehaviour {
 
         if (loopIndex.Count != endLoopIndex.Count) {
             AlertError(1);
-            ResetView();
             codesQueue.Clear();
             isCompiled = false;
         }
         else if (ifIndex.Count != endIfIndex.Count) {
             AlertError(2);
-            ResetView();
             codesQueue.Clear();
             isCompiled = false;
         }
