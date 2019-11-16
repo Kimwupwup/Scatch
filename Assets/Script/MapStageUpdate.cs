@@ -7,14 +7,13 @@ public class MapStageUpdate : MonoBehaviour {
     public Button btnLeft;
     public Button btnRight;
     public Button btnJump;
-    public GameObject noticePanel;
+    public Text content;
     public GameObject stageSet;
     public GameObject stageCheckMessage;
 
     private GameObject player;
     private GameObject currentStage;
     private Camera came;
-    private Text content;
     private Button btnYes;
     private Button btnNo;
 
@@ -71,8 +70,6 @@ public class MapStageUpdate : MonoBehaviour {
         // 플레이어도 같이 이동
         targetPos.y = player.transform.position.y;
         player.transform.position = targetPos;
-
-        content = noticePanel.GetComponent<Text>();
     }
 
     // Update is called once per frame
