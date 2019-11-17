@@ -17,7 +17,7 @@ public class PlayerChat : MonoBehaviour
         headPos.y += 1f;
         dialogPanel.transform.position = headPos;
       
-        dialog.Add("안녕하세요! 저는 너구리가 아니라 고양이입니다!");
+        dialog.Add("안녕하세요! 저는 너구리입니다!");
         dialog.Add("앞에 있는 깃발에 가면 다음 스테이지로 갈 수 있어요!");
         dialog.Add("좌측 상단에 있는 메뉴버튼을 눌러 [MOVE] 버튼을 밑에 CODE창에 올려주세요!");
         dialog.Add("[MOVE] 는 한개당 무조건 앞으로 한칸 이동해요!");
