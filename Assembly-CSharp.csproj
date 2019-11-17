@@ -55,6 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\BGMDontDestroy.cs" />
      <Compile Include="Assets\Script\ButtonEvent.cs" />
      <Compile Include="Assets\Script\CameraControl.cs" />
      <Compile Include="Assets\Script\CodePanelScroll.cs" />
