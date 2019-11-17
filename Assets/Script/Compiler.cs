@@ -168,6 +168,7 @@ public class Compiler : MonoBehaviour {
             isCompiled = false;
             return;
         }
+        GameObject nextCode;
         GameObject code = GameObject.FindGameObjectWithTag("codePanel").transform.GetChild(1).gameObject;
         List<GameObject> codesQueue = new List<GameObject>();
         GameObject temp;
@@ -197,6 +198,12 @@ public class Compiler : MonoBehaviour {
 
                 if (code.name == "BtnLoop(Clone)") {
                     loopIndex.Add(functions.Count - 1);
+                    if (code.transform.childCount < 3) {
+                        AlertError(1);
+                        codesQueue.Clear();
+                        isCompiled = false;
+                        return;
+                    }
                 }
                 if (code.name == "BtnEndLoop(Clone)") {
                     endLoopIndex.Add(functions.Count - 1);
@@ -307,46 +314,17 @@ public class Compiler : MonoBehaviour {
                     }
                 }
 
-                if (code.transform.childCount < 2 &&
-                    (code.name != "BtnDelay(Clone)" &&
-                        code.name != "BtnIf(Clone)" &&
-                        code.name != "BtnCnt=(Clone)")) {
-                    break;
-                } else if (code.transform.childCount < 3 &&
-                    (code.name == "BtnDelay(Clone)" ||
-                        code.name == "BtnCnt=(Clone)" ||
-                        code.name == "BtnVariable++(Clone)")) {
-                    break;
-                } else if (code.transform.childCount < 4 &&
-                    (code.name == "BtnIf(Clone)" ||
-                        code.name == "BtnVariable=(Clone)")) {
-                    break;
-                }
-
-                if (code.name == "BtnVariable=(Clone)") {
-                    code = code.transform.GetChild(3).gameObject;
-                } else if (code.name == "BtnIf(Clone)") {
-                    if (code.transform.GetChild(3).name == "BtnCount(Clone)" ||
-                        code.transform.GetChild(3).name == "BtnVariable==(Clone)") {
-                        code = code.transform.GetChild(4).gameObject;
-                    } else {
-                        code = code.transform.GetChild(3).gameObject;
+                nextCode = null;
+                for (int j = 0; j < code.transform.childCount; j++) {
+                    if (code.transform.GetChild(j).name.Contains("Clone")) {
+                        if (!code.transform.GetChild(j).name.Contains("=="))
+                            nextCode = code.transform.GetChild(j).gameObject;
                     }
-                } else if (code.name == "BtnDelay(Clone)" ||
-                    code.name == "BtnCnt=(Clone)" ||
-                    code.name == "BtnVariable++(Clone)") {
-                    code = code.transform.GetChild(2).gameObject;
-                } else if (code.name == "BtnLoop(Clone)") {
-                    if (code.transform.childCount < 3) {
-                        AlertError(1);
-                        codesQueue.Clear();
-                        isCompiled = false;
-                        return;
-                    }
-                    code = code.transform.GetChild(2).gameObject;
-                } else {
-                    code = code.transform.GetChild(1).gameObject;
                 }
+                if (nextCode != null)
+                    code = nextCode;
+                else
+                    break;
             }
         }
 
