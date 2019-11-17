@@ -27,6 +27,8 @@ public class StageSaveAndLoad : MonoBehaviour {
         if (int.TryParse(number, out int ret) == true) {
             curScene = int.Parse(number);                       // 현재 씬의 빌드넘버
             quitScene = int.Parse(number);
+            if (SceneManager.GetActiveScene().name.Contains("tutorial"))
+                quitScene = 0;
             PlayerPrefs.SetInt("Quit", quitScene);
         }
     }
