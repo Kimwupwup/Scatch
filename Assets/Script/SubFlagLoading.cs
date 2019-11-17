@@ -40,7 +40,7 @@ public class SubFlagLoading : MonoBehaviour
                 slider.transform.localScale = targetScale;
             }
 
-            slider.value = Mathf.Lerp(slider.value, 1f, Time.deltaTime * 2.3f);
+            slider.value = Mathf.Lerp(slider.value, 1f, Time.deltaTime * 3f);
             if (slider.value > 0.99f)
                 slider.value = 1;
         } else {

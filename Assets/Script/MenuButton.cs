@@ -33,42 +33,38 @@ public class MenuButton : MonoBehaviour {
     private bool isSlideClick = false;
     private bool isInfoMenu = false;
 
-    void Awake () {
-        pausePanel = GameObject.FindGameObjectWithTag ("pausePanel");
-        exitPanel = GameObject.FindGameObjectWithTag ("exitPanel");
+    void Awake() {
+        pausePanel = GameObject.FindGameObjectWithTag("pausePanel");
+        exitPanel = GameObject.FindGameObjectWithTag("exitPanel");
         posPausePanel = pausePanel.transform.position;
 
-        if (SceneManager.GetActiveScene ().name != "stage_map_update") {
-            settingPanel = GameObject.FindGameObjectWithTag ("settingPanel");
-            errorPanel = GameObject.FindGameObjectWithTag ("errorPanel");
-            menuPanel = GameObject.FindGameObjectWithTag ("menuPanel");
-            codePanel = GameObject.FindGameObjectWithTag ("codePanel");
+        if (SceneManager.GetActiveScene().name != "stage_map_update") {
+            settingPanel = GameObject.FindGameObjectWithTag("settingPanel");
+            errorPanel = GameObject.FindGameObjectWithTag("errorPanel");
+            menuPanel = GameObject.FindGameObjectWithTag("menuPanel");
+            codePanel = GameObject.FindGameObjectWithTag("codePanel");
             posMenuPanel = menuPanel.transform.position;
             posErrorPanel = errorPanel.transform.position;
-        }
-        else
-        {
+        } else {
             InfoPanel = GameObject.Find("Canvas").transform.Find("Information Panel").gameObject;
         }
 
         //pausePanel.SetActive(false);
     }
 
-    void Start () {
-        if (SceneManager.GetActiveScene ().name == "stage_map_update") return;
-        menuPanelWidth = menuPanel.GetComponent<RectTransform> ().sizeDelta.x;
-        codePanelHeight = codePanel.GetComponent<RectTransform> ().sizeDelta.y;
+    void Start() {
+        if (SceneManager.GetActiveScene().name == "stage_map_update")return;
+        menuPanelWidth = menuPanel.GetComponent<RectTransform>().sizeDelta.x;
+        codePanelHeight = codePanel.GetComponent<RectTransform>().sizeDelta.y;
     }
-    
-    void FixedUpdate () {
 
-        if (Input.GetKeyDown (KeyCode.Escape)) {
+    void FixedUpdate() {
+
+        if (Input.GetKeyDown(KeyCode.Escape)) {
             isInfoMenu = InfoPanel.activeSelf;
-            if (isInfoMenu)
-            {
+            if (isInfoMenu) {
                 InfoPanel.SetActive(false);
-            }
-            else {
+            } else {
                 if (pausePanel.GetComponent<RectTransform>().anchoredPosition == Vector2.zero) {
                     pausePanel.GetComponent<RectTransform>().position = posPausePanel;
                 } else {
@@ -76,7 +72,7 @@ public class MenuButton : MonoBehaviour {
                     targetPos.y = 0;
                     pausePanel.GetComponent<RectTransform>().anchoredPosition = targetPos;
                     exitPanel.GetComponent<RectTransform>().position = posPausePanel;
-                    if (SceneManager.GetActiveScene().name == "stage_map_update") return;
+                    if (SceneManager.GetActiveScene().name == "stage_map_update")return;
                     settingPanel.GetComponent<RectTransform>().position = posPausePanel;
                     GameObject.FindGameObjectWithTag("viewColor").GetComponent<SetColor>().ResetValue();
                     GameObject.FindGameObjectWithTag("codeColor").GetComponent<SetColor>().ResetValue();
@@ -86,7 +82,7 @@ public class MenuButton : MonoBehaviour {
             //pausePanel.SetActive(true);
         }
 
-        if (SceneManager.GetActiveScene ().name == "stage_map_update") return;
+        if (SceneManager.GetActiveScene().name == "stage_map_update")return;
 
         // 메뉴창 켜기
         if (isSetMenu == true) {
@@ -95,7 +91,7 @@ public class MenuButton : MonoBehaviour {
             targetPos.y = menuPanel.transform.position.y;
 
             menuPanel.transform.position =
-                Vector2.Lerp (menuPanel.transform.position,
+                Vector2.Lerp(menuPanel.transform.position,
                     targetPos,
                     Time.deltaTime * speed);
 
@@ -111,7 +107,7 @@ public class MenuButton : MonoBehaviour {
             targetPos.y = menuPanel.transform.position.y;
 
             menuPanel.transform.position =
-                Vector2.Lerp (menuPanel.transform.position,
+                Vector2.Lerp(menuPanel.transform.position,
                     targetPos,
                     Time.deltaTime * speed);
 
@@ -126,7 +122,7 @@ public class MenuButton : MonoBehaviour {
             targetPos.y = Screen.height / 2 - movePosition;
 
             codePanel.transform.position =
-                Vector3.Lerp (codePanel.transform.position,
+                Vector3.Lerp(codePanel.transform.position,
                     targetPos,
                     Time.deltaTime * speed);
 
@@ -141,7 +137,7 @@ public class MenuButton : MonoBehaviour {
             targetPos.y = Screen.height / 3;
 
             codePanel.transform.position =
-                Vector3.Lerp (codePanel.transform.position,
+                Vector3.Lerp(codePanel.transform.position,
                     targetPos,
                     Time.deltaTime * speed);
 
@@ -156,7 +152,7 @@ public class MenuButton : MonoBehaviour {
             targetPos.y = 0;
 
             codePanel.transform.position =
-                Vector3.Lerp (codePanel.transform.position,
+                Vector3.Lerp(codePanel.transform.position,
                     targetPos,
                     Time.deltaTime * speed);
 
@@ -171,7 +167,7 @@ public class MenuButton : MonoBehaviour {
             targetPos.y = -Screen.height / 3;
 
             codePanel.transform.position =
-                Vector3.Lerp (codePanel.transform.position,
+                Vector3.Lerp(codePanel.transform.position,
                     targetPos,
                     Time.deltaTime * speed);
 
@@ -180,15 +176,15 @@ public class MenuButton : MonoBehaviour {
         }
     }
 
-    public bool GetMenuPanel () {
+    public bool GetMenuPanel() {
         return isSetMenu;
     }
 
-    public void SetMenuPanel (bool b) {
+    public void SetMenuPanel(bool b) {
         isSetMenu = b;
     }
 
-    public void ResetScreen () {
+    public void ResetScreen() {
         if (prevPosition < 10) {
             isSetCodePanel = false;
         } else {
@@ -199,11 +195,12 @@ public class MenuButton : MonoBehaviour {
         movePosition = 0;
     }
 
-    public void OnlyCodePanel (GameObject btn) {
+    public void OnlyCodePanel(GameObject btn) {
         isSetMenu = false;
         isSetCodePanel = true;
         isTyping = true;
         movePosition = btn.transform.position.y - (Screen.height / 2);
+        Debug.Log(codePanel.name);
         prevPosition = codePanel.transform.position.y;
         if (codePanel.transform.position.y < 10) {
             movePosition += 980 - (2960 - Screen.height) / 3;
@@ -211,7 +208,7 @@ public class MenuButton : MonoBehaviour {
         //Debug.Log(codePanel.transform.position.y);
     }
 
-    public void TurnOnOffMenu () {
+    public void TurnOnOffMenu() {
         if (!isSlideClick) {
             isSlideClick = true;
 
@@ -239,7 +236,7 @@ public class MenuButton : MonoBehaviour {
         }
     }
 
-    public void TurnOnMenu () {
+    public void TurnOnMenu() {
 
         // 메뉴창, 코드창 키우기(뷰창 줄이기)
         isSetMenu = true;
@@ -247,7 +244,7 @@ public class MenuButton : MonoBehaviour {
         isSetViewPanel = false;
     }
 
-    public void TurnOffMenu () {
+    public void TurnOffMenu() {
         isSlideClick = false;
         // 이미 메뉴창이 꺼져있을 경우
         if (isSetMenu == false) {
@@ -265,12 +262,12 @@ public class MenuButton : MonoBehaviour {
             isSetCodePanel = false;
         }
     }
-    public void PlayButtonOnClick () {
+    public void PlayButtonOnClick() {
         isSlideClick = false;
         isSetMenu = false;
         isSetCodePanel = false;
     }
-    public void SizeUpDownCodePanel () {
+    public void SizeUpDownCodePanel() {
 
         // 코드창 키우기(뷰창 줄이기)
         if (isSetCodePanel == false) {
@@ -282,45 +279,45 @@ public class MenuButton : MonoBehaviour {
         }
     }
 
-    public void IsExit () {
+    public void IsExit() {
         targetPos.x = 0;
         targetPos.y = 0;
-        exitPanel.GetComponent<RectTransform> ().anchoredPosition = targetPos;
-        pausePanel.GetComponent<RectTransform> ().position = posPausePanel;
+        exitPanel.GetComponent<RectTransform>().anchoredPosition = targetPos;
+        pausePanel.GetComponent<RectTransform>().position = posPausePanel;
     }
 
-    public void CancelExit () {
-        exitPanel.GetComponent<RectTransform> ().position = posPausePanel;
+    public void CancelExit() {
+        exitPanel.GetComponent<RectTransform>().position = posPausePanel;
     }
 
-    public void IsSetting () {
+    public void IsSetting() {
         targetPos.x = 0;
         targetPos.y = 0;
-        settingPanel.GetComponent<RectTransform> ().anchoredPosition = targetPos;
-        pausePanel.GetComponent<RectTransform> ().position = posPausePanel;
+        settingPanel.GetComponent<RectTransform>().anchoredPosition = targetPos;
+        pausePanel.GetComponent<RectTransform>().position = posPausePanel;
     }
 
-    public void CancelSetting () {
-        settingPanel.GetComponent<RectTransform> ().position = posPausePanel;
-        GameObject.FindGameObjectWithTag ("viewColor").GetComponent<SetColor> ().ResetValue ();
-        GameObject.FindGameObjectWithTag ("codeColor").GetComponent<SetColor> ().ResetValue ();
+    public void CancelSetting() {
+        settingPanel.GetComponent<RectTransform>().position = posPausePanel;
+        GameObject.FindGameObjectWithTag("viewColor").GetComponent<SetColor>().ResetValue();
+        GameObject.FindGameObjectWithTag("codeColor").GetComponent<SetColor>().ResetValue();
     }
 
-    public void IsPause () {
+    public void IsPause() {
         targetPos.x = 0;
         targetPos.y = 0;
-        pausePanel.GetComponent<RectTransform> ().anchoredPosition = targetPos;
+        pausePanel.GetComponent<RectTransform>().anchoredPosition = targetPos;
     }
 
-    public void ConfirmExit () {
-        Application.Quit ();
+    public void ConfirmExit() {
+        Application.Quit();
     }
 
-    public void CancelPause () {
-        pausePanel.GetComponent<RectTransform> ().position = posPausePanel;
+    public void CancelPause() {
+        pausePanel.GetComponent<RectTransform>().position = posPausePanel;
     }
 
-    public void ResetErrorMessage () {
-        errorPanel.GetComponent<RectTransform> ().position = posErrorPanel;
+    public void ResetErrorMessage() {
+        errorPanel.GetComponent<RectTransform>().position = posErrorPanel;
     }
 }
