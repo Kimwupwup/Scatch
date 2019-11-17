@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class MenuButton : MonoBehaviour {
     public float speed = 1;
 
+
     private GameObject menuPanel;
     private GameObject codePanel;
     private GameObject pausePanel;
@@ -61,7 +62,8 @@ public class MenuButton : MonoBehaviour {
     void FixedUpdate() {
 
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            isInfoMenu = InfoPanel.activeSelf;
+            if (InfoPanel != null)
+                isInfoMenu = InfoPanel.activeSelf;
             if (isInfoMenu) {
                 InfoPanel.SetActive(false);
             } else {
