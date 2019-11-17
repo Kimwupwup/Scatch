@@ -38,7 +38,7 @@ public class Compiler : MonoBehaviour {
     public float moveSpeed = 1;
     private float jumpPower = 4.5f;
     private float timer = 0f;
-
+    private float timeOut = 0f;
     private void Start() {
         playerFlip = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>().flipX;
         playerOrginPos = GameObject.FindGameObjectWithTag("Player").transform.position;
@@ -53,12 +53,13 @@ public class Compiler : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (isMoving) {
+        if (isMoving) {            
             timer += Time.deltaTime;
-            if (timer > 5f) {
+            if (timer > 2f * timeOut) {
                 failPanel.SetActive(true);
                 Time.timeScale = 0;
-            }
+            }           
+
             run();
             return;
         }
@@ -72,6 +73,7 @@ public class Compiler : MonoBehaviour {
                         if (functions[i].name == "BtnMove(Clone)") {
                             FunctionMove(++cnt);
                             currentIndex++;
+                            timeOut = cnt;
                         } else {
                             break;
                         }
