@@ -55,7 +55,7 @@ public class Compiler : MonoBehaviour {
     void Update() {
         if (isMoving) {
             timer += Time.deltaTime;
-            if (timer > 3f) {
+            if (timer > 5f) {
                 failPanel.SetActive(true);
                 Time.timeScale = 0;
             }
