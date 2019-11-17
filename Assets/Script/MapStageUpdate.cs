@@ -117,7 +117,7 @@ public class MapStageUpdate : MonoBehaviour {
     /// </summary>
     public void BtnJumpOnClick() {
         if (currentIdx != 0)
-            content.text = $"[스테이지{currentIdx}] 를(을) 플레이 하시겠습니까?";
+            content.text = $"[스테이지{currentIdx}] 을(를) 플레이 하시겠습니까?";
         else
             content.text = $"튜토리얼을 플레이 하시겠습니까?";
         stageCheckMessage.SetActive(true);
