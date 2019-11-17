@@ -128,7 +128,7 @@ public class MenuButton : MonoBehaviour {
                     targetPos,
                     Time.deltaTime * speed);
 
-            if (codePanel.transform.position.y > Screen.height / 2 - movePosition - 5f)
+            if (codePanel.transform.position.y > Screen.height / 2 - movePosition - 5f && codePanel.transform.position.y < Screen.height / 2 - movePosition + 5f)
                 codePanel.transform.position = targetPos;
         }
 
@@ -192,12 +192,14 @@ public class MenuButton : MonoBehaviour {
         } else {
             isSetCodePanel = true;
         }
+
         isSetViewPanel = false;
         isTyping = false;
         movePosition = 0;
     }
 
     public void OnlyCodePanel(GameObject btn) {
+        isSlideClick = false;
         isSetMenu = false;
         isSetCodePanel = true;
         isTyping = true;
