@@ -45,13 +45,10 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                 }
             } else {
                 if (!tmpButton.transform.parent.parent.CompareTag("codePanel")) {
-                    if (tmpButton.transform.parent.GetChild(0).CompareTag("child")) {
-                        tmpButton.transform.parent.GetChild(0).gameObject.SetActive(true);
-                    } else if (tmpButton.transform.parent.GetChild(1).CompareTag("child")) {
-                        tmpButton.transform.parent.GetChild(1).gameObject.SetActive(true);
-                    } else if (tmpButton.transform.parent.name == "BtnVariable=(Clone)") {
-                        if (tmpButton.transform.parent.GetChild(2).CompareTag("child")) {
-                            tmpButton.transform.parent.GetChild(2).gameObject.SetActive(true);
+                    int size = tmpButton.transform.parent.childCount;
+                    for (int i = 0; i < size; i++) {
+                        if (tmpButton.transform.parent.GetChild(i).CompareTag("child")) {
+                            tmpButton.transform.parent.GetChild(i).gameObject.SetActive(true);
                         }
                     }
                 }
@@ -76,11 +73,25 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             menuButton.SetMenuPanel(true);
         
         for (int i = 0; i < tmpButton.transform.childCount; i++) {
-            tmpButton.transform.GetChild(i).gameObject.SetActive(true);
+            if (tmpButton.transform.GetChild(i).name.Contains("Clone")) {
+                if (tmpButton.transform.GetChild(i).name.Contains("==")) {
+                    tmpButton.transform.Find("BtnCondition").gameObject.SetActive(false);
+                }
+                else {
+                    tmpButton.transform.Find("BtnChild").gameObject.SetActive(false);
+                }
+            }
+            else {
+                tmpButton.transform.GetChild(i).gameObject.SetActive(true);
+            }            
         }
 
+        // 우선 마우스가 코드 패널 위에 있는지 확인한다.
         bool isTrue = controller.GetIsCodePanel();
 
+        // 코드 패널이 아닐 경우는 삭제하고, 코드 패널일 경우에는
+        // 코드 패널 오브젝트 내부의 realCodePanel 오브젝트에 넣는다.
+        // 넣게 되면 raycast를 켜줘야 클릭할 수 있는 상태가 된다.
         if (!isTrue) {
             Destroy(tmpButton);
             Debug.Log("Destroy");
@@ -89,8 +100,10 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             tmpButton.GetComponent<Image>().raycastTarget = true;
         }
 
+        // 마우스가 다른 코드 블럭의 자식으로 위치하는지 확인한다.
         bool isChild = controller.GetIsCodeChild();
 
+        // 마우스가 다른 코드 블럭의 자식으로 위치한다면 해당 자식으로 추가한다.
         if (isChild) {
             objTarget = controller.GetObjTarget();
 
