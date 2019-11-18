@@ -62,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\BGMController.cs" />
     <Compile Include="Assets\Script\BGMDontDestroy.cs" />
     <Compile Include="Assets\Script\ButtonEvent.cs" />
     <Compile Include="Assets\Script\CameraControl.cs" />

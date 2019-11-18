@@ -43,6 +43,7 @@ TagManager:
   - Fader
   - InfoPanel
   - Stage_Canvas
+  - BGM
   layers:
   - Default
   - TransparentFX
