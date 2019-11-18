@@ -62,7 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\BGMDontDestroy.cs" />
+    <Compile Include="Assets\Script\BGMDontDestroy.cs" />
     <Compile Include="Assets\Script\ButtonEvent.cs" />
     <Compile Include="Assets\Script\CameraControl.cs" />
     <Compile Include="Assets\Script\CodePanelScroll.cs" />
@@ -86,6 +86,7 @@
     <Compile Include="Assets\Script\ScreenResolution.cs" />
     <Compile Include="Assets\Script\ScriptFolder.cs" />
     <Compile Include="Assets\Script\SetColor.cs" />
+    <Compile Include="Assets\Script\SettingsTab.cs" />
     <Compile Include="Assets\Script\slaim_move.cs" />
     <Compile Include="Assets\Script\StageButton.cs" />
     <Compile Include="Assets\Script\StageSaveAndLoad.cs" />
