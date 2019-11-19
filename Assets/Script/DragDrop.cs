@@ -37,8 +37,11 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             if (tmpButton.name == "BtnVariable==(Clone)") {
                 tmpButton.transform.GetChild(0).gameObject.SetActive(false);
             }
+            if (tmpButton.name == "BtnVariable!=(Clone)") {
+                tmpButton.transform.GetChild(0).gameObject.SetActive(false);
+            }
 
-            if (tmpButton.name == "BtnVariable==(Clone)") {
+            if (tmpButton.name == "BtnVariable==(Clone)" || tmpButton.name == "BtnVariable!=(Clone)") {
                 if (tmpButton.transform.parent.GetChild(1).CompareTag("condition")) {
                     tmpButton.transform.parent.GetChild(1).gameObject.SetActive(true);
                 }
@@ -73,7 +76,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
         for (int i = 0; i < tmpButton.transform.childCount; i++) {
             if (tmpButton.transform.GetChild(i).name.Contains("Clone")) {
-                if (tmpButton.transform.GetChild(i).name.Contains("==")) {
+                if (tmpButton.transform.GetChild(i).name.Contains("==") || tmpButton.transform.GetChild(i).name.Contains("!=")) {
                     tmpButton.transform.Find("BtnCondition").gameObject.SetActive(false);
                 } else {
                     tmpButton.transform.Find("BtnChild").gameObject.SetActive(false);
@@ -108,7 +111,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                 Debug.Log(objTarget.transform.parent.name);
             }
 
-            if (objTarget.CompareTag("condition") && (tmpButton.name == "BtnCount(Clone)" || tmpButton.name == "BtnVariable==(Clone)")) {
+            if (objTarget.CompareTag("condition") && (tmpButton.name == "BtnVariable!=(Clone)" || tmpButton.name == "BtnVariable==(Clone)")) {
                 float temp = tmpButton.GetComponent<RectTransform>().rect.width;
                 temp = objTarget.GetComponent<RectTransform>().rect.width - temp;
 
@@ -124,7 +127,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                 return;
             }
 
-            if (objTarget.CompareTag("child") && (tmpButton.name != "BtnCount(Clone)" && tmpButton.name != "BtnVariable==(Clone)")) {
+            if (objTarget.CompareTag("child") && (tmpButton.name != "BtnVariable!=(Clone)" && tmpButton.name != "BtnVariable==(Clone)")) {
                 float temp = tmpButton.GetComponent<RectTransform>().rect.width;
                 temp = objTarget.GetComponent<RectTransform>().rect.width - temp;
 

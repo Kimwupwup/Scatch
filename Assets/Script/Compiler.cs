@@ -80,12 +80,12 @@ public class Compiler : MonoBehaviour {
         frameCount++;
         if (isCompiled == true && currentIndex < functions.Count) {
             if (functions[currentIndex].name == "BtnMove(Clone)") {
-                int cnt = 0;
+                int moveCnt = 0;
                 for (int i = currentIndex; i < functions.Count; i++) {
                     if (functions[i].name == "BtnMove(Clone)") {
-                        FunctionMove(++cnt);
+                        FunctionMove(++moveCnt);
                         currentIndex++;
-                        timeOut = cnt;
+                        timeOut = moveCnt;
                     } else {
                         break;
                     }
@@ -93,16 +93,16 @@ public class Compiler : MonoBehaviour {
                 currentIndex--;
             } else if (functions[currentIndex].name == "BtnJump(Clone)") {
                 if (jumpController.getIsJump() || playerRig.velocity.y != 0)return;
-                int cnt = 0;
+                int jumpCnt = 0;
                 for (int i = currentIndex; i < functions.Count; i++) {
                     if (functions[i].name == "BtnJump(Clone)") {
-                        cnt++;
+                        jumpCnt++;
                         currentIndex++;
                     } else {
                         break;
                     }
                 }
-                FunctionJump(cnt);
+                FunctionJump(jumpCnt);
                 currentIndex--;
             } else if (functions[currentIndex].name == "BtnRotate(Clone)") {
                 FunctionRotate();
@@ -231,6 +231,15 @@ public class Compiler : MonoBehaviour {
 
                     for (int j = 0; j < code.transform.childCount; j++) {
                         if (code.transform.GetChild(j).name.Contains("BtnVariable==")) {
+                            GameObject ifTemp = code.transform.GetChild(j).gameObject;
+                            for (int k = 0; k < 2; k++) {
+                                InputField inputTemp = ifTemp.transform.GetChild(k).GetComponent<InputField>();
+                                if (string.IsNullOrEmpty(inputTemp.text))
+                                    inputTemp.text = inputTemp.placeholder.GetComponent<Text>().text;
+                                if (ifTemp.transform.GetChild(k).name.Contains("(1)"))
+                                    tempName = inputTemp.text;
+                            }
+                        } else if (code.transform.GetChild(j).name.Contains("BtnVariable!=")) {
                             GameObject ifTemp = code.transform.GetChild(j).gameObject;
                             for (int k = 0; k < 2; k++) {
                                 InputField inputTemp = ifTemp.transform.GetChild(k).GetComponent<InputField>();
@@ -419,19 +428,27 @@ public class Compiler : MonoBehaviour {
     public void FunctionIf() {
         string tempName = null;
         bool conditionFalse = false;
+        bool isNot = false;
 
         for (int i = 0; i < functions[currentIndex].transform.childCount; i++) {
             GameObject temp = functions[currentIndex].transform.GetChild(i).gameObject;
             if (temp.name.Contains("==")) {
                 tempName = temp.transform.GetChild(0).GetComponent<InputField>().text;
                 conditionCnt = int.Parse(temp.transform.GetChild(1).GetComponent<InputField>().text);
+                isNot = false;
+            } else if (temp.name.Contains("!=")) {
+                tempName = temp.transform.GetChild(0).GetComponent<InputField>().text;
+                conditionCnt = int.Parse(temp.transform.GetChild(1).GetComponent<InputField>().text);
+                isNot = true;
             }
         }
 
         if (tempName != null) {
             for (int i = 0; i < varName.Count; i++) {
                 if (tempName == varName[i]) {
-                    if (varValue[i] != conditionCnt) {
+                    if (varValue[i] != conditionCnt && isNot == false) {
+                        conditionFalse = true;
+                    } else if (varValue[i] == conditionCnt && isNot == true) {
                         conditionFalse = true;
                     }
                     break;
