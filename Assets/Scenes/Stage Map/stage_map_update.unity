@@ -190,6 +190,11 @@ PrefabInstance:
     - target: {fileID: 6977514027344933933, guid: d95e5fb1e4b40bd4b94595341b055f95,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5902958789166794393, guid: d95e5fb1e4b40bd4b94595341b055f95,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -5671,6 +5676,11 @@ PrefabInstance:
     - target: {fileID: 6977514027344933933, guid: d95e5fb1e4b40bd4b94595341b055f95,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5902958789166794393, guid: d95e5fb1e4b40bd4b94595341b055f95,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -14353,6 +14363,11 @@ PrefabInstance:
     - target: {fileID: 6977514027344933933, guid: d95e5fb1e4b40bd4b94595341b055f95,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5902958789166794393, guid: d95e5fb1e4b40bd4b94595341b055f95,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -17464,6 +17479,11 @@ PrefabInstance:
     - target: {fileID: 6977514027344933933, guid: d95e5fb1e4b40bd4b94595341b055f95,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5902958789166794393, guid: d95e5fb1e4b40bd4b94595341b055f95,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -19721,6 +19741,11 @@ PrefabInstance:
     - target: {fileID: 6977514027344933933, guid: d95e5fb1e4b40bd4b94595341b055f95,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5902958789166794393, guid: d95e5fb1e4b40bd4b94595341b055f95,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -21455,6 +21480,11 @@ PrefabInstance:
     - target: {fileID: 6977514027344933933, guid: d95e5fb1e4b40bd4b94595341b055f95,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5902958789166794393, guid: d95e5fb1e4b40bd4b94595341b055f95,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -22078,6 +22108,11 @@ PrefabInstance:
     - target: {fileID: 6977514027344933933, guid: d95e5fb1e4b40bd4b94595341b055f95,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5902958789166794393, guid: d95e5fb1e4b40bd4b94595341b055f95,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -26774,6 +26809,11 @@ PrefabInstance:
     - target: {fileID: 6977514027344933933, guid: d95e5fb1e4b40bd4b94595341b055f95,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5902958789166794393, guid: d95e5fb1e4b40bd4b94595341b055f95,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -27428,6 +27468,11 @@ PrefabInstance:
     - target: {fileID: 6977514027344933933, guid: d95e5fb1e4b40bd4b94595341b055f95,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5902958789166794393, guid: d95e5fb1e4b40bd4b94595341b055f95,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -31759,7 +31804,7 @@ GameObject:
   - component: {fileID: 1820771294}
   - component: {fileID: 1820771293}
   m_Layer: 0
-  m_Name: Tilemap
+  m_Name: stage18
   m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
