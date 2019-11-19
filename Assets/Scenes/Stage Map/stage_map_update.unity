@@ -3097,7 +3097,7 @@ GameObject:
   - component: {fileID: 225222292}
   - component: {fileID: 225222291}
   m_Layer: 5
-  m_Name: BtnStageReset (1)
+  m_Name: BtnStageCheat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -377,19 +377,19 @@ public class Compiler : MonoBehaviour {
             isMoving = false;
         }
     }
-    public void FunctionMove(int cnt) {
+    public void FunctionMove(int moveCnt) {
         isMoving = true;
 
         if (playerSprite.flipX) {
-            targetPos = playerRig.transform.position.x + (1f * cnt);
+            targetPos = playerRig.transform.position.x + (1f * moveCnt);
         } else {
-            targetPos = playerRig.transform.position.x - (1f * cnt);
+            targetPos = playerRig.transform.position.x - (1f * moveCnt);
         }
     }
 
-    public void FunctionJump(int cnt) {
+    public void FunctionJump(int jumpCnt) {
         //playerAn.SetBool("isJumping", true);
-        playerRig.AddForce(Vector2.up * (jumpPower + (cnt * 1.5f)), ForceMode2D.Impulse);
+        playerRig.AddForce(Vector2.up * (jumpPower + (jumpCnt * 1.5f)), ForceMode2D.Impulse);
     }
 
     public void FunctionRotate() {
@@ -446,24 +446,19 @@ public class Compiler : MonoBehaviour {
         if (tempName != null) {
             for (int i = 0; i < varName.Count; i++) {
                 if (tempName == varName[i]) {
-                    if (varValue[i] != conditionCnt && isNot == false) {
+                    if (isNot == false && varValue[i] != conditionCnt) {
                         conditionFalse = true;
-                    } else if (varValue[i] == conditionCnt && isNot == true) {
+                    } else if (isNot == true && varValue[i] == conditionCnt) {
                         conditionFalse = true;
                     }
                     break;
                 }
             }
-        } else {
-            if (cnt != conditionCnt) {
-                conditionFalse = true;
-            }
         }
-
         if (conditionFalse == true) {
             for (int i = 0; i < ifIndex.Count; i++) {
                 if (currentIndex == ifIndex[i]) {
-                    currentIndex = endIfIndex[0 + i] - 1;
+                    currentIndex = endIfIndex[ifIndex.Count - i - 1] - 1;
                     break;
                 }
             }
