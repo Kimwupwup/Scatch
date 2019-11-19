@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.Text.RegularExpressions;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class StageSaveAndLoad : MonoBehaviour {
     Scene scene;
@@ -12,7 +12,7 @@ public class StageSaveAndLoad : MonoBehaviour {
     private GameObject codePanel;
     private Camera came;
     Color backgroundColor = new Color();
-    
+
     void Awake() {
         codePanel = GameObject.FindGameObjectWithTag("codePanel");
         came = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
@@ -20,12 +20,12 @@ public class StageSaveAndLoad : MonoBehaviour {
     }
 
     void Start() {
-        scene = SceneManager.GetActiveScene();                  // 현재 씬 가져옴
-        string number = Regex.Replace(scene.name, @"\D", "");   // stage1 에서 1만 남기고 없앰
+        scene = SceneManager.GetActiveScene(); // 현재 씬 가져옴
+        string number = Regex.Replace(scene.name, @"\D", ""); // stage1 에서 1만 남기고 없앰
 
         // 숫자가 없는 경우 아무것도 하지 않는다.
         if (int.TryParse(number, out int ret) == true) {
-            curScene = int.Parse(number);                       // 현재 씬의 빌드넘버
+            curScene = int.Parse(number); // 현재 씬의 빌드넘버
             quitScene = int.Parse(number);
             if (SceneManager.GetActiveScene().name.Contains("tutorial"))
                 quitScene = 0;
@@ -34,7 +34,7 @@ public class StageSaveAndLoad : MonoBehaviour {
     }
 
     public void Save() {
-        if (curScene + 1> PlayerPrefs.GetInt("Num"))
+        if (curScene + 1 > PlayerPrefs.GetInt("Num"))
             PlayerPrefs.SetInt("Num", curScene + 1);
     }
 
@@ -46,7 +46,7 @@ public class StageSaveAndLoad : MonoBehaviour {
             PlayerPrefs.SetInt("Num", 1);
             curScene = 1;
         }
-            
+
         if (PlayerPrefs.HasKey("Quit")) {
             quitScene = PlayerPrefs.GetInt("Quit");
         } else {
@@ -60,8 +60,7 @@ public class StageSaveAndLoad : MonoBehaviour {
             backgroundColor.b = PlayerPrefs.GetFloat("VB");
             backgroundColor.a = 255f;
             came.backgroundColor = backgroundColor;
-        }
-        else {
+        } else {
             PlayerPrefs.SetFloat("VR", came.backgroundColor.r);
             PlayerPrefs.SetFloat("VG", came.backgroundColor.g);
             PlayerPrefs.SetFloat("VB", came.backgroundColor.b);
@@ -75,8 +74,7 @@ public class StageSaveAndLoad : MonoBehaviour {
                 backgroundColor.b = PlayerPrefs.GetFloat("CB");
                 backgroundColor.a = 180f / 256f;
                 codePanelColor.color = backgroundColor;
-            }
-            else {
+            } else {
                 PlayerPrefs.SetFloat("CR", codePanelColor.color.r);
                 PlayerPrefs.SetFloat("CG", codePanelColor.color.g);
                 PlayerPrefs.SetFloat("CB", codePanelColor.color.b);
@@ -87,5 +85,9 @@ public class StageSaveAndLoad : MonoBehaviour {
     public void StageClearReset() {
         PlayerPrefs.SetInt("Num", 1);
         PlayerPrefs.SetInt("Quit", 0);
+    }
+
+    public void StageCheat() {
+        PlayerPrefs.SetInt("Num", 18);
     }
 }
