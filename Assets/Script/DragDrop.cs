@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
-{
+public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler {
     private GameObject tmpButton;
     private GameObject objController;
     private Controller controller;
@@ -55,12 +54,12 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             }
             tmpButton.transform.SetParent(GameObject.FindGameObjectWithTag("canvas").transform);
             tmpButton.GetComponent<Image>().raycastTarget = false;
-        }        
+        }
     }
     //---------------------------------------------------------------------------------------------
     public void OnDrag(PointerEventData eventData) {
         tmpButton.transform.position = Input.mousePosition;
-        
+
         bool isTrue = controller.GetIsCodePanel();
 
         if (isTrue) {
@@ -71,19 +70,17 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     public void OnEndDrag(PointerEventData eventData) {
         if (isSetMenu)
             menuButton.SetMenuPanel(true);
-        
+
         for (int i = 0; i < tmpButton.transform.childCount; i++) {
             if (tmpButton.transform.GetChild(i).name.Contains("Clone")) {
                 if (tmpButton.transform.GetChild(i).name.Contains("==")) {
                     tmpButton.transform.Find("BtnCondition").gameObject.SetActive(false);
-                }
-                else {
+                } else {
                     tmpButton.transform.Find("BtnChild").gameObject.SetActive(false);
                 }
-            }
-            else {
+            } else {
                 tmpButton.transform.GetChild(i).gameObject.SetActive(true);
-            }            
+            }
         }
 
         // 우선 마우스가 코드 패널 위에 있는지 확인한다.
@@ -117,7 +114,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
                 tmpButton.transform.position =
                     new Vector3(objTarget.transform.position.x - (temp / 2) * (Screen.height / 2960f) * 0.75f,
-                    objTarget.transform.position.y + 10, 0);
+                        objTarget.transform.position.y + 10, 0);
 
                 tmpButton.transform.SetParent(objTarget.transform.parent);
                 tmpButton.GetComponent<Image>().raycastTarget = true;
@@ -133,7 +130,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
                 tmpButton.transform.position =
                     new Vector3(objTarget.transform.position.x - (temp / 2) * (Screen.height / 2960f) * 0.75f,
-                    objTarget.transform.position.y, 0);
+                        objTarget.transform.position.y, 0);
 
                 tmpButton.transform.SetParent(objTarget.transform.parent);
                 tmpButton.GetComponent<Image>().raycastTarget = true;

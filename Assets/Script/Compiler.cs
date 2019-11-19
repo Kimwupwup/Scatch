@@ -53,12 +53,17 @@ public class Compiler : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
+    private void FixedUpdate() {
         timer += Time.deltaTime;
         if (isMoving) {
-            if (timer > 2f * timeOut) {
-                failPanel.SetActive(true);
-                Time.timeScale = 0;
+
+            // 벽으로 이동시 타임아웃 (삭제)
+            if (timer > timeOut) {
+                float temp = targetPos - playerTransform.position.x;
+                targetPos -= Mathf.Round(temp);
+                playerTransform.position = new Vector3(targetPos, playerTransform.position.y, 0f);
+                isMoving = false;
+                return;
             }
 
             run();
@@ -81,66 +86,51 @@ public class Compiler : MonoBehaviour {
                         FunctionMove(++cnt);
                         currentIndex++;
                         timeOut = cnt;
-                    }
-                    else {
+                    } else {
                         break;
                     }
                 }
                 currentIndex--;
-            }
-            else if (functions[currentIndex].name == "BtnJump(Clone)") {
-                if (jumpController.getIsJump() || playerRig.velocity.y != 0) return;
+            } else if (functions[currentIndex].name == "BtnJump(Clone)") {
+                if (jumpController.getIsJump() || playerRig.velocity.y != 0)return;
                 int cnt = 0;
                 for (int i = currentIndex; i < functions.Count; i++) {
                     if (functions[i].name == "BtnJump(Clone)") {
                         cnt++;
                         currentIndex++;
-                    }
-                    else {
+                    } else {
                         break;
                     }
                 }
                 FunctionJump(cnt);
                 currentIndex--;
-            }
-            else if (functions[currentIndex].name == "BtnRotate(Clone)") {
+            } else if (functions[currentIndex].name == "BtnRotate(Clone)") {
                 FunctionRotate();
-            }
-            else if (functions[currentIndex].name == "BtnLoop(Clone)") {
-                if (jumpController.getIsJump() || playerRig.velocity.y != 0) return;
+            } else if (functions[currentIndex].name == "BtnLoop(Clone)") {
+                if (jumpController.getIsJump() || playerRig.velocity.y != 0)return;
                 FunctionLoop();
-            }
-            else if (functions[currentIndex].name == "BtnEndLoop(Clone)") {
+            } else if (functions[currentIndex].name == "BtnEndLoop(Clone)") {
                 FunctionEndLoop();
-            }
-            else if (functions[currentIndex].name == "BtnDelay(Clone)") {
+            } else if (functions[currentIndex].name == "BtnDelay(Clone)") {
                 FunctionDelay();
-            }
-            else if (functions[currentIndex].name == "BtnIf(Clone)") {
+            } else if (functions[currentIndex].name == "BtnIf(Clone)") {
                 FunctionIf();
-            }
-            else if (functions[currentIndex].name == "BtnEndIf(Clone)") {
+            } else if (functions[currentIndex].name == "BtnEndIf(Clone)") {
                 FunctionEndIf();
-            }
-            else if (functions[currentIndex].name == "BtnCnt=(Clone)") {
+            } else if (functions[currentIndex].name == "BtnCnt=(Clone)") {
                 FunctionSetCnt();
-            }
-            else if (functions[currentIndex].name == "BtnCnt++(Clone)") {
+            } else if (functions[currentIndex].name == "BtnCnt++(Clone)") {
                 FunctionIncreaseCnt();
-            }
-            else if (functions[currentIndex].name == "BtnBreak(Clone)") {
+            } else if (functions[currentIndex].name == "BtnBreak(Clone)") {
                 FunctionBreak();
-            }
-            else if (functions[currentIndex].name == "BtnVariable=(Clone)") {
+            } else if (functions[currentIndex].name == "BtnVariable=(Clone)") {
                 FunctionSetVariable();
-            }
-            else if (functions[currentIndex].name == "BtnVariable++(Clone)") {
+            } else if (functions[currentIndex].name == "BtnVariable++(Clone)") {
                 FunctionIncreaseValue();
             }
             currentIndex++;
             frameCount = 0;
-        }
-        else {
+        } else {
             isMoving = false;
             playerAn.SetBool("isMoving", false);
             currentIndex = 0;
@@ -156,7 +146,6 @@ public class Compiler : MonoBehaviour {
             functions.Clear();
             loopSet.Clear();
         }
-
 
     }
 
@@ -265,8 +254,7 @@ public class Compiler : MonoBehaviour {
                             codesQueue.Clear();
                             return;
                         }
-                    }
-                    else {
+                    } else {
                         if (cnt == -1) {
                             AlertError(0);
                             codesQueue.Clear();
@@ -355,13 +343,11 @@ public class Compiler : MonoBehaviour {
             AlertError(1);
             codesQueue.Clear();
             isCompiled = false;
-        }
-        else if (ifIndex.Count != endIfIndex.Count) {
+        } else if (ifIndex.Count != endIfIndex.Count) {
             AlertError(2);
             codesQueue.Clear();
             isCompiled = false;
-        }
-        else {
+        } else {
             codesQueue.Clear();
             isCompiled = true;
         }
@@ -373,12 +359,10 @@ public class Compiler : MonoBehaviour {
         if (playerSprite.flipX && targetPos > playerTransform.position.x) {
             playerAn.SetBool("isMoving", true);
             playerTransform.position += Vector3.right * moveSpeed * Time.deltaTime;
-        }
-        else if (!playerSprite.flipX && targetPos < playerTransform.position.x) {
+        } else if (!playerSprite.flipX && targetPos < playerTransform.position.x) {
             playerAn.SetBool("isMoving", true);
             playerTransform.position += Vector3.left * moveSpeed * Time.deltaTime;
-        }
-        else {
+        } else {
             playerAn.SetBool("isMoving", false);
             playerTransform.position = new Vector3(targetPos, playerTransform.position.y, playerTransform.position.z);
             isMoving = false;
@@ -389,8 +373,7 @@ public class Compiler : MonoBehaviour {
 
         if (playerSprite.flipX) {
             targetPos = playerRig.transform.position.x + (1f * cnt);
-        }
-        else {
+        } else {
             targetPos = playerRig.transform.position.x - (1f * cnt);
         }
     }
@@ -403,8 +386,7 @@ public class Compiler : MonoBehaviour {
     public void FunctionRotate() {
         if (playerRig.GetComponent<SpriteRenderer>().flipX == false) {
             playerRig.GetComponent<SpriteRenderer>().flipX = true;
-        }
-        else {
+        } else {
             playerRig.GetComponent<SpriteRenderer>().flipX = false;
         }
     }
@@ -428,8 +410,7 @@ public class Compiler : MonoBehaviour {
         if (string.IsNullOrEmpty(n)) {
             functions[currentIndex].transform.GetChild(0).GetComponent<InputField>().text = "2";
             temp = 2;
-        }
-        else {
+        } else {
             temp = float.Parse(n);
         }
         delayTimer = temp;
@@ -456,8 +437,7 @@ public class Compiler : MonoBehaviour {
                     break;
                 }
             }
-        }
-        else {
+        } else {
             if (cnt != conditionCnt) {
                 conditionFalse = true;
             }
@@ -522,14 +502,12 @@ public class Compiler : MonoBehaviour {
             errorPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
             errorPanel.transform.GetChild(1).localEulerAngles = new Vector3(0, 90, 0);
             errorPanel.transform.GetChild(2).localEulerAngles = new Vector3(0, 90, 0);
-        }
-        else if (error == 1) {
+        } else if (error == 1) {
             Debug.Log("LOOP is incorrected!");
             errorPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
             errorPanel.transform.GetChild(1).localEulerAngles = new Vector3(0, 0, 0);
             errorPanel.transform.GetChild(2).localEulerAngles = new Vector3(0, 90, 0);
-        }
-        else if (error == 2) {
+        } else if (error == 2) {
             Debug.Log("IF is incorrected!");
             errorPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
             errorPanel.transform.GetChild(1).localEulerAngles = new Vector3(0, 90, 0);

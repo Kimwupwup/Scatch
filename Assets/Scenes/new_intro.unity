@@ -1196,7 +1196,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
@@ -1738,7 +1738,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2e8e15567aa2eea44b7fda4bc490d95a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 09a2be262de5ee74babafa704ca8760f, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
