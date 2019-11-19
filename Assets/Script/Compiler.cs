@@ -9,7 +9,6 @@ public class Compiler : MonoBehaviour {
     private List<int> loopIndex = new List<int>();
     private List<int> endLoopIndex = new List<int>();
     private List<int> ifIndex = new List<int>();
-    private List<int> endIfIndex = new List<int>();
     private List<string> varName = new List<string>();
     private List<int> varValue = new List<int>();
     private GameObject[] subFlags;
@@ -40,6 +39,7 @@ public class Compiler : MonoBehaviour {
     private float timeOut = 0f;
     private float delayTimer = 0f;
 
+    private int ifCnt = 0, endIfCnt = 0;
     private void Start() {
         playerFlip = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>().flipX;
         playerOrginPos = GameObject.FindGameObjectWithTag("Player").transform.position;
@@ -137,10 +137,11 @@ public class Compiler : MonoBehaviour {
             cnt = -1;
             conditionCnt = -1;
             isCompiled = false;
+            ifCnt = 0;
+            endIfCnt = 0;
             loopIndex.Clear();
             endLoopIndex.Clear();
             ifIndex.Clear();
-            endIfIndex.Clear();
             varName.Clear();
             varValue.Clear();
             functions.Clear();
@@ -156,11 +157,12 @@ public class Compiler : MonoBehaviour {
         cnt = -1;
         conditionCnt = -1;
         isCompiled = false;
+        ifCnt = 0;
+        endIfCnt = 0;
         functions.Clear();
         loopIndex.Clear();
         endLoopIndex.Clear();
         ifIndex.Clear();
-        endIfIndex.Clear();
         varName.Clear();
         varValue.Clear();
         loopSet.Clear();
@@ -220,6 +222,7 @@ public class Compiler : MonoBehaviour {
                     endLoopIndex.Add(functions.Count - 1);
                 }
                 if (code.name == "BtnIf(Clone)") {
+                    ifCnt++;
                     ifIndex.Add(functions.Count - 1);
                     if (code.transform.childCount < 5) {
                         AlertError(2);
@@ -273,7 +276,8 @@ public class Compiler : MonoBehaviour {
                 }
 
                 if (code.name == "BtnEndIf(Clone)") {
-                    endIfIndex.Add(functions.Count - 1);
+                    endIfCnt++;
+                    ifIndex.Add(functions.Count - 1);
                 }
 
                 if (code.name == "BtnVariable=(Clone)") {
@@ -352,7 +356,7 @@ public class Compiler : MonoBehaviour {
             AlertError(1);
             codesQueue.Clear();
             isCompiled = false;
-        } else if (ifIndex.Count != endIfIndex.Count) {
+        } else if (ifCnt != endIfCnt) {
             AlertError(2);
             codesQueue.Clear();
             isCompiled = false;
@@ -456,9 +460,20 @@ public class Compiler : MonoBehaviour {
             }
         }
         if (conditionFalse == true) {
+            int brace;
             for (int i = 0; i < ifIndex.Count; i++) {
                 if (currentIndex == ifIndex[i]) {
-                    currentIndex = endIfIndex[ifIndex.Count - i - 1] - 1;
+                    brace = 1;
+                    for (int j = i + 1; j < ifIndex.Count; j++) {
+                        if (functions[ifIndex[j]].name == "BtnIf(Clone)")brace++;
+                        else if (functions[ifIndex[j]].name == "BtnEndIf(Clone)")brace--;
+
+                        if (brace == 0) {
+                            brace = ifIndex[j];
+                            break;
+                        }
+                    }
+                    currentIndex = brace - 1;
                     break;
                 }
             }
