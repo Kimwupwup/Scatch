@@ -234,13 +234,13 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.0f2/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>D:/Git/Scratch/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>C:/Users/82107/Desktop/Scratch/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>D:/Git/Scratch/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/82107/Desktop/Scratch/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>D:/Git/Scratch/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>C:/Users/82107/Desktop/Scratch/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2019.1.0f2\Editor\Data\NetStandard\ref\2.0.0\netstandard.dll</HintPath>
@@ -607,6 +607,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\BGMDontDestroy.cs" />
     <Compile Include="Assets\Script\ButtonEvent.cs" />
     <Compile Include="Assets\Script\CameraControl.cs" />
     <Compile Include="Assets\Script\CodePanelScroll.cs" />
@@ -630,6 +631,7 @@
     <Compile Include="Assets\Script\ScreenResolution.cs" />
     <Compile Include="Assets\Script\ScriptFolder.cs" />
     <Compile Include="Assets\Script\SetColor.cs" />
+    <Compile Include="Assets\Script\SettingsTab.cs" />
     <Compile Include="Assets\Script\slaim_move.cs" />
     <Compile Include="Assets\Script\StageButton.cs" />
     <Compile Include="Assets\Script\StageSaveAndLoad.cs" />
