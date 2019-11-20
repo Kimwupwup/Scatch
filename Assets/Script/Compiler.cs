@@ -25,7 +25,6 @@ public class Compiler : MonoBehaviour {
     private Vector3 playerOrginPos;
     private float targetPos;
     private bool isMoving = false;
-    private int frameCount = 0;
     private int currentIndex = 0;
 
     private int cnt = -1;
@@ -77,59 +76,114 @@ public class Compiler : MonoBehaviour {
         delayTimer = 0f;
         timeOut = 0f;
         timer = 0f;
-        frameCount++;
+
         if (isCompiled == true && currentIndex < functions.Count) {
-            if (functions[currentIndex].name == "BtnMove(Clone)") {
-                int moveCnt = 0;
-                for (int i = currentIndex; i < functions.Count; i++) {
-                    if (functions[i].name == "BtnMove(Clone)") {
-                        FunctionMove(++moveCnt);
-                        currentIndex++;
-                        timeOut = moveCnt;
-                    } else {
-                        break;
+            for (; currentIndex < functions.Count; currentIndex++) {
+                if (functions[currentIndex].name == "BtnMove(Clone)") {
+                    int moveCnt = 0;
+                    for (int i = currentIndex; i < functions.Count; i++) {
+                        if (functions[i].name == "BtnMove(Clone)") {
+                            FunctionMove(++moveCnt);
+                            currentIndex++;
+                            timeOut = moveCnt;
+                        } else {
+                            break;
+                        }
                     }
-                }
-                currentIndex--;
-            } else if (functions[currentIndex].name == "BtnJump(Clone)") {
-                if (jumpController.getIsJump() || playerRig.velocity.y != 0)return;
-                int jumpCnt = 0;
-                for (int i = currentIndex; i < functions.Count; i++) {
-                    if (functions[i].name == "BtnJump(Clone)") {
-                        jumpCnt++;
-                        currentIndex++;
-                    } else {
-                        break;
+                    // currentIndex--;
+                    break;
+                } else if (functions[currentIndex].name == "BtnJump(Clone)") {
+                    if (jumpController.getIsJump() || playerRig.velocity.y != 0)return;
+                    int jumpCnt = 0;
+                    for (int i = currentIndex; i < functions.Count; i++) {
+                        if (functions[i].name == "BtnJump(Clone)") {
+                            jumpCnt++;
+                            currentIndex++;
+                        } else {
+                            break;
+                        }
                     }
+                    FunctionJump(jumpCnt);
+                    // currentIndex--;
+                    break;
+                } else if (functions[currentIndex].name == "BtnRotate(Clone)") {
+                    FunctionRotate();
+                } else if (functions[currentIndex].name == "BtnLoop(Clone)") {
+                    if (jumpController.getIsJump() || playerRig.velocity.y != 0)return;
+                    FunctionLoop();
+                } else if (functions[currentIndex].name == "BtnEndLoop(Clone)") {
+                    FunctionEndLoop();
+                } else if (functions[currentIndex].name == "BtnDelay(Clone)") {
+                    FunctionDelay();
+                    currentIndex++;
+                    break;
+                } else if (functions[currentIndex].name == "BtnIf(Clone)") {
+                    FunctionIf();
+                } else if (functions[currentIndex].name == "BtnEndIf(Clone)") {
+                    FunctionEndIf();
+                } else if (functions[currentIndex].name == "BtnCnt=(Clone)") {
+                    FunctionSetCnt();
+                } else if (functions[currentIndex].name == "BtnCnt++(Clone)") {
+                    FunctionIncreaseCnt();
+                } else if (functions[currentIndex].name == "BtnBreak(Clone)") {
+                    FunctionBreak();
+                } else if (functions[currentIndex].name == "BtnVariable=(Clone)") {
+                    FunctionSetVariable();
+                } else if (functions[currentIndex].name == "BtnVariable++(Clone)") {
+                    FunctionIncreaseValue();
                 }
-                FunctionJump(jumpCnt);
-                currentIndex--;
-            } else if (functions[currentIndex].name == "BtnRotate(Clone)") {
-                FunctionRotate();
-            } else if (functions[currentIndex].name == "BtnLoop(Clone)") {
-                if (jumpController.getIsJump() || playerRig.velocity.y != 0)return;
-                FunctionLoop();
-            } else if (functions[currentIndex].name == "BtnEndLoop(Clone)") {
-                FunctionEndLoop();
-            } else if (functions[currentIndex].name == "BtnDelay(Clone)") {
-                FunctionDelay();
-            } else if (functions[currentIndex].name == "BtnIf(Clone)") {
-                FunctionIf();
-            } else if (functions[currentIndex].name == "BtnEndIf(Clone)") {
-                FunctionEndIf();
-            } else if (functions[currentIndex].name == "BtnCnt=(Clone)") {
-                FunctionSetCnt();
-            } else if (functions[currentIndex].name == "BtnCnt++(Clone)") {
-                FunctionIncreaseCnt();
-            } else if (functions[currentIndex].name == "BtnBreak(Clone)") {
-                FunctionBreak();
-            } else if (functions[currentIndex].name == "BtnVariable=(Clone)") {
-                FunctionSetVariable();
-            } else if (functions[currentIndex].name == "BtnVariable++(Clone)") {
-                FunctionIncreaseValue();
             }
-            currentIndex++;
-            frameCount = 0;
+            // 컴파일러 구 버전
+            // if (functions[currentIndex].name == "BtnMove(Clone)") {
+            //     int moveCnt = 0;
+            //     for (int i = currentIndex; i < functions.Count; i++) {
+            //         if (functions[i].name == "BtnMove(Clone)") {
+            //             FunctionMove(++moveCnt);
+            //             currentIndex++;
+            //             timeOut = moveCnt;
+            //         } else {
+            //             break;
+            //         }
+            //     }
+            //     currentIndex--;
+            // } else if (functions[currentIndex].name == "BtnJump(Clone)") {
+            //     if (jumpController.getIsJump() || playerRig.velocity.y != 0)return;
+            //     int jumpCnt = 0;
+            //     for (int i = currentIndex; i < functions.Count; i++) {
+            //         if (functions[i].name == "BtnJump(Clone)") {
+            //             jumpCnt++;
+            //             currentIndex++;
+            //         } else {
+            //             break;
+            //         }
+            //     }
+            //     FunctionJump(jumpCnt);
+            //     currentIndex--;
+            // } else if (functions[currentIndex].name == "BtnRotate(Clone)") {
+            //     FunctionRotate();
+            // } else if (functions[currentIndex].name == "BtnLoop(Clone)") {
+            //     if (jumpController.getIsJump() || playerRig.velocity.y != 0)return;
+            //     FunctionLoop();
+            // } else if (functions[currentIndex].name == "BtnEndLoop(Clone)") {
+            //     FunctionEndLoop();
+            // } else if (functions[currentIndex].name == "BtnDelay(Clone)") {
+            //     FunctionDelay();
+            // } else if (functions[currentIndex].name == "BtnIf(Clone)") {
+            //     FunctionIf();
+            // } else if (functions[currentIndex].name == "BtnEndIf(Clone)") {
+            //     FunctionEndIf();
+            // } else if (functions[currentIndex].name == "BtnCnt=(Clone)") {
+            //     FunctionSetCnt();
+            // } else if (functions[currentIndex].name == "BtnCnt++(Clone)") {
+            //     FunctionIncreaseCnt();
+            // } else if (functions[currentIndex].name == "BtnBreak(Clone)") {
+            //     FunctionBreak();
+            // } else if (functions[currentIndex].name == "BtnVariable=(Clone)") {
+            //     FunctionSetVariable();
+            // } else if (functions[currentIndex].name == "BtnVariable++(Clone)") {
+            //     FunctionIncreaseValue();
+            // }
+            // currentIndex++;
         } else {
             isMoving = false;
             playerAn.SetBool("isMoving", false);

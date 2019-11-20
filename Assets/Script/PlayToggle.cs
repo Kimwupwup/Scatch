@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayToggle : MonoBehaviour
-{
+public class PlayToggle : MonoBehaviour {
     public float switchSpeed = 5f;
     public Color offColor;
     public Color onColor;
@@ -23,8 +22,7 @@ public class PlayToggle : MonoBehaviour
     private bool isOn = false;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         compiler2 = GameObject.FindGameObjectWithTag("compiler").GetComponent<Compiler2>();
         compiler = GameObject.FindGameObjectWithTag("compiler").GetComponent<Compiler>();
         originPos = this.GetComponent<RectTransform>().anchoredPosition;
@@ -37,8 +35,7 @@ public class PlayToggle : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         if (isOn) {
             handlePos.anchoredPosition = Vector2.Lerp(handlePos.anchoredPosition, onPos, Time.deltaTime * switchSpeed);
             backgroundColor.color = Color.Lerp(backgroundColor.color, onColor, Time.deltaTime * switchSpeed);
@@ -51,11 +48,13 @@ public class PlayToggle : MonoBehaviour
     public void OnMouseDown() {
         if (isOn) {
             compiler.ResetView();
-            compiler2.ResetView();
+            if (compiler2 != null)
+                compiler2.ResetView();
             isOn = false;
         } else {
             compiler.Compiling();
-            compiler2.Compiling();
+            if (compiler2 != null)
+                compiler2.Compiling();
             isOn = true;
         }
     }
