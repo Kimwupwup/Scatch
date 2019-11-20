@@ -14,6 +14,7 @@ public class PlayerChat : MonoBehaviour {
         content = dialogPanel.transform.GetChild(0).GetComponent<Text>();
         headPos = this.transform.position;
         headPos.y += 1f;
+        headPos.x -= 0.3f;
         dialogPanel.transform.position = headPos;
 
         dialog.Add("안녕하세요! 저는 널구리입니다!");

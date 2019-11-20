@@ -14,6 +14,7 @@ public class PlayerChat2 : MonoBehaviour {
         content = dialogPanel.transform.GetChild(0).GetComponent<Text>();
         headPos = this.transform.position;
         headPos.y += 1f;
+        headPos.x -= 0.3f;
         dialogPanel.transform.position = headPos;
 
         dialog.Add("앞에 불이 길을 막고 있어요...");

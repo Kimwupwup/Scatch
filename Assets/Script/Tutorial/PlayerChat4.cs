@@ -14,6 +14,7 @@ public class PlayerChat4 : MonoBehaviour {
         content = dialogPanel.transform.GetChild(0).GetComponent<Text>();
         headPos = this.transform.position;
         headPos.y += 1f;
+        headPos.x -= 0.3f;
         dialogPanel.transform.position = headPos;
 
         dialog.Add("빨간색 깃발이 어디있는지 모르겠어..");
