@@ -203,7 +203,7 @@ public class Compiler2 : MonoBehaviour
         ifCnt = 0;
         endIfCnt = 0;
         functions.Clear();
-        loopIndex.Clear();
+        loopIndex.Clear();  
         endLoopIndex.Clear();
         ifIndex.Clear();
         varName.Clear();
