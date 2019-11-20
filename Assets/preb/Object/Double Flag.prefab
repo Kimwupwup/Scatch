@@ -417,7 +417,7 @@ GameObject:
   - component: {fileID: 5127352871341686637}
   m_Layer: 0
   m_Name: double_flag1
-  m_TagString: Untagged
+  m_TagString: SubFlag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -558,7 +558,7 @@ GameObject:
   - component: {fileID: 5127352871344450588}
   m_Layer: 0
   m_Name: double_flag1 (1)
-  m_TagString: Untagged
+  m_TagString: SubFlag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
