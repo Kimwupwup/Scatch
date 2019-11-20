@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class MenuButton : MonoBehaviour {
     public float speed = 1;
 
-
     private GameObject menuPanel;
     private GameObject codePanel;
     private GameObject pausePanel;
@@ -46,7 +45,6 @@ public class MenuButton : MonoBehaviour {
             codePanel = GameObject.FindGameObjectWithTag("codePanel");
             posMenuPanel = menuPanel.transform.position;
             posErrorPanel = errorPanel.transform.position;
-        } else {
             InfoPanel = GameObject.Find("Canvas").transform.Find("Information Panel").gameObject;
         }
 
