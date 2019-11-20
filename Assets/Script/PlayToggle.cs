@@ -9,6 +9,7 @@ public class PlayToggle : MonoBehaviour
     public Color offColor;
     public Color onColor;
 
+    private Compiler2 compiler2;
     private Compiler compiler;
     private GameObject toggleBackground;
     private Image backgroundColor;
@@ -24,6 +25,7 @@ public class PlayToggle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        compiler2 = GameObject.FindGameObjectWithTag("compiler").GetComponent<Compiler2>();
         compiler = GameObject.FindGameObjectWithTag("compiler").GetComponent<Compiler>();
         originPos = this.GetComponent<RectTransform>().anchoredPosition;
         offPos = new Vector2(originPos.x - 155, 0);
@@ -49,9 +51,11 @@ public class PlayToggle : MonoBehaviour
     public void OnMouseDown() {
         if (isOn) {
             compiler.ResetView();
+            compiler2.ResetView();
             isOn = false;
         } else {
             compiler.Compiling();
+            compiler2.Compiling();
             isOn = true;
         }
     }
