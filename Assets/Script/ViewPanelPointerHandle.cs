@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ViewPanelPointerHandle : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
-{
+public class ViewPanelPointerHandle : MonoBehaviour, IPointerDownHandler, IPointerExitHandler {
     public int cnt = 0;
-    public void OnPointerEnter(PointerEventData eventData) {
+
+    public void OnPointerDown(PointerEventData eventData) {
         cnt++;
     }
 

@@ -37,6 +37,7 @@ public class MenuButton : MonoBehaviour {
         pausePanel = GameObject.FindGameObjectWithTag("pausePanel");
         exitPanel = GameObject.FindGameObjectWithTag("exitPanel");
         posPausePanel = pausePanel.transform.position;
+        InfoPanel = GameObject.Find("Canvas").transform.Find("Information Panel").gameObject;
 
         if (SceneManager.GetActiveScene().name != "stage_map_update") {
             settingPanel = GameObject.FindGameObjectWithTag("settingPanel");
@@ -45,7 +46,6 @@ public class MenuButton : MonoBehaviour {
             codePanel = GameObject.FindGameObjectWithTag("codePanel");
             posMenuPanel = menuPanel.transform.position;
             posErrorPanel = errorPanel.transform.position;
-            InfoPanel = GameObject.Find("Canvas").transform.Find("Information Panel").gameObject;
         }
 
         //pausePanel.SetActive(false);

@@ -21,7 +21,6 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     public void OnBeginDrag(PointerEventData eventData) {
         isSetMenu = menuButton.GetMenuPanel();
         if (this.CompareTag("button") == true) {
-
             tmpButton = Instantiate(this, Input.mousePosition, Quaternion.identity, GameObject.FindGameObjectWithTag("canvas").transform).gameObject;
             tmpButton.tag = "clone";
             tmpButton.GetComponent<Image>().raycastTarget = false;
