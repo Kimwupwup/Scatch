@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SubFlagLoading : MonoBehaviour
-{
+public class SubFlagLoading : MonoBehaviour {
+    public SubFlagLoading otherFlag = null;
     private Slider slider;
     private Vector2 headPos;
     private Vector2 targetScale;
@@ -12,10 +12,10 @@ public class SubFlagLoading : MonoBehaviour
     private Color originColor;
     private Image fill;
     private bool isTriggerOn = false;
+    private bool conquerStart = false;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         slider = this.transform.GetChild(0).GetChild(0).GetComponent<Slider>();
         fill = slider.transform.Find("Fill Area").GetChild(0).GetComponent<Image>();
         originColor = fill.color;
@@ -27,10 +27,17 @@ public class SubFlagLoading : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-        if (isTriggerOn) {
+    void Update() {
+        if (otherFlag != null) {
+            if (otherFlag.GetIsTriggerOn() && isTriggerOn)
+                conquerStart = true;
+            else
+                conquerStart = false;
+        } else {
+            conquerStart = isTriggerOn;
+        }
+
+        if (conquerStart) {
             targetScale.x = 0.01f;
             targetScale.y = 0.01f;
 
@@ -44,6 +51,9 @@ public class SubFlagLoading : MonoBehaviour
             if (slider.value > 0.99f)
                 slider.value = 1;
         } else {
+            if (slider.value != 1) {
+                slider.value = 0;
+            }
             targetScale.x = 0.01f;
             targetScale.y = 0f;
 
@@ -56,7 +66,6 @@ public class SubFlagLoading : MonoBehaviour
                 slider.transform.localScale = targetScale;
             }
         }
-
         if (slider.value == 1) {
             fill.color = Color.Lerp(fill.color, targetColor, Time.deltaTime);
         }
@@ -66,20 +75,20 @@ public class SubFlagLoading : MonoBehaviour
     }
 
     public void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.CompareTag("Player")) {
+        if (collision.tag.Contains("Player")) {
             isTriggerOn = true;
         }
     }
 
     public void OnTriggerExit2D(Collider2D collision) {
-        if (collision.CompareTag("Player")) {
-            if (slider.value != 1) {
-                slider.value = 0;
-            }
+        if (collision.tag.Contains("Player")) {
             isTriggerOn = false;
         }
     }
 
+    public bool GetIsTriggerOn() {
+        return isTriggerOn;
+    }
     public float GetSliderValue() {
         return slider.value;
     }

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GoalFlagLoading : MonoBehaviour
-{
+public class GoalFlagLoading : MonoBehaviour {
     private Slider slider;
     private Vector2 headPos;
     private Vector2 targetScale;
@@ -36,8 +35,7 @@ public class GoalFlagLoading : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         if (subFlags.Length == 0) {
             slider.value = 1;
         } else {
@@ -54,8 +52,7 @@ public class GoalFlagLoading : MonoBehaviour
         if (slider.value == slider.maxValue) {
             fill.color = Color.Lerp(fill.color, targetColor, Time.deltaTime);
             col.enabled = true;
-        }
-        else {
+        } else {
             fill.color = originColor;
             col.enabled = false;
         }
