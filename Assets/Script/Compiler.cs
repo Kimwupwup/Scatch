@@ -61,6 +61,7 @@ public class Compiler : MonoBehaviour {
                 float temp = targetPos - playerTransform.position.x;
                 targetPos -= Mathf.Round(temp);
                 playerTransform.position = new Vector3(targetPos, playerTransform.position.y, 0f);
+                playerAn.SetBool("isMoving", false);
                 isMoving = false;
                 return;
             }
