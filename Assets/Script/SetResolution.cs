@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Resolution : MonoBehaviour
+public class SetResolution : MonoBehaviour
 {
     private int screenSize;
     private Toggle fhd;

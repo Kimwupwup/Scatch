@@ -74,13 +74,13 @@
      <Compile Include="Assets\Script\PlayToggle.cs" />
      <Compile Include="Assets\Script\PreviewScrollBar.cs" />
      <Compile Include="Assets\Script\RandomMoveCorutine.cs" />
-     <Compile Include="Assets\Script\Resolution.cs" />
      <Compile Include="Assets\Script\SaveAndLoad.cs" />
      <Compile Include="Assets\Script\SceneFadeInOut.cs" />
      <Compile Include="Assets\Script\Scratch_Trigger.cs" />
      <Compile Include="Assets\Script\ScreenResolution.cs" />
      <Compile Include="Assets\Script\ScriptFolder.cs" />
      <Compile Include="Assets\Script\SetColor.cs" />
+     <Compile Include="Assets\Script\SetResolution.cs" />
      <Compile Include="Assets\Script\SettingsTab.cs" />
      <Compile Include="Assets\Script\slaim_move.cs" />
      <Compile Include="Assets\Script\StageButton.cs" />
