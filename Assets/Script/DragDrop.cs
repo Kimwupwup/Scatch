@@ -93,7 +93,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
         // 넣게 되면 raycast를 켜줘야 클릭할 수 있는 상태가 된다.
         if (!isTrue) {
             Destroy(tmpButton);
-            Debug.Log("Destroy");
+            return;
         } else {
             tmpButton.transform.SetParent(GameObject.FindGameObjectWithTag("codePanel").transform.GetChild(1));
             tmpButton.GetComponent<Image>().raycastTarget = true;
@@ -110,10 +110,12 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                 Debug.Log(objTarget.transform.parent.name);
             }
 
+            // 현 블럭이 condition 블럭일 경우
             if (objTarget.CompareTag("condition") && (tmpButton.name == "BtnVariable!=(Clone)" || tmpButton.name == "BtnVariable==(Clone)")) {
                 float temp = tmpButton.GetComponent<RectTransform>().rect.width;
                 temp = objTarget.GetComponent<RectTransform>().rect.width - temp;
 
+                // 블럭의 위치를 잡아준다.
                 tmpButton.transform.position =
                     new Vector3(objTarget.transform.position.x - (temp / 2) * (Screen.height / 2960f) * 0.75f,
                         objTarget.transform.position.y + 10, 0);
@@ -126,13 +128,21 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
                 return;
             }
 
+            // 현 블럭이 condition 블럭이 아닐 경우
             if (objTarget.CompareTag("child") && (tmpButton.name != "BtnVariable!=(Clone)" && tmpButton.name != "BtnVariable==(Clone)")) {
                 float temp = tmpButton.GetComponent<RectTransform>().rect.width;
                 temp = objTarget.GetComponent<RectTransform>().rect.width - temp;
 
-                tmpButton.transform.position =
-                    new Vector3(objTarget.transform.position.x - (temp / 2) * (Screen.height / 2960f) * 0.75f,
-                        objTarget.transform.position.y, 0);
+                // 블럭의 위치를 잡아준다.
+                if (tmpButton.name.Contains("End")) {
+                    tmpButton.transform.position =
+                        new Vector3(objTarget.transform.position.x - 30f - (temp / 2) * (Screen.height / 2960f) * 0.75f,
+                            objTarget.transform.position.y, 0);
+                } else {
+                    tmpButton.transform.position =
+                        new Vector3(objTarget.transform.position.x - (temp / 2) * (Screen.height / 2960f) * 0.75f,
+                            objTarget.transform.position.y, 0);
+                }
 
                 tmpButton.transform.SetParent(objTarget.transform.parent);
                 tmpButton.GetComponent<Image>().raycastTarget = true;
