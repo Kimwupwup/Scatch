@@ -1,15 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System.IO;
-using System.Text;
-using System;
 
 public class SaveAndLoad : MonoBehaviour {
-    
-    public List<GameObject> obj;                        // Function blocks preb
+
+    public List<GameObject> obj; // Function blocks preb
 
     public Jsondatas jsondatas;
     public Jsondata jsondata;
@@ -19,9 +19,8 @@ public class SaveAndLoad : MonoBehaviour {
     private GameObject prefab;
     private List<GameObject> functions = new List<GameObject>();
 
-    private GameObject tmpButton;                       // New function block object
-    private GameObject parentbutton;                    // Parent object of current object
-
+    private GameObject tmpButton; // New function block object
+    private GameObject parentbutton; // Parent object of current object
 
     /// <summary>
     /// Event : click on save button
@@ -70,8 +69,7 @@ public class SaveAndLoad : MonoBehaviour {
                         if (code.transform.GetChild(j).name == "BtnVariable==(Clone)") {
                             //code.transform.GetChild(j).name = code.transform.GetChild(j).name.Substring(0, code.transform.GetChild(j).name.IndexOf("("));
                             functions.Add(code.transform.GetChild(j).gameObject);
-                        }
-                        else {
+                        } else {
                             code = code.transform.GetChild(j).gameObject;
                             break;
                         }
@@ -89,32 +87,35 @@ public class SaveAndLoad : MonoBehaviour {
         String savedata = JsonUtility.ToJson(jsondatas);
 
         Debug.Log(savedata);
-     //   Debug.Log(Application.dataPath);
-     //  Debug.Log(Application.persistentDataPath);
+        //   Debug.Log(Application.dataPath);
+        //  Debug.Log(Application.persistentDataPath);
 
-    //    CreateJsonFile(Application.dataPath + "\\savefiles", SceneManager.GetActiveScene().name + "_save", savedata);
+        //    CreateJsonFile(Application.dataPath + "\\savefiles", SceneManager.GetActiveScene().name + "_save", savedata);
         CreateJsonFile(Application.persistentDataPath, SceneManager.GetActiveScene().name + "_save", savedata);
     }
 
     public void load() {
 
-         Debug.Log("load");
-      //  Jsondatas loaddatas = LoadJsonFile(Application.dataPath + "\\savefiles", SceneManager.GetActiveScene().name + "_save");
+        Debug.Log("load");
+        //  Jsondatas loaddatas = LoadJsonFile(Application.dataPath + "\\savefiles", SceneManager.GetActiveScene().name + "_save");
         Jsondatas loaddatas = LoadJsonFile(Application.persistentDataPath, SceneManager.GetActiveScene().name + "_save");
 
         parentbutton = GameObject.FindGameObjectWithTag("codePanel").transform.GetChild(1).gameObject;
         //Debug.Log(loaddatas.datas);
+        bool relocateFlag = false;
+        if (loaddatas.datas[0].v.y > 980) {
+            relocateFlag = true;
+        }
         for (int i = 0; i < loaddatas.datas.Length; i++) {
+            if (relocateFlag == true) {
+                loaddatas.datas[i].v.y = loaddatas.datas[i].v.y - 987;
+            }
             Debug.Log(loaddatas.datas[i].name);
             loaddatas.datas[i].name = loaddatas.datas[i].name.Substring(0, loaddatas.datas[i].name.IndexOf("("));
             for (int j = 0; j < obj.Count; j++) {
                 if (obj[j].name == loaddatas.datas[i].name) {
                     prefab = obj[j];
                 }
-            }
-            if(loaddatas.datas[i].v.y > 980)
-            {
-                loaddatas.datas[i].v.y = loaddatas.datas[i].v.y - 987;
             }
             tmpButton = Instantiate(prefab, loaddatas.datas[i].v, Quaternion.identity, GameObject.FindGameObjectWithTag("codePanel").transform.GetChild(1)).gameObject;
             if (tmpButton.name.Contains("If") || tmpButton.name.Contains("Loop"))
@@ -136,8 +137,8 @@ public class SaveAndLoad : MonoBehaviour {
             tmpButton.transform.SetParent(parentbutton.transform);
             for (int j = 0; j < parentbutton.transform.childCount; j++) {
                 GameObject current = parentbutton.transform.GetChild(j).gameObject;
-                if (current.tag == "child") current.SetActive(false);
-                if (current.tag == "condition" && tmpButton.name.Contains("==")) current.SetActive(false);
+                if (current.tag == "child")current.SetActive(false);
+                if (current.tag == "condition" && tmpButton.name.Contains("=="))current.SetActive(false);
             }
 
             // Insert the text.
@@ -150,7 +151,7 @@ public class SaveAndLoad : MonoBehaviour {
                     idx++;
                 }
             }
-            
+
             // Set parent.
             if (!tmpButton.name.Contains("==")) {
                 parentbutton = tmpButton;
@@ -166,8 +167,7 @@ public class SaveAndLoad : MonoBehaviour {
                     if (childTemp.transform.position.y + 1 >= parentTemp.transform.position.y) {
                         parentTemp.transform.Find("Toggle").GetComponent<Toggle>().isOn = true;
                         parentTemp.transform.Find("Toggle").GetComponent<ScriptFolder>().Folding();
-                    }
-                    else {
+                    } else {
                         parentTemp.transform.Find("Toggle").GetComponent<Toggle>().isOn = false;
                         parentTemp.transform.Find("Toggle").GetComponent<ScriptFolder>().Folding();
                     }
@@ -175,7 +175,7 @@ public class SaveAndLoad : MonoBehaviour {
                 }
             }
         }
-       
+
         ifLoopList.Clear();
     }
 
@@ -223,7 +223,7 @@ public class Jsondata {
                     }
                 }
             }
-            
+
         }
     }
 }

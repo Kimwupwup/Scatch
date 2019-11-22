@@ -88,6 +88,6 @@ public class StageSaveAndLoad : MonoBehaviour {
     }
 
     public void StageCheat() {
-        PlayerPrefs.SetInt("Num", 24);
+        PlayerPrefs.SetInt("Num", 23);
     }
 }
