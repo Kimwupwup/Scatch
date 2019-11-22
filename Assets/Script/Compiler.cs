@@ -30,7 +30,6 @@ public class Compiler : MonoBehaviour {
     private int cnt = -1;
     private int conditionCnt = -1;
 
-    private int loopCnt = 0;
     public bool isResetView = false;
     public float moveSpeed = 1;
     private float jumpPower = 4.5f;
@@ -240,6 +239,9 @@ public class Compiler : MonoBehaviour {
         GameObject code = GameObject.FindGameObjectWithTag("codePanel").transform.GetChild(1).gameObject;
         List<GameObject> codesQueue = new List<GameObject>();
         GameObject temp;
+
+        // codeQueue 에 codePanel에 있는 코드 블럭 오브젝트를 넣는다.
+        // 여러 줄의 코드가 있을 때를 방지하기 위해서
         for (int i = 0; i < code.transform.childCount; i++) {
             codesQueue.Add(code.transform.GetChild(i).gameObject);
         }
@@ -255,43 +257,67 @@ public class Compiler : MonoBehaviour {
             }
         }
 
-        loopCnt = 0;
-
+        // codeQueue 에 있는 코드 블럭들을 기준으로 시작한다.
+        // codeQueue 에 들어있는 코드 블럭은 해당 코드 라인에 가장 부모가 되는 코드 블럭이다.
         for (int i = 0; i < codesQueue.Count; i++) {
             code = codesQueue[i];
+
+            // codeQueue 를 시작으로 계속 자식 오브젝트를 찾으며 functions 리스트에 추가한다.
             while (true) {
 
-                functions.Add(code);
-                loopCnt++;
+                functions.Add(code); // Move, jump, rotate 는 따로 작업하는 것이 없이 functions 에 추가한다.
 
+                // Loop 는 해당 코드가 몇 번째에 있는 지 따로 저장한다.
                 if (code.name == "BtnLoop(Clone)") {
                     loopIndex.Add(functions.Count - 1);
+
+                    // Loop 는 자식이 총 3개 이여야 한다. 부족하다면 에러창을 띄운다.
+                    // 자식 오브젝트(Child Check obj, Folding obj, Child Code Block obj): 총 3개가 와야 한다.
                     if (code.transform.childCount < 3) {
-                        AlertError(1);
-                        codesQueue.Clear();
-                        isCompiled = false;
+                        AlertError(1); // 1번 에러창을 띄운다. (Loop error)
+                        codesQueue.Clear(); // 큐를 비운다.
+                        isCompiled = false; // 컴파일을 취소하고 바로 리턴한다.
                         return;
                     }
                 }
+
+                // EndLoop 는 해당 코드가 몇 번째에 있는 지 따로 저장한다.
                 if (code.name == "BtnEndLoop(Clone)") {
                     endLoopIndex.Add(functions.Count - 1);
                 }
+
+                // If 는 해당 코드가 몇 번째에 있는 지 따로 저장한다.
+                // IfIndex 는 stack 으로 구현하여 If 와 EndIf 를 찾을 수 있다.
                 if (code.name == "BtnIf(Clone)") {
-                    ifCnt++;
-                    ifIndex.Add(functions.Count - 1);
+                    ifCnt++; // ifCnt 를 통해 If 와 EndIf 의 갯수 차이를 확인하기 위함이다.
+                    ifIndex.Add(functions.Count - 1); // ifIndex stack 에 현재 코드 index 를 추가한다.
+
+                    // If 는 자식 오브젝트를 5개 가지고 있어야 한다.
+                    // 자식 오브젝트(Child Check obj, Condition Check obj Folding obj, Condition Block obj, Child Block obj)
                     if (code.transform.childCount < 5) {
-                        AlertError(2);
-                        ResetView();
+                        AlertError(2); // 2번 에러를 띄운다. (If error)
+                        codesQueue.Clear(); // 큐를 비운다.
                         return;
                     }
-                    string tempName = null;
-                    bool isExist = false;
 
+                    string tempName = null; // 변수 이름 저장
+                    bool isExist = false; // 해당 변수가 있는 지 확인하는 bool
+
+                    // If 와 동시에 Condition 부분도 동시에 처리한다.
+                    // 아래 부분에서는 비어있는 inputField를 채운다.
+                    // 추가적으로 functions 에 추가하지 않고 게임이 실행되면서 확인절차를 거친다.
                     for (int j = 0; j < code.transform.childCount; j++) {
+
+                        // Condition 은 "==", "!="이 있다.
                         if (code.transform.GetChild(j).name.Contains("BtnVariable==")) {
-                            GameObject ifTemp = code.transform.GetChild(j).gameObject;
+                            GameObject ifTemp = code.transform.GetChild(j).gameObject; // 해당 블럭을 임시로 저장한다.
+
+                            // InputField 를 채운다.
+                            // Condition 블럭에는 총 2개의 InputField 가 있다.(Variable name, value)
                             for (int k = 0; k < 2; k++) {
                                 InputField inputTemp = ifTemp.transform.GetChild(k).GetComponent<InputField>();
+
+                                // 해당 inputField 가 비어있을 경우, placeholder 값으로 대체한다.
                                 if (string.IsNullOrEmpty(inputTemp.text))
                                     inputTemp.text = inputTemp.placeholder.GetComponent<Text>().text;
                                 if (ifTemp.transform.GetChild(k).name.Contains("(1)"))
@@ -309,19 +335,26 @@ public class Compiler : MonoBehaviour {
                         }
                     }
 
+                    // tempName 을 통해 condition 에 사용된 변수가 있는 지 확인하고(선언하였는지 확인) 처리한다.
                     if (tempName != null) {
+
+                        // 변수를 저장하는 리스트에서 해당 변수가 있는 지 확인한다.
                         for (int k = 0; k < varName.Count; k++) {
                             if (tempName == varName[k]) {
                                 isExist = true;
                                 break;
                             }
                         }
+
+                        // 해당 변수가 없으면 에러를 출력한다.
                         if (isExist == false) {
-                            AlertError(0);
+                            AlertError(0); // 에러창을 띄운다.(Variable error)
                             codesQueue.Clear();
                             return;
                         }
                     } else {
+
+                        // Cnt block 관련(현재는 삭제된 블럭)
                         if (cnt == -1) {
                             AlertError(0);
                             codesQueue.Clear();
@@ -330,14 +363,20 @@ public class Compiler : MonoBehaviour {
                     }
                 }
 
+                // EndIf 를 ifIndex stack 에 추가하고, endIfCnt 를 늘린다.
+                // endIfCnt 는 If 블럭과 EndIf 블럭의 갯수 차이를 확인하기 위함이다.
                 if (code.name == "BtnEndIf(Clone)") {
                     endIfCnt++;
                     ifIndex.Add(functions.Count - 1);
                 }
 
+                // Variable 선언 블럭 함수
+                // Variable 선언 블럭과 "++" 블럭은 비슷한 방식이다.
                 if (code.name == "BtnVariable=(Clone)") {
                     bool isExist = false;
 
+                    // InputField 는 총 2개 있으며, 이는 variable name, value 이다.
+                    // InputField 가 비어있으면, placeholder 로 대체한다.
                     if (string.IsNullOrEmpty(code.transform.GetChild(0).GetComponent<InputField>().text)) {
                         code.transform.GetChild(0).GetComponent<InputField>().text = "a";
                     }
@@ -345,6 +384,8 @@ public class Compiler : MonoBehaviour {
                         code.transform.GetChild(1).GetComponent<InputField>().text = "0";
                     }
 
+                    // 해당 변수가 리스트에 이미 있으면, 아무것도 하지 않는다.
+                    // 해당 변수가 리스트에 없으면, 해당 변수의 이름과 값을 저장한다. 
                     for (int j = 0; j < varName.Count; j++) {
                         if (varName[j] == code.transform.GetChild(0).GetComponent<InputField>().text) {
                             isExist = true;
@@ -356,11 +397,17 @@ public class Compiler : MonoBehaviour {
                         varValue.Add(int.Parse(code.transform.GetChild(1).GetComponent<InputField>().text));
                     }
                 }
+
+                // 변수의 값에 1을 더하는 블럭 처리
                 if (code.name == "BtnVariable++(Clone)") {
+
+                    // InputField 는 총 1개 있으며, 이는 variable name 이다.
+                    // 이 값이 비어있으면, placeholder로 대체한다.
                     if (string.IsNullOrEmpty(code.transform.GetChild(0).GetComponent<InputField>().text)) {
                         code.transform.GetChild(0).GetComponent<InputField>().text = "a";
                     }
 
+                    // 해당 변수가 리스트에 없으면(선언되지 않았으면), 에러창을 띄운다.
                     bool isExist = false;
                     for (int j = 0; j < varName.Count; j++) {
                         if (varName[j] == code.transform.GetChild(0).GetComponent<InputField>().text) {
@@ -369,17 +416,21 @@ public class Compiler : MonoBehaviour {
                         }
                     }
                     if (isExist == false) {
-                        AlertError(0);
+                        AlertError(0); // 변수 에러와 동일하다.
                         codesQueue.Clear();
                         return;
                     }
                 }
+
+                // Cnt 블럭 관련 처리(현재는 사용되지 않는 블럭)
                 if (code.name == "BtnCnt=(Clone)") {
                     if (string.IsNullOrEmpty(code.transform.GetChild(0).GetComponent<InputField>().text)) {
                         code.transform.GetChild(0).GetComponent<InputField>().text = "2";
                     }
                     cnt = int.Parse(code.transform.GetChild(0).GetComponent<InputField>().text);
                 }
+
+                // Cnt 블럭 관련 처리(현재는 사용되지 않는 블럭)
                 if (code.name == "BtnCnt++(Clone)") {
                     if (cnt == -1) {
                         AlertError(0);
@@ -387,19 +438,30 @@ public class Compiler : MonoBehaviour {
                         return;
                     }
                 }
+
+                // 지연시간 처리
+                // InputField 는 총 1개 있으며, 이는 time(s) 이다.
+                // 해당 inputField 가 비어있으면, placeholder 로 대체한다.
                 if (code.name == "BtnDelay(Clone)") {
                     if (string.IsNullOrEmpty(code.transform.GetChild(0).GetComponent<InputField>().text)) {
                         code.transform.GetChild(0).GetComponent<InputField>().text = "2";
                     }
                 }
 
+                // 현재 블럭의 자식 오브젝트를 탐색하여 다음 Child Block 이 있는 지 확인하고
+                // code 를 대체한다.
                 nextCode = null;
                 for (int j = 0; j < code.transform.childCount; j++) {
+
+                    // 다음 코드 블럭은 "Clone"을 포함하고 있어야 하며, Condition 블럭이면 안된다.
                     if (code.transform.GetChild(j).name.Contains("Clone")) {
-                        if (!code.transform.GetChild(j).name.Contains("=="))
+                        if (!code.transform.GetChild(j).name.Contains("==") && !code.transform.GetChild(j).name.Contains("!="))
                             nextCode = code.transform.GetChild(j).gameObject;
                     }
                 }
+
+                // nextCode 블럭이 정해졌으면 code 에 넣고, 
+                // 아니면 코드 라인이 끝났다는 말이므로 while 문을 탈출한다.
                 if (nextCode != null)
                     code = nextCode;
                 else
@@ -407,6 +469,10 @@ public class Compiler : MonoBehaviour {
             }
         }
 
+        // Error 확인
+        // Loop 와 EndLoop 의 갯수가 다르면 error
+        // If 와 EndIf 의 갯수가 다르면 error
+        // 둘다 아니면 큐를 비우고 컴파일 완료
         if (loopIndex.Count != endLoopIndex.Count) {
             AlertError(1);
             codesQueue.Clear();
