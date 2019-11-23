@@ -10,6 +10,9 @@ public class SetResolution : MonoBehaviour
     private Toggle fhdPlus;
     private Toggle wqhdPlus;
 
+    private int tempWidth;
+    private int tempHeight;
+
     private bool isAwake = true;
 
     void Awake() {
@@ -39,9 +42,10 @@ public class SetResolution : MonoBehaviour
         if (fhd.isOn == false) {
             return;
         }
-        Screen.SetResolution(1080, 1920, true);
-        Debug.Log(Screen.width + " " + Screen.height);
+        tempWidth = 1080;
+        tempHeight = 1920;
     }
+
     public void SetFHDPlus() {
         if (isAwake == true) {
             return;
@@ -49,9 +53,10 @@ public class SetResolution : MonoBehaviour
         if (fhdPlus.isOn == false) {
             return;
         }
-        Screen.SetResolution(1080, 2220, true);
-        Debug.Log(Screen.width + " " + Screen.height);
+        tempWidth = 1080;
+        tempHeight = 2220;
     }
+
     public void SetWQHDPlus() {
         if (isAwake == true) {
             return;
@@ -59,7 +64,11 @@ public class SetResolution : MonoBehaviour
         if (wqhdPlus.isOn == false) {
             return;
         }
-        Screen.SetResolution(1440, 2960, true);
-        Debug.Log(Screen.width + " " + Screen.height);
+        tempWidth = 1440;
+        tempHeight = 2960;
+    }
+
+    public void ApplyValue() {
+        Screen.SetResolution(tempWidth, tempHeight, true);
     }
 }

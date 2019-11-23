@@ -38,9 +38,9 @@ public class MenuButton : MonoBehaviour {
         exitPanel = GameObject.FindGameObjectWithTag("exitPanel");
         posPausePanel = pausePanel.transform.position;
         InfoPanel = GameObject.Find("Canvas").transform.Find("Information Panel").gameObject;
+        settingPanel = GameObject.FindGameObjectWithTag("settingPanel");
 
-        if (SceneManager.GetActiveScene().name != "stage_map_update") {
-            settingPanel = GameObject.FindGameObjectWithTag("settingPanel");
+        if (SceneManager.GetActiveScene().name != "stage_map_update") {            
             errorPanel = GameObject.FindGameObjectWithTag("errorPanel");
             menuPanel = GameObject.FindGameObjectWithTag("menuPanel");
             codePanel = GameObject.FindGameObjectWithTag("codePanel");
@@ -72,9 +72,9 @@ public class MenuButton : MonoBehaviour {
                     targetPos.y = 0;
                     pausePanel.GetComponent<RectTransform>().anchoredPosition = targetPos;
                     exitPanel.GetComponent<RectTransform>().position = posPausePanel;
-                    if (SceneManager.GetActiveScene().name == "stage_map_update")return;
                     settingPanel.GetComponent<RectTransform>().position = posPausePanel;
                     GameObject.FindGameObjectWithTag("viewColor").GetComponent<SetColor>().ResetValue();
+                    if (SceneManager.GetActiveScene().name == "stage_map_update")return;
                     GameObject.FindGameObjectWithTag("codeColor").GetComponent<SetColor>().ResetValue();
                 }
             }
@@ -302,6 +302,7 @@ public class MenuButton : MonoBehaviour {
     public void CancelSetting() {
         settingPanel.GetComponent<RectTransform>().position = posPausePanel;
         GameObject.FindGameObjectWithTag("viewColor").GetComponent<SetColor>().ResetValue();
+        if (SceneManager.GetActiveScene().name == "stage_map_update")return;
         GameObject.FindGameObjectWithTag("codeColor").GetComponent<SetColor>().ResetValue();
     }
 

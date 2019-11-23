@@ -23,10 +23,4 @@ public class ScreenResolution : MonoBehaviour
                 break;
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

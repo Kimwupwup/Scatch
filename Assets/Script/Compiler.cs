@@ -29,7 +29,7 @@ public class Compiler : MonoBehaviour {
 
     private int cnt = -1;
     private int conditionCnt = -1;
-
+    private int loopCnt = 0;
     public bool isResetView = false;
     public float moveSpeed = 1;
     private float jumpPower = 4.5f;
@@ -79,6 +79,7 @@ public class Compiler : MonoBehaviour {
 
         if (isCompiled == true && currentIndex < functions.Count) {
             for (; currentIndex < functions.Count; currentIndex++) {
+
                 if (functions[currentIndex].name == "BtnMove(Clone)") {
                     int moveCnt = 0;
                     for (int i = currentIndex; i < functions.Count; i++) {
@@ -111,6 +112,15 @@ public class Compiler : MonoBehaviour {
                 } else if (functions[currentIndex].name == "BtnLoop(Clone)") {
                     if (jumpController.getIsJump() || playerRig.velocity.y != 0)return;
                     FunctionLoop();
+
+                    // 무한 루프를 빠져나가기 위함
+                    loopCnt++;
+                    if (loopCnt > 500) {
+                        AlertError(3);
+                        isCompiled = false;
+                        break;
+                    }
+
                 } else if (functions[currentIndex].name == "BtnEndLoop(Clone)") {
                     FunctionEndLoop();
                 } else if (functions[currentIndex].name == "BtnDelay(Clone)") {
@@ -189,6 +199,7 @@ public class Compiler : MonoBehaviour {
             playerAn.SetBool("isMoving", false);
             currentIndex = 0;
             cnt = -1;
+            loopCnt = 0;
             conditionCnt = -1;
             isCompiled = false;
             ifCnt = 0;
@@ -209,6 +220,7 @@ public class Compiler : MonoBehaviour {
         playerAn.SetBool("isMoving", false);
         currentIndex = 0;
         cnt = -1;
+        loopCnt = 0;
         conditionCnt = -1;
         isCompiled = false;
         ifCnt = 0;
@@ -646,20 +658,25 @@ public class Compiler : MonoBehaviour {
     public void AlertError(int error) {
         GameObject errorPanel = GameObject.FindGameObjectWithTag("errorPanel");
         if (error == 0) {
-            Debug.Log("VAR is not defined!");
             errorPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
             errorPanel.transform.GetChild(1).localEulerAngles = new Vector3(0, 90, 0);
             errorPanel.transform.GetChild(2).localEulerAngles = new Vector3(0, 90, 0);
         } else if (error == 1) {
-            Debug.Log("LOOP is incorrected!");
+            errorPanel.transform.GetChild(1).GetChild(0).GetComponent<Text>().text = 
+                "[LOOP] 와 [END LOOP] 의\n갯수가 맞지 않습니다.\n블럭의 연결상태를 확인해주세요.";
             errorPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
             errorPanel.transform.GetChild(1).localEulerAngles = new Vector3(0, 0, 0);
             errorPanel.transform.GetChild(2).localEulerAngles = new Vector3(0, 90, 0);
         } else if (error == 2) {
-            Debug.Log("IF is incorrected!");
             errorPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
             errorPanel.transform.GetChild(1).localEulerAngles = new Vector3(0, 90, 0);
             errorPanel.transform.GetChild(2).localEulerAngles = new Vector3(0, 0, 0);
+        } else if (error == 3) {
+            errorPanel.transform.GetChild(1).GetChild(0).GetComponent<Text>().text = 
+                "무한 루프입니다.\n코드 블럭을 확인해주세요";
+            errorPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
+            errorPanel.transform.GetChild(1).localEulerAngles = new Vector3(0, 0, 0);
+            errorPanel.transform.GetChild(2).localEulerAngles = new Vector3(0, 90, 0);
         }
     }
 }

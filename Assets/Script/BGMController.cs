@@ -8,6 +8,9 @@ public class BGMController : MonoBehaviour
     private AudioSource bgm;
     private Slider sliderVolume;
     private Toggle toggleMute;
+
+    private float tempVolume;
+    private bool tempMute;
     // Start is called before the first frame update
     void Start()
     {
