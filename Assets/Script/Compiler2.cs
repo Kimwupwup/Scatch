@@ -628,4 +628,10 @@ public class Compiler2 : MonoBehaviour {
             errorPanel.transform.GetChild(2).localEulerAngles = new Vector3(0, 0, 0);
         }
     }
+
+    public void SetFalseIsCompiled() {
+        isCompiled = false;
+        isMoving = false;
+    }
+
 }

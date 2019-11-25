@@ -662,7 +662,7 @@ public class Compiler : MonoBehaviour {
             errorPanel.transform.GetChild(1).localEulerAngles = new Vector3(0, 90, 0);
             errorPanel.transform.GetChild(2).localEulerAngles = new Vector3(0, 90, 0);
         } else if (error == 1) {
-            errorPanel.transform.GetChild(1).GetChild(0).GetComponent<Text>().text = 
+            errorPanel.transform.GetChild(1).GetChild(0).GetComponent<Text>().text =
                 "[LOOP] 와 [END LOOP] 의\n갯수가 맞지 않습니다.\n블럭의 연결상태를 확인해주세요.";
             errorPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
             errorPanel.transform.GetChild(1).localEulerAngles = new Vector3(0, 0, 0);
@@ -672,11 +672,16 @@ public class Compiler : MonoBehaviour {
             errorPanel.transform.GetChild(1).localEulerAngles = new Vector3(0, 90, 0);
             errorPanel.transform.GetChild(2).localEulerAngles = new Vector3(0, 0, 0);
         } else if (error == 3) {
-            errorPanel.transform.GetChild(1).GetChild(0).GetComponent<Text>().text = 
+            errorPanel.transform.GetChild(1).GetChild(0).GetComponent<Text>().text =
                 "무한 루프입니다.\n코드 블럭을 확인해주세요";
             errorPanel.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
             errorPanel.transform.GetChild(1).localEulerAngles = new Vector3(0, 0, 0);
             errorPanel.transform.GetChild(2).localEulerAngles = new Vector3(0, 90, 0);
         }
+    }
+
+    public void SetFalseIsCompiled() {
+        isCompiled = false;
+        isMoving = false;
     }
 }
