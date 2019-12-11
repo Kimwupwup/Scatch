@@ -57,6 +57,9 @@ public class Scratch_Trigger : MonoBehaviour {
             if (failPanel.activeSelf == false) {
                 isClear = true;
             }
+            GameObject.FindGameObjectWithTag("compiler").GetComponent<Compiler>().SetFalseIsCompiled();
+            if (GameObject.FindGameObjectWithTag("compiler").GetComponent<Compiler2>() != null)
+                GameObject.FindGameObjectWithTag("compiler").GetComponent<Compiler2>().SetFalseIsCompiled();
         }
     }
 
