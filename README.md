@@ -1,4 +1,4 @@
-# Scatch
+# Scratch
 KAU last term project  
 사용언어: C#  
 사용툴: Unity3D  
